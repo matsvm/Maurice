@@ -41,38 +41,68 @@ var progress;
 	}
 	function addProgressScreen(xml){
 		progressScreen = new createjs.Container();
-
+		var currentP;
 
 		var background = new createjs.Bitmap("assets/ProgressBackground.png");
 		progressScreen.addChild(background);
 
+		var data = {
+			images:["./assets/sprites/grondsoorten.png"], 
+			frames:{width:117, height:117},
+			animations: {laag1:0, laag2:1, laag3:2, laag4:3, laag5:4, laag6:5}
+		}
 
+
+		var grondSheet = new createjs.SpriteSheet(data);
 		console.log(xml)
 		$(xml).find('level').each(function(index, value){
+
 			console.log($(value).attr("id"));
 			console.log(progress)
 			var id = $(value).attr("id");
-			if(progress.currentlvl == id){
+			var laag = $(value).attr("layer");
+			if(progressScreen.currentlvl>id){
+				console.log("Lvl gepasseerd");
+			}
+			else if(progress.currentlvl == id){
+				console.log("ben op de moment aan deze lvl")
 				var x=$(value).attr("x")
 				var y=$(value).attr("y")
-				var progressDot = new createjs.Bitmap("assets/progressLVL.png");
-				progressDot.x = x;
-				progressDot.y = y;
+				currentP = new createjs.Bitmap("assets/progressLVL.png");
+								currentP.x = x;
+				currentP.y = y;
+				currentP.regX=3;
+				currentP.regY= 280;
+
 				
-				progressScreen.addChild(progressDot);
-				progressDot.addEventListener('click',function(){
+				progressScreen.addChild(currentP);
+				currentP.addEventListener('click',function(){
+					console.log('click');
 					startGame(xml);
 				});	
-				progressDot.addEventListener('rollover',function(){
-					progressDot.cursor = "pointer";
+				currentP.addEventListener('rollover',function(){
+					currentP.cursor = "pointer";
 				})
 			}else if(progress.currentlvl<id){
+				console.log('lvl te doen')
+				
+				var grond = new createjs.Sprite(grondSheet);
+				console.log("laag"+laag);
+				grond.gotoAndStop('laag'+laag);
+				grond.x=$(value).attr("x");
+				grond.y=$(value).attr("y");
+				progressScreen.addChild(grond);
+
 
 			}
+
 			
 
 
 		})
+		var overlay  = new createjs.Bitmap("assets/NumberOverlay_wormpjes.png");
+		//progressScreen.addChild(overlay);
+		//progressScreen.addChild(currentP);
 		container.addChild(progressScreen);
 
 		

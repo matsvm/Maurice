@@ -10,7 +10,7 @@
 		<line>- - - w - - - b -</line>
 		<line>- b - - w - g - -</line>
 	</level>
-	<level layer='1' id='2' x='400' y='80'>
+	<level layer='1' id='2' x='2480' y='750'>
 		<line>w - - - w - - b -</line>
 		<line>- w - - - - - w -</line>
 		<line>- - - w - - - w -</line>
@@ -22,4 +22,55 @@
 		<line>- b - - w - p - -</line>
 	</level>
 
+	<level layer="1" id="3" x="2735" y="900">
+		<line></line>
+	</level>
+	<level layer="2" id="4" x="2595" y="1020">
+		<line></line>
+	</level>
+	<level layer="2" id="5" x="2250" y="885">
+		<line></line>
+	</level>
+	<level layer="2" id="6" x="1870" y="890">
+		<line></line>
+	</level>
+	<level layer="3" id="7" x="1950" y="1080">
+		<line></line>
+	</level>
+	<level layer="3" id="8" x="2270" y="1115">
+		<line></line>
+	</level>
+	<level layer="3" id="9" x="2610" y="1270">
+		<line></line>
+	</level>
+	<level layer="4" id="10" x="2475" y="1460">
+		<line></line>
+	</level>
+	<level layer="4" id="11" x="2145" y="1260">
+		<line></line>
+	</level>
+	<level layer="4" id="12" x="1840" y="1290">
+		<line></line>
+	</level>
+	<level layer="5" id="13" x="1900" y="1485">
+		<line></line>
+	</level>
+	<level layer="5" id="14" x="2150" y="1485">
+		<line></line>
+	</level>
+	<level layer="5" id="15" x="2390" y="1640">
+		<line></line>
+	</level>
+	<level layer="6" id="16" x="2480" y="1640">
+		<line></line>
+	</level>
+	<level layer="6" id="17" x="2480" y="750">
+		<line></line>
+	</level>
+	<level layer="6" id="18" x="2480" y="750">
+		<line></line>
+	</level>
 </canvas>
+
+<!-- //	(level[layer=$ id=$ x=2480 y =750]>line)*16
+ -->

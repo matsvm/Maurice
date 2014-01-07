@@ -5,8 +5,7 @@
 	var progress = {};
 	function init(){
 
-		
-		progress = getCookie('progress');
+		//progress = getCookie('progress');
 		if(progress!=''){
 			console.log("existing user");
 			firstTime = false;
@@ -18,6 +17,8 @@
 
 
 		}
+	//	progress.currentlvl = 3;
+
 		var canvas = document.getElementById("cnvs");
 		canvas.width = window.innerWidth;
 		canvas.height = window.innerHeight;
