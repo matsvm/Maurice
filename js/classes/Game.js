@@ -42,7 +42,7 @@ var progress;
 	function addProgressScreen(xml){
 		progressScreen = new createjs.Container();
 		var currentP;
-
+		var tempCont;
 		var background = new createjs.Bitmap("assets/ProgressBackground.png");
 		progressScreen.addChild(background);
 
@@ -68,14 +68,17 @@ var progress;
 				console.log("ben op de moment aan deze lvl")
 				var x=$(value).attr("x")
 				var y=$(value).attr("y")
-				currentP = new createjs.Bitmap("assets/progressLVL.png");
-								currentP.x = x;
-				currentP.y = y;
-				currentP.regX=3;
-				currentP.regY= 280;
+				tempCont= new createjs.Container();
+				tempCont.regX=3;
+				tempCont.regY= 280;
 
-				
-				progressScreen.addChild(currentP);
+				currentP = new createjs.Bitmap("assets/progressLVL.png");
+				currentP.x = x;
+				currentP.y = y;
+
+				//currentP.hitArea();
+
+
 				currentP.addEventListener('click',function(){
 					console.log('click');
 					startGame(xml);
@@ -101,8 +104,9 @@ var progress;
 
 		})
 		var overlay  = new createjs.Bitmap("assets/NumberOverlay_wormpjes.png");
-		//progressScreen.addChild(overlay);
-		//progressScreen.addChild(currentP);
+		progressScreen.addChild(overlay);
+		progressScreen.addChild(tempCont);
+		tempCont.addChild(currentP);
 		container.addChild(progressScreen);
 
 		

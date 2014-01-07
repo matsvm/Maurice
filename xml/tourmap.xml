@@ -61,13 +61,13 @@
 	<level layer="5" id="15" x="2390" y="1640">
 		<line></line>
 	</level>
-	<level layer="6" id="16" x="2480" y="1640">
+	<level layer="6" id="16" x="2220" y="1740">
 		<line></line>
 	</level>
-	<level layer="6" id="17" x="2480" y="750">
+	<level layer="6" id="17" x="2035" y="1660">
 		<line></line>
 	</level>
-	<level layer="6" id="18" x="2480" y="750">
+	<level layer="6" id="18" x="2025" y="1790">
 		<line></line>
 	</level>
 </canvas>
