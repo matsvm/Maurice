@@ -27,6 +27,13 @@ var progress;
 		console.log("GameKlasse Added");
 		this.container = new createjs.Container()
 		container = this.container;
+		this.width = window.innerWidth;
+		this.height = window.innerHeight;
+		this.scale = this.height/1875;
+		
+		container.scaleX = container.scaleY=this.scale;
+		container.x =window.innerWidth/2;
+		container.regX =4167/2;
 		//console.log(progress);
 		progress=receivedProgress;
 		getXML();
@@ -39,13 +46,7 @@ var progress;
 		var background = new createjs.Bitmap("assets/ProgressBackground.png");
 		progressScreen.addChild(background);
 
-		this.width = window.innerWidth;
-	
-		this.scale = this.height/1875;
-		
-		background.scaleX = background.scaleY=this.scale;
-		background.x =window.innerWidth/2;
-		background.regX =4167/2;
+
 		console.log(xml)
 		$(xml).find('level').each(function(index, value){
 			console.log($(value).attr("id"));
@@ -59,6 +60,12 @@ var progress;
 				progressDot.y = y;
 				
 				progressScreen.addChild(progressDot);
+				progressDot.addEventListener('click',function(){
+					startGame(xml);
+				});	
+				progressDot.addEventListener('rollover',function(){
+					progressDot.cursor = "pointer";
+				})
 			}else if(progress.currentlvl<id){
 
 			}
@@ -66,18 +73,7 @@ var progress;
 
 
 		})
-		var playBtn = new createjs.Bitmap("assets/btnPlay.png");
-		playBtn.x = 900;
-		playBtn.y = 650;
-
-		progressScreen.addChild(playBtn);
 		container.addChild(progressScreen);
-		playBtn.addEventListener('click',function(){
-			startGame(xml);
-		});	
-		playBtn.addEventListener('rollover',function(){
-			playBtn.cursor = "pointer";
-		})
 
 		
 	}
