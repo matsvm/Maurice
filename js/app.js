@@ -4,6 +4,8 @@
 	var firstTime = true;
 	var progress = {};
 	function init(){
+
+		
 		progress = getCookie('progress');
 		if(progress!=''){
 			console.log("existing user");

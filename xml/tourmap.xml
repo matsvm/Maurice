@@ -1,5 +1,5 @@
 <canvas>
-	<level id='1' x='2220' y='680'>
+	<level layer='1' id='1' x='2220' y='680'>
 		<line>w - - - - - - b -</line>
 		<line>- w - - r - - w -</line>
 		<line>- - - r - - - - w</line>
@@ -10,7 +10,7 @@
 		<line>- - - w - - - b -</line>
 		<line>- b - - w - g - -</line>
 	</level>
-	<level id='2' x='400' y='80'>
+	<level layer='1' id='2' x='400' y='80'>
 		<line>w - - - w - - b -</line>
 		<line>- w - - - - - w -</line>
 		<line>- - - w - - - w -</line>
