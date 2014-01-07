@@ -36,8 +36,15 @@ var progress;
 
 
 		var background = new createjs.Bitmap("assets/ProgressBackground.png");
-		background.scaleX = background.scaleY= 0.5;
 		progressScreen.addChild(background);
+
+		this.width = window.innerWidth;
+	
+		this.scale = this.height/1875;
+		
+		background.scaleX = background.scaleY=this.scale;
+		background.x =window.innerWidth/2;
+		background.regX =4167/2;
 		console.log(xml)
 		$(xml).find('level').each(function(index, value){
 			console.log($(value).attr("id"));
@@ -52,7 +59,7 @@ var progress;
 				
 				progressScreen.addChild(progressDot);
 			}else if(progress.currentlvl<id){
-				
+
 			}
 			
 
