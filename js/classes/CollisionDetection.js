@@ -45,9 +45,11 @@ var CollisionDetection = (function(){
 					}
 				}else{
 					if(vX > 0){	
+						console.log("botslinks");
 						colDir = "l";	// botsen links
 						shapeA.x += oX;
 					}else{
+						console.log("botsrechts");
 						colDir = "r";	// botsen rechts
 						shapeA.x -= oX;
 					}

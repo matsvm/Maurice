@@ -2,6 +2,21 @@
 	margin:0;
 	padding:0;
 }
+
+/* FONTS */
+
+@font-face {
+    font-family: 'American';
+    src: url('../assets/fonts/american_purpose.eot');
+    src: url('../assets/fonts/american_purpose.eot?#iefix') format('embedded-opentype'),
+         url('../assets/fonts/american_purpose.woff') format('woff'),
+         url('../assets/fonts/american_purpose.ttf') format('truetype'),
+         url('../assets/fonts/american_purpose.svg#american_purposeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 canvas{
 	
 }

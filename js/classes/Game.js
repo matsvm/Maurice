@@ -125,12 +125,15 @@ var progress;
 		var ticker, keys, world;
 		var flagSpeed = false;
 		var oldSpeed;
+		var toolBar;
+		var scale;
 
 		var gridHeight;
 		var gridWidth;
 
 		var rows;
 		var cols;
+		var toolBar;
 
 		console.log("Game Started");
 		boxes = [];
@@ -144,7 +147,12 @@ var progress;
 		stage = new createjs.Stage("cnvs");
 		width = stage.canvas.width;						// om mee te geven aan World, om player te volgen
 		height = stage.canvas.height;
-		world = new World(width-200,height*3,1);			//breedte, hoogte, level
+		toolBar = new ToolBar();
+		console.log();
+		var wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
+		world = new World(wereldBreedte,height*3,1);			//breedte, hoogte, level
+
+
 		// marges die je hebt om de wereld te bewegen, is een negatieve waarde
 		world.boundH = -(world.height - height);
 		world.boundW = -(world.width - width);	
@@ -164,9 +172,9 @@ var progress;
 		window.onkeydown = keydown;
 
 		stage.addChild(world.container);
+		stage.addChild(toolBar.container);
 
 	
-
 		function update(){
 				// om x aantal ticks gaat de snelheid van maurice naar beneden
 				if( ticker.getTicks()%120 == 0 ){
@@ -196,17 +204,21 @@ var progress;
 
 					if( typeof(returnedBox) === "object" && returnedBox.name != ""){
 
+						//console.log( "naam: " + returnedBox.name );
 						// extra controle anders bleef hij de box maar verwijderen en velY toevoegen
-						if( returnedBox.box.currentFrame != 7 ||  returnedBox.name == "bound" ){
+						if(returnedBox.name != "bound"){
+							if( returnedBox.box.currentFrame != 7){
 							switch (returnedBox.name){
 								case "worm":
 								if(player.speed <= 0.9) player.speed = 0.9;	
 								returnedBox.box.gotoAndStop("empty");
-								console.log("Aangepast");
+								//console.log("Aangepast");
 								break;
 								case "bug":
+								console.log( "animatie: " + returnedBox.box.currentAnimation );
 								bugs++;
-								console.log(bugs);
+								toolBar.bugCount = bugs;
+								toolBar.bugCountChanged = true;
 								returnedBox.box.gotoAndStop("empty");
 								break;
 								case "gas":
@@ -217,7 +229,6 @@ var progress;
 								player.speed = 10;
 								returnedBox.box.gotoAndStop("empty");
 								break;
-								case "bound":
 								case "rock":
 								console.log("stuck!");
 								break;
@@ -233,6 +244,7 @@ var progress;
 							}
 								
 						}
+						}						
 						break;
 					
 					}else{
@@ -241,16 +253,14 @@ var progress;
 							player.speed = oldSpeed;
 						}
 					}
-					//console.log(player.speed);
-					
 				}
 
 				// aanpassen van wereld aan positie player
 				// offset kan je visueel mee spelen om dynamiek in beeld te brengen
-				world.followPlayerX(player, width, 0);
+				world.followPlayerX(player, wereldBreedte, 0);				//wereldBreedte, andere breedte klopt ni meer
 				world.followPlayerY(player, height, 90);
 
-				//maskUpdate();
+				toolBar.update(counter);
 				player.update();
 				world.update(player);
 				stage.update();
@@ -275,7 +285,8 @@ var progress;
 				var data = {
 					images:["./assets/sprites/boxen.png"], 
 					frames:{width:83, height:83},
-					animations: {worm1:0, worm2:1, worm3:2, bug1:3, bug2:4, bug3:5, wormpower:6, empty:7}
+					animations: {worm1:0, worm2:1, worm3:2, bug1:3, bug2:4, bug3:5, wormpower:6, empty:7},
+					count:7
 				}
 
 				$(xml).find('line').each(function(index, value){
