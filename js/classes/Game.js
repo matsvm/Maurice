@@ -97,10 +97,6 @@ var progress;
 
 
 			}
-
-			
-
-
 		})
 		var overlay  = new createjs.Bitmap("assets/NumberOverlay_wormpjes.png");
 		progressScreen.addChild(overlay);
