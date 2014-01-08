@@ -5,7 +5,8 @@
 	var progress = {};
 	function init(){
 
-		//progress = getCookie('progress');
+				
+		progress = getCookie('progress');
 		if(progress!=''){
 			console.log("existing user");
 			firstTime = false;
@@ -15,7 +16,11 @@
 		}else{
 			console.log("new user");
 		}
+<<<<<<< HEAD
 		progress.currentlvl = 1;
+=======
+//			progress.currentlvl = 3;
+>>>>>>> 7f8336401ed0bd9d6d342e8859458e0b9e4f307a
 
 		var canvas = document.getElementById("cnvs");
 		canvas.width = window.innerWidth;
@@ -25,11 +30,21 @@
 		width = stage.canvas.width;						// om mee te geven aan World, om player te volgen
 		height = stage.canvas.height;
 		stage.enableMouseOver();
-		changeScreen('welcome');
 
 		ticker = createjs.Ticker;
 		ticker.setFPS(60);
 		ticker.addEventListener("tick",update);
+		createjs.Sound.addEventListener("fileload", handleLoadComplete);
+		createjs.Sound.registerSound({src:"assets/music/ingame.mp3|assets/music/ingame.ogg", id:"ingame"});
+		createjs.Sound.registerSound({src:"assets/music/menu.mp3|assets/music/menu.ogg", id:"menu"});
+		function handleLoadComplete(event) {
+			if(event.id == "menu"){
+				changeScreen('welcome');
+
+			}
+
+			console.log(event.src);
+		}
 
 
 		this.addEventListener('removeHomeScreen',function(){
@@ -58,9 +73,28 @@
 			console.log(stage);
 			update();
 		})
-
-
+		this.addEventListener('GameStarted',function(){
+			console.log('[App] change song!')
+			//console.log(stage);
+			changeSong("ingame");
+		})
+		
 	}		
+
+	function changeSong(song){
+		createjs.Sound.stop();
+		switch(song){
+			case "ingame":
+			instance = createjs.Sound.play("ingame");
+			break;
+
+			case "menu":
+			instance = createjs.Sound.play("menu",[loop=1]);
+			break;
+		}
+
+	}
+
 	function getCookie(cname){
 		var name = cname + "=";
 		var ca = document.cookie.split(';');
@@ -73,6 +107,8 @@
 	}
 
 	function changeScreen(screenName){
+
+
 		if(currentScreen!=null){
 			oldScreen = currentScreen;
 			console.log(stage);
@@ -91,6 +127,7 @@
 			case "welcome":
 				console.log('change screen to Welcome');
 				currentScreen = new WelcomeScreen();
+				changeSong("menu");
 				break;
 			case "intro":
 				console.log('change screen to Intro');

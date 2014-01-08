@@ -126,6 +126,7 @@ var progress;
 		var timer = setInterval(function(){counter ++},1000);
 
 		container.removeChild(progressScreen);
+		dispatchEvent(new Event("GameStarted"),true);
 		var boxes, stage, player, width, height, bugs, platform;
 		var img, maurice;
 		var ticker, keys, world;
@@ -145,7 +146,9 @@ var progress;
 		boxes = [];
 		keys = [];
 		bugs = 0;
-		
+		var energyBar = new EnergyBar();
+		energyBar.x = window.innerWidth/2;
+
 		var canvas = document.getElementById("cnvs");
 		canvas.width = window.innerWidth;
 		canvas.height = window.innerHeight;
@@ -178,14 +181,19 @@ var progress;
 
 		stage.addChild(world.container);
 		stage.addChild(toolBar.container);
+		stage.addChild(energyBar.container);
 
 		this.addEventListener('pauzeGame',pauzeerGame);
 
 		function update(){
+		energyBar.updateEnergy(player.speed);
+
+//			console.log(player.speed);
 				// om x aantal ticks gaat de snelheid van maurice naar beneden
-				if( ticker.getTicks()%120 == 0 ){
+				if( ticker.getTicks()%30 == 0 ){
 					if (player.speed > 0.1 ){
 						player.speed -= 0.1;	
+
 					}else{
 						player.speed = 0;
 						player.maurice.gotoAndStop(0);
