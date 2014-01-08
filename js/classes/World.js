@@ -65,9 +65,9 @@ var World = (function(){
 	}
 
 	// player, width van onze canvastag, offset = karakter ni perfect in midden
-	World.prototype.followPlayerX = function(player,width,offset) {
-		var x = -(player.x - (width/2)) + offset;
-		if( x < 0 && x > -(this.width/2) ) {
+	World.prototype.followPlayerX = function(player,breedte,offset) {
+		var x = -(player.x - (breedte/2)) + offset;
+		if( x < 0 && x > -(this.width-breedte)) {
 			this.container.x = x + 1440/2;	
 		}
 	};

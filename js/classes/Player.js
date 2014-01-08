@@ -19,7 +19,7 @@ var Player = (function(){
 				"animations":
 				{
 					"dig": [0, 23, "dig"]},
-					"framerate":5,
+					"framerate":15,
 					"images": ["./assets/sprites/moldigging.png"],
 					"frames":
 						{
