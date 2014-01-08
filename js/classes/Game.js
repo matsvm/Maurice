@@ -139,6 +139,7 @@ var progress;
 		boxes = [];
 		keys = [];
 		bugs = 0;
+		var energyBar = new EnergyBar();
 		
 		var canvas = document.getElementById("cnvs");
 		canvas.width = window.innerWidth;
@@ -174,9 +175,12 @@ var progress;
 
 		stage.addChild(world.container);
 		stage.addChild(toolBar.container);
+		stage.addChild(energyBar.container);
 
 	
 		function update(){
+			energyBar.updateEnergy(player.speed);
+//			console.log(player.speed);
 				// om x aantal ticks gaat de snelheid van maurice naar beneden
 				if( ticker.getTicks()%120 == 0 ){
 					if (player.speed > 0.1 ){
@@ -283,12 +287,8 @@ var progress;
 
 				rows = world.width / gridWidth;
 				cols = world.height / gridHeight;
-<<<<<<< HEAD
-				console.log("rows: " + rows + " - cols: " + cols);
 
-=======
 				var huidigeLvlData;
->>>>>>> d3944bb9f079e95c8b7e7d55da99d94b34f6240b
 				var data = {
 					images:["./assets/sprites/boxen.png"], 
 					frames:{width:83, height:83},

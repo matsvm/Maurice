@@ -17,7 +17,7 @@
 
 
 		}
-		progress.currentlvl = 3;
+//			progress.currentlvl = 3;
 
 		var canvas = document.getElementById("cnvs");
 		canvas.width = window.innerWidth;
