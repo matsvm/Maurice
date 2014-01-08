@@ -20,7 +20,17 @@ var Game = (function(){
 var progress;
 var container;
 var progressScreen;
-var progress;
+var counter;
+var ticker;
+var huidigeLvlData;
+var stage;
+var world;
+var toolBar;
+var energyBar;
+var bugs;
+var timer;
+var gameEnded=false;
+var priceScreen;
 	function Game(receivedProgress){
 		console.log("GameKlasse Added");
 		this.container = new createjs.Container()
@@ -35,6 +45,7 @@ var progress;
 		//console.log(progress);
 		progress=receivedProgress;
 		getXML();
+		this.container.addEventListener("nextLevel",startGame);
 
 	}
 	function addProgressScreen(xml){
@@ -108,27 +119,52 @@ var progress;
 	}
 
 	function endLevel(){
-		console.log( "einde level bereikt, op naar het volgende" );
+		if(gameEnded==false){
+			ticker.removeAllEventListeners();
+			window.clearInterval(timer);
+			stage.removeChild(world.container);
+			stage.removeChild(toolBar.container);
+			stage.removeChild(energyBar.container);
+			gameEnded=true;
+
+			var maxTime = $(huidigeLvlData).attr('maxTime');
+			var tijdFactor = (maxTime/counter)
+			console.log(tijdFactor);
+			var score = Math.floor(tijdFactor*bugs);
+			console.log(score);
+			priceScreen = new PriceScreen(score,progress.points,progress.points+score);
+			progress.points +=score;
+			progress.currentlvl +=1;
+			document.cookie="progress="+JSON.stringify(progress);
+			stage.addChild(priceScreen.container);
+
+			//container.addChild(priceScreen.container);
+
+			//console.log( "einde level bereikt, op naar het volgende" );
+
+		}else{
+
+		}
+		//console.log(gameEnded)
+
 		//container.removeChild(progressScreen);
-		//stage.removeChild(world.container);
-		//stage.removeChild(toolBar.container);
+		
 	}
 
 
 	
 	function startGame(xml) {
 		//console.log('game started');
-		var counter = 0;
-		var timer = setInterval(function(){counter ++},1000);
+		counter = 0;
+		timer = setInterval(function(){counter ++},1000);
 
 		container.removeChild(progressScreen);
 		dispatchEvent(new Event("GameStarted"),true);
-		var boxes, stage, player, width, height, bugs, platform;
+		var boxes, player, width, height,  platform;
 		var img, maurice;
-		var ticker, keys, world;
+		var keys;
 		var flagSpeed = false;
 		var oldSpeed;
-		var toolBar;
 		var scale;
 
 		var gridHeight;
@@ -136,13 +172,12 @@ var progress;
 
 		var rows;
 		var cols;
-		var toolBar;
 
 		console.log("Game Started");
 		boxes = [];
 		keys = [];
 		bugs = 0;
-		var energyBar = new EnergyBar();
+		energyBar = new EnergyBar();
 		energyBar.x = window.innerWidth/2;
 
 		var canvas = document.getElementById("cnvs");
@@ -290,7 +325,7 @@ var progress;
 				rows = world.width / gridWidth;
 				cols = world.height / gridHeight;
 
-				var huidigeLvlData;
+				
 				var data = {
 					images:["./assets/sprites/boxen.png"], 
 					frames:{width:83, height:83},

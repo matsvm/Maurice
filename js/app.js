@@ -16,11 +16,7 @@
 		}else{
 			console.log("new user");
 		}
-<<<<<<< HEAD
-		progress.currentlvl = 1;
-=======
-//			progress.currentlvl = 3;
->>>>>>> 7f8336401ed0bd9d6d342e8859458e0b9e4f307a
+
 
 		var canvas = document.getElementById("cnvs");
 		canvas.width = window.innerWidth;
@@ -58,7 +54,7 @@
 		
 		this.addEventListener('removeIntroScreen',function(){
 			console.log('[App] dispatched event received')
-			progress = {'currentlvl':'1','points':'0'};
+			progress = {'currentlvl':1,'points':0};
 			//progress = JSON.stringify(progress);
 			document.cookie="progress="+JSON.stringify(progress);
 
@@ -89,7 +85,7 @@
 			break;
 
 			case "menu":
-			instance = createjs.Sound.play("menu",[loop=1]);
+			instance = createjs.Sound.play("menu",createjs.Sound.INTERRUPT_ANY, 0, 0, 1, 1, 0);
 			break;
 		}
 
