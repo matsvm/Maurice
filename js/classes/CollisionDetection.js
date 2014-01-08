@@ -21,40 +21,45 @@ var CollisionDetection = (function(){
 		
 		var hWidths = (shapeB.width/2);
 		var hHeights = (shapeB.height/2);
-		var colDir = "";
 
 		// verschil maken tussen rotsen/boundaries omdat hij daar ni overheen mag gaan
-		if(shapeB.name == "bound" || shapeB.name == "rock") vY += 100;
+		if(shapeB.name == "bound" || shapeB.name == "rock"){
+			vY += 100; 
+			if(shapeA.maurice.rotation > 0)vX -= 80;
+			if(shapeA.maurice.rotation < 0)vX += 90;	
+		} 
 		if(shapeB.name == "gas") vY += 200;	
 
 
 		if( Math.abs(vX) < hWidths && Math.abs(vY) < hHeights ){
-			//console.log('collision detected!')
 			
+			console.log('botsing');
 			if( shapeB.name == "bound" || shapeB.name == "rock" ){
-
 				var oX = hWidths - Math.abs( vX );
 				var oY = hHeights - Math.abs( vY );
+				console.log("vx: " + vX);
+				console.log("vy: " + vY);
+				console.log("ox: " + oX);
+				console.log("oy: " + oY);
+
 				if( oX >= oY ){
 					if(vY > 0){	
 						//colDir = "t";	// botsen bovenop
 						//shapeA.y += oY;
 					}else{
-						colDir = "b";	// botsen onder
+						console.log("botsbottom");
 						shapeA.y -= oY;
 					}
 				}else{
 					if(vX > 0){	
 						console.log("botslinks");
-						colDir = "l";	// botsen links
 						shapeA.x += oX;
 					}else{
 						console.log("botsrechts");
-						colDir = "r";	// botsen rechts
 						shapeA.x -= oX;
 					}
 
-					if(shapeB.name == "bound") shapeA.maurice.rotation = 270;
+					if(shapeB.name == "bound") console.log("ik ben bound"); shapeA.maurice.rotation = 0;
 					
 				}
 			}else{

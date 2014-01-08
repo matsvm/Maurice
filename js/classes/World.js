@@ -3,15 +3,15 @@ var World = (function(){
 
 	function World(width, height, level){
 		console.log(width);
-		this.width = width;
+		this.width = 1440;
 		this.height = height;
 		this.container = new createjs.Container();
+		this.container.x = width/2;
+		this.container.regX = 1440/2;
 		
 		/* verborgen achtergrond inladen */
 		var bg_path = "./assets/bg/bg_level" + 1 + ".png"
 		this.background = new createjs.Bitmap(bg_path);
-		this.background.x =width/2;
-		this.background.regX =1441/2;
 
 		/* voorgrond + pad */
 		var fg_path = "./assets/bg/fg_level" + 1 + ".png"
@@ -66,25 +66,10 @@ var World = (function(){
 
 	// player, width van onze canvastag, offset = karakter ni perfect in midden
 	World.prototype.followPlayerX = function(player,width,offset) {
-		
-		
 		var x = -(player.x - (width/2)) + offset;
-		console.log("x:" + x);
-		console.log("bound:" + this.boundW/2);
-		console.log("container: " + this.container.x);
-		if( x < this.boundW && x > -this.boundW ) this.container.x = x;
-		/*
-		if( x > this.boundW/2 && x < this.boundW ){
-			
-		}else if( x < -this.boundW/2 && x > -this.boundW ){
-			this.container.x = x;
-		}else if( x > 0){
-			this.container.x = 0;
-		}else{
-			//this.container.x = x;
+		if( x < 0 && x > this.boundW*2 ) {
+			this.container.x = x + 1440/2;	
 		}
-		*/
-
 	};
 
 	World.prototype.followPlayerY = function(player,height,offset) {

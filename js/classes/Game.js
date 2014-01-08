@@ -148,9 +148,10 @@ var progress;
 		width = stage.canvas.width;						// om mee te geven aan World, om player te volgen
 		height = stage.canvas.height;
 		toolBar = new ToolBar();
-		console.log();
+		
 		var wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
-		world = new World(wereldBreedte,height*3,1);			//breedte, hoogte, level
+		world = new World(wereldBreedte,1200,1);			//breedte, hoogte, level
+		//world = new World(600,height*3,1);
 
 
 		// marges die je hebt om de wereld te bewegen, is een negatieve waarde
@@ -206,6 +207,7 @@ var progress;
 
 						//console.log( "naam: " + returnedBox.name );
 						// extra controle anders bleef hij de box maar verwijderen en velY toevoegen
+						console.log(returnedBox.name);
 						if(returnedBox.name != "bound"){
 							if( returnedBox.box.currentFrame != 7){
 							switch (returnedBox.name){
@@ -215,7 +217,7 @@ var progress;
 								//console.log("Aangepast");
 								break;
 								case "bug":
-								console.log( "animatie: " + returnedBox.box.currentAnimation );
+								//console.log( "animatie: " + returnedBox.box.currentAnimation );
 								bugs++;
 								toolBar.bugCount = bugs;
 								toolBar.bugCountChanged = true;
@@ -281,6 +283,7 @@ var progress;
 
 				rows = world.width / gridWidth;
 				cols = world.height / gridHeight;
+				console.log("rows: " + rows + " - cols: " + cols);
 
 				var data = {
 					images:["./assets/sprites/boxen.png"], 
@@ -342,10 +345,18 @@ var progress;
 
 			// bepaalt de grenzen van het spel
 			function buildBounds(){
-				boxes.push( new Bounds(0, world.height - 1, world.width, 1, "bound") );
-				boxes.push( new Bounds(0, 0, world.width, 1, "bound") );
-				boxes.push( new Bounds(0, 0, 1, world.height, "bound") );
-				boxes.push( new Bounds(world.width - 1, 0, 1, world.height, "bound") );
+				/*
+				boxes.push( new Bounds(0, world.height - 1, world.width, 1, "bound") );				//onderaan
+				boxes.push( new Bounds(0, 0, world.width, 1, "bound") );							//bovenaan
+				boxes.push( new Bounds(0, 0, 1, world.height, "bound") );							//links
+				boxes.push( new Bounds(world.width - 1, 0, 1, world.height, "bound") );				//rechts
+				*/
+
+				boxes.push( new Bounds(0, world.height - 1, world.width, 10, "bound") );				//onderaan
+				boxes.push( new Bounds(0, 0, world.width, 10, "bound") );							//bovenaan
+				boxes.push( new Bounds(0, 0, 10, world.height, "bound") );							//links
+				boxes.push( new Bounds(world.width - 1, 0, 10, world.height, "bound") );				//rechts
+				console.log(boxes);
 			}
 		}
 

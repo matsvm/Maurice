@@ -24,9 +24,11 @@ var Box = (function(){
 		this.box.x = this.x + 17;
 		this.box.y = this.y + 17;
 		var random = Math.floor(Math.random() * 3) + 1
+
 		switch (this.name){
 			case "bug":
 			this.box.gotoAndStop("bug" + random);
+			console.log(this.box.currentAnimation);
 			break;
 			case "worm":
 			this.box.gotoAndStop("worm" + random);
