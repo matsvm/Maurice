@@ -14,10 +14,8 @@
 			//progress.currentStage = document.cookie="username=John Doe";
 		}else{
 			console.log("new user");
-
-
 		}
-		progress.currentlvl = 3;
+		progress.currentlvl = 1;
 
 		var canvas = document.getElementById("cnvs");
 		canvas.width = window.innerWidth;

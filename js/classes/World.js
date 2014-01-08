@@ -67,7 +67,7 @@ var World = (function(){
 	// player, width van onze canvastag, offset = karakter ni perfect in midden
 	World.prototype.followPlayerX = function(player,width,offset) {
 		var x = -(player.x - (width/2)) + offset;
-		if( x < 0 && x > this.boundW*2 ) {
+		if( x < 0 && x > -(this.width/2) ) {
 			this.container.x = x + 1440/2;	
 		}
 	};

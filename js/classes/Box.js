@@ -45,6 +45,9 @@ var Box = (function(){
 			case "rock":
 			this.box.gotoAndStop("wormpower");
 			break;
+			case "checkpoint":
+			this.box.gotoAndStop("wormpower");
+			break;
 			}
 	};
 	return Box;

@@ -8,9 +8,7 @@
 7. VERZAMELEN BUGS OM POWERUPS TE VERZAMELEN
 
 TODO:
-1. IMPLEMENTEREN LEVELS
 2. PRINCIPE TIJD + STRAFTIJD (BIJ IN SLAAP VALLEN) ED
-3. GRIDHEIGHT/WIDTH AFSTELLEN
 4. PROPER MAKEN CODE DIE NU BIJZONDER VUIL IS
 5. STOPPEN VAN DE MOL EENS HIJ HET EINDE VAN DE 'WORLD' HEEFT BEREIKT
 4. ... EN NOG VEEL MEER :)
@@ -57,8 +55,8 @@ var progress;
 		console.log(xml)
 		$(xml).find('level').each(function(index, value){
 
-			console.log($(value).attr("id"));
-			console.log(progress)
+			//console.log($(value).attr("id"));
+			//console.log(progress)
 			var id = $(value).attr("id");
 			var laag = $(value).attr("layer");
 			if(progressScreen.currentlvl>id){
@@ -87,10 +85,11 @@ var progress;
 					currentP.cursor = "pointer";
 				})
 			}else if(progress.currentlvl<id){
-				console.log('lvl te doen')
+				//console.log('lvl te doen')
 				
 				var grond = new createjs.Sprite(grondSheet);
-				console.log("laag"+laag);
+				
+				//console.log("laag"+laag);
 				grond.gotoAndStop('laag'+laag);
 				grond.x=$(value).attr("x");
 				grond.y=$(value).attr("y");
@@ -112,12 +111,19 @@ var progress;
 		
 	}
 
+	function endLevel(){
+		console.log( "einde level bereikt, op naar het volgende" );
+		//container.removeChild(progressScreen);
+		//stage.removeChild(world.container);
+		//stage.removeChild(toolBar.container);
+	}
+
 
 	
 	function startGame(xml) {
 		//console.log('game started');
 		var counter = 0;
-		var timer = setInterval(function(){console.log(counter);counter ++},1000);
+		var timer = setInterval(function(){counter ++},1000);
 
 		container.removeChild(progressScreen);
 		var boxes, stage, player, width, height, bugs, platform;
@@ -150,9 +156,7 @@ var progress;
 		toolBar = new ToolBar();
 		
 		var wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
-		world = new World(wereldBreedte,1200,1);			//breedte, hoogte, level
-		//world = new World(600,height*3,1);
-
+		world = new World(wereldBreedte,2700,1);			//breedte, hoogte, level
 
 		// marges die je hebt om de wereld te bewegen, is een negatieve waarde
 		world.boundH = -(world.height - height);
@@ -175,7 +179,8 @@ var progress;
 		stage.addChild(world.container);
 		stage.addChild(toolBar.container);
 
-	
+		this.addEventListener('pauzeGame',pauzeerGame);
+
 		function update(){
 				// om x aantal ticks gaat de snelheid van maurice naar beneden
 				if( ticker.getTicks()%120 == 0 ){
@@ -195,8 +200,6 @@ var progress;
 					if(player.angle>215)player.angle --;
 				}
 
-				//player.grounded = false;
-
 				for(var i = 0; i < boxes.length; i++){
 					returnedBox = CollisionDetection.checkCollision(player, boxes[i]);
 					if(boxes[i].name!='bound'){
@@ -205,19 +208,16 @@ var progress;
 
 					if( typeof(returnedBox) === "object" && returnedBox.name != ""){
 
-						//console.log( "naam: " + returnedBox.name );
-						// extra controle anders bleef hij de box maar verwijderen en velY toevoegen
-						console.log(returnedBox.name);
 						if(returnedBox.name != "bound"){
+							
 							if( returnedBox.box.currentFrame != 7){
+							
 							switch (returnedBox.name){
 								case "worm":
 								if(player.speed <= 0.9) player.speed = 0.9;	
 								returnedBox.box.gotoAndStop("empty");
-								//console.log("Aangepast");
 								break;
 								case "bug":
-								//console.log( "animatie: " + returnedBox.box.currentAnimation );
 								bugs++;
 								toolBar.bugCount = bugs;
 								toolBar.bugCountChanged = true;
@@ -234,13 +234,15 @@ var progress;
 								case "rock":
 								console.log("stuck!");
 								break;
+								case "checkpoint":
+								console.log("checkpoint bereikt");
+								endLevel();
+								break;
 								case "stone":
-
-								if( !flagSpeed ){
-									flagSpeed = true;
-									oldSpeed = player.speed;
-								}
-
+									if( !flagSpeed ){
+										flagSpeed = true;
+										oldSpeed = player.speed;
+									}
 								player.speed = 1;
 								break;
 							}
@@ -283,12 +285,8 @@ var progress;
 
 				rows = world.width / gridWidth;
 				cols = world.height / gridHeight;
-<<<<<<< HEAD
-				console.log("rows: " + rows + " - cols: " + cols);
 
-=======
 				var huidigeLvlData;
->>>>>>> d3944bb9f079e95c8b7e7d55da99d94b34f6240b
 				var data = {
 					images:["./assets/sprites/boxen.png"], 
 					frames:{width:83, height:83},
@@ -297,9 +295,9 @@ var progress;
 				}
 				//console.log(xml);
 				$(xml).find('level').each(function(index, value){
-					console.log(value);
+					//console.log(value);
 					var id = $(value).attr("id");
-					console.log(id);
+					//console.log(id);
 					if(progress.currentlvl == id){
 						huidigeLvlData=value;
 					}
@@ -332,14 +330,14 @@ var progress;
 							case "r":
 		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "rock", data );
 							break;
+							case "c":
+		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "checkpoint", data );
+		 					break;
 
 		 				}
-	 					//console.log("[Game] Build gride: platform: "+platform.box.currentFrame)
 		 				world.addChild(platform.box,0);
 						boxes.push(platform);
 						stage.update();
-
-
 		 			}
 
 				});
@@ -354,22 +352,10 @@ var progress;
 
 			}
 
-			// haalt de wormpjes, bugs, powers,... op
-
-			// bepaalt de grenzen van het spel
 			function buildBounds(){
-				/*
 				boxes.push( new Bounds(0, world.height - 1, world.width, 1, "bound") );				//onderaan
-				boxes.push( new Bounds(0, 0, world.width, 1, "bound") );							//bovenaan
 				boxes.push( new Bounds(0, 0, 1, world.height, "bound") );							//links
 				boxes.push( new Bounds(world.width - 1, 0, 1, world.height, "bound") );				//rechts
-				*/
-
-				boxes.push( new Bounds(0, world.height - 1, world.width, 10, "bound") );				//onderaan
-				boxes.push( new Bounds(0, 0, world.width, 10, "bound") );							//bovenaan
-				boxes.push( new Bounds(0, 0, 10, world.height, "bound") );							//links
-				boxes.push( new Bounds(world.width - 1, 0, 10, world.height, "bound") );				//rechts
-				console.log(boxes);
 			}
 		}
 
@@ -382,6 +368,10 @@ var progress;
  				addProgressScreen	( xml );
 			}
 		});
+	}
+
+	function pauzeerGame(){
+
 	}
 
 	return Game;

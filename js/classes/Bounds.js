@@ -10,15 +10,15 @@ var Bounds = (function(){
 		this.shape = new createjs.Shape();
 		this.shape.x = this.x;
 		this.shape.y = this.y;
-		this.draw();
+		//this.draw();
 
 	}
-
+	// om te testen of grenzen goed gezet werden
 	Bounds.prototype.draw = function(){
 			console.log(this.width);
 			console.log(this.height);
 			this.shape.graphics.c();
-			this.shape.graphics.f("#00FF00");
+			this.shape.graphics.f("#000000");
 			this.shape.graphics.dr(0,0, this.width, this.height);
 			this.shape.graphics.ef();
 	}

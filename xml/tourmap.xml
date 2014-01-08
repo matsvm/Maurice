@@ -1,14 +1,14 @@
 <canvas>
 	<level layer='1' id='1' x='2220' y='680'>
 		<line>w - - - - - - b -</line>
-		<line>- w - - r - - w -</line>
-		<line>- - - r - - - - w</line>
+		<line>- b - - c - - w -</line>
+		<line>- - - w - - - - w</line>
 		<line>- - - - b - - b -</line>
 		<line>- - - w b - - w -</line>
-		<line>w w - - w - - w -</line>
+		<line>w w - - b - - w -</line>
 		<line>- w - - - - - - -</line>
 		<line>- - - w - - - b -</line>
-		<line>- b - - w - g - -</line>
+		<line>- b - - b - g - -</line>
 	</level>
 	<level layer='1' id='2' x='2480' y='750'>
 		<line>w - - - w - - b -</line>
@@ -23,10 +23,10 @@
 	</level>
 
 	<level layer="1" id="3" x="2735" y="900">
-		<line>w w - - w - - w -</line>
-		<line>- w - - - - - - -</line>
-		<line>- - - w - - - b -</line>
-		<line>- b - - w - p - -</line>
+		<line>w w - - - - - w -</line>
+		<line>- w - - b - - - -</line>
+		<line>- - - b - - - b -</line>
+		<line>- b - - b - b - -</line>
 	</level>
 	<level layer="2" id="4" x="2595" y="1020">
 		<line></line>

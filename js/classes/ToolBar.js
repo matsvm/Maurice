@@ -17,9 +17,14 @@ var ToolBar = (function(){
 		this.bugCount = 0;
 		this.bugCountChanged = false;
 
+		/* SOUNDBUTTON */
+		
+		
+
 		this.container.x = this.width - (377*this.scale)*2;				// 377 = breedte background	
 		this.draw();
 	}
+
 
 	ToolBar.prototype.draw = function() {
 		var background = new createjs.Bitmap("assets/bg_toolbar.png");
@@ -54,9 +59,19 @@ var ToolBar = (function(){
 		this.bugs.x = 30;
 		this.bugs.y = 800;
 
+		/* PAUZEBUTTON */
+		this.pauzeButton = new createjs.Bitmap("assets/btn_pauze.png");
+		this.pauzeButton.x = 140;
+		this.pauzeButton.y = 520;
+
+		this.pauzeButton.addEventListener('rollover',function(){ this.pauzeButton.cursor = "pointer"; });
+		this.pauzeButton.addEventListener('click',function(){ dispatchEvent(new Event("pauzeGame"),true); });
+		
 		this.container.addChild(this.bugs);
 		this.container.addChild(this.levelText);
 		this.container.addChild(this.clockText);
+		this.container.addChild(this.pauzeButton);
+
 
 	}
 
