@@ -283,16 +283,29 @@ var progress;
 
 				rows = world.width / gridWidth;
 				cols = world.height / gridHeight;
+<<<<<<< HEAD
 				console.log("rows: " + rows + " - cols: " + cols);
 
+=======
+				var huidigeLvlData;
+>>>>>>> d3944bb9f079e95c8b7e7d55da99d94b34f6240b
 				var data = {
 					images:["./assets/sprites/boxen.png"], 
 					frames:{width:83, height:83},
 					animations: {worm1:0, worm2:1, worm3:2, bug1:3, bug2:4, bug3:5, wormpower:6, empty:7},
 					count:7
 				}
-
-				$(xml).find('line').each(function(index, value){
+				//console.log(xml);
+				$(xml).find('level').each(function(index, value){
+					console.log(value);
+					var id = $(value).attr("id");
+					console.log(id);
+					if(progress.currentlvl == id){
+						huidigeLvlData=value;
+					}
+				})
+				console.log(huidigeLvlData);
+				$(huidigeLvlData).find('line').each(function(index, value){
 
 		 			var split = $(this).text().split(" ");
 		 			for( var i=0 ; i < split.length ; i++ ){

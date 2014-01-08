@@ -23,7 +23,10 @@
 	</level>
 
 	<level layer="1" id="3" x="2735" y="900">
-		<line></line>
+		<line>w w - - w - - w -</line>
+		<line>- w - - - - - - -</line>
+		<line>- - - w - - - b -</line>
+		<line>- b - - w - p - -</line>
 	</level>
 	<level layer="2" id="4" x="2595" y="1020">
 		<line></line>
@@ -68,7 +71,16 @@
 		<line></line>
 	</level>
 	<level layer="6" id="18" x="2025" y="1790">
-		<line></line>
+		<line>- - - w - - - b -</line>
+		<line>- - - w - - - b -</line>
+		<line>- - - w - - - b -</line>
+		<line>- - - w - - - b -</line>
+		<line>- - - w - - - b -</line>
+		<line>- - - w - - - b -</line>
+		<line>- - - w - - - b -</line>
+		<line>- - - w - - - b -</line>
+		<line>- - - w - - - b -</line>
+		<line>- - - w - - - b -</line>
 	</level>
 </canvas>
 
