@@ -140,7 +140,8 @@ var progress;
 		keys = [];
 		bugs = 0;
 		var energyBar = new EnergyBar();
-		
+		energyBar.x = window.innerWidth/2;
+
 		var canvas = document.getElementById("cnvs");
 		canvas.width = window.innerWidth;
 		canvas.height = window.innerHeight;
@@ -179,12 +180,14 @@ var progress;
 
 	
 		function update(){
-			energyBar.updateEnergy(player.speed);
+		energyBar.updateEnergy(player.speed);
+
 //			console.log(player.speed);
 				// om x aantal ticks gaat de snelheid van maurice naar beneden
-				if( ticker.getTicks()%120 == 0 ){
+				if( ticker.getTicks()%30 == 0 ){
 					if (player.speed > 0.1 ){
 						player.speed -= 0.1;	
+
 					}else{
 						player.speed = 0;
 						player.maurice.gotoAndStop(0);

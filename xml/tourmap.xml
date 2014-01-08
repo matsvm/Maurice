@@ -2,9 +2,9 @@
 	<level layer='1' id='1' x='2220' y='680'>
 		<line>w - - - - - - - -</line>
 		<line>- w - - - - - w -</line>
-		<line>- - - - w - - - w</line>
+		<line>- - - - - - - - w</line>
 		<line>- - - - - - - - -</line>
-		<line>- - - w - - - w -</line>
+		<line>- - - w g - - w -</line>
 		<line>w w - - w - - w -</line>
 		<line>- w - - - - - - -</line>
 		<line>- - - w - - - b -</line>

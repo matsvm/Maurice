@@ -4,8 +4,32 @@
 	var firstTime = true;
 	var progress = {};
 	function init(){
+		/*createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.FlashPlugin]);
 
-		//progress = getCookie('progress');
+		createjs.Sound.alternateExtensions = ["mp3"];
+		createjs.Sound.addEventListener("fileload", createjs.proxy(this.loadHandler, this));
+		createjs.Sound.registerSound("assets/music/ingame.ogg", "ingame");
+		createjs.Sound.registerSound("assets/music/menu.ogg", "menu");
+		function loadHandler(event) {
+		    // This is fired for each sound that is registered.
+		    //var instance = createjs.Sound.play("menu");  // play using id.  Could also use full sourcepath or event.src.
+		    instance.addEventListener("complete", createjs.proxy(this.handleComplete, this));
+		    //instance.volume = 0.5;
+		    //console.log(event.src)
+
+		}
+		*/
+		 createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.FlashPlugin]);
+		 createjs.Sound.alternateExtensions = ["mp3"];
+		 createjs.Sound.addEventListener("fileload", createjs.proxy(this.loadHandler, (this)));
+		 createjs.Sound.registerSound("assets/music/menu.ogg", "sound");
+		 function loadHandler(event) {
+		     // This is fired for each sound that is registered.
+		     var instance = createjs.Sound.play("sound");  // play using id.  Could also use full source path or event.src.
+		     instance.addEventListener("complete", createjs.proxy(this.handleComplete, this));
+		     instance.volume = 0.5;
+		 }
+		progress = getCookie('progress');
 		if(progress!=''){
 			console.log("existing user");
 			firstTime = false;
@@ -27,11 +51,11 @@
 		width = stage.canvas.width;						// om mee te geven aan World, om player te volgen
 		height = stage.canvas.height;
 		stage.enableMouseOver();
-		changeScreen('welcome');
 
 		ticker = createjs.Ticker;
 		ticker.setFPS(60);
 		ticker.addEventListener("tick",update);
+    	changeScreen('welcome');
 
 
 		this.addEventListener('removeHomeScreen',function(){
@@ -60,9 +84,24 @@
 			console.log(stage);
 			update();
 		})
-
-
 	}		
+
+	function changeSong(song){
+
+
+
+		switch(song){
+			case "ingame":
+			//var instance = createjs.Sound.play("ingame");
+			break;
+
+			case "menu":
+			//var instance = createjs.Sound.play("menu");
+			break;
+		}
+
+	}
+
 	function getCookie(cname){
 		var name = cname + "=";
 		var ca = document.cookie.split(';');
@@ -75,6 +114,8 @@
 	}
 
 	function changeScreen(screenName){
+
+
 		if(currentScreen!=null){
 			oldScreen = currentScreen;
 			console.log(stage);
@@ -93,6 +134,7 @@
 			case "welcome":
 				console.log('change screen to Welcome');
 				currentScreen = new WelcomeScreen();
+				changeSong("menu");
 				break;
 			case "intro":
 				console.log('change screen to Intro');

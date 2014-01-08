@@ -33,25 +33,22 @@ var container;
 
 		this.mask = new createjs.Shape();
 		this.mask.graphics.c();
-		this.mask.graphics.f("rgba(0, 0, 0, .5)");
- 		this.mask.graphics.dr(0, 0, 1328, 264);
+		this.mask.graphics.f("rgba(0, 0, 0, 1)");
+ 		this.mask.graphics.dr(150, 0, 1200, 264);
  		this.mask.graphics.ef();
- 		this.mask.cache(0, 0, 1328, 264);
-		
-		this.maskFilter = new createjs.AlphaMaskFilter(this.mask.cacheCanvas);
-		this.energyBar.filters = [
-			this.maskFilter
- 		];
+ 		this.energyBar.mask = this.mask;
 
 
 
 	}
 	EnergyBar.prototype.updateEnergy = function(energy) {
+
+
+		var currentEnergy = mapNumber(energy,0,10,-1100,0)
+
+		var tween = createjs.Tween.get(this.energyBar,{override:true}).to({x:currentEnergy},500)
+		//this.energyBar.x = -currentEnergy;
 		
-		var currentEnergy = mapNumber(energy,0,10,1100,0)
-		this.energyBar.x = -currentEnergy;
-
-
 
 	};
 	function mapNumber (x,in_min,in_max,out_min,out_max){
