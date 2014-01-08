@@ -462,11 +462,3 @@ var priceScreen;
 
 	return Game;
 })()
-
-
-
-	
-		
-
-	
-
