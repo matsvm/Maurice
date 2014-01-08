@@ -1,12 +1,14 @@
 var ToolBar = (function(){
 
+	this.soundBtn;
+
 	function ToolBar(){
 		this.counter = 0;
 		this.container = new createjs.Container();
 		this.width = window.innerWidth;
 		this.height = window.innerHeight;
 		this.scale = this.height/1875;
-		this.container.scaleX = this.container.scaleY = this.scale
+		this.container.scaleX = this.container.scaleY = this.scale;
 
 		this.levelText = new createjs.Text();
 
@@ -65,8 +67,32 @@ var ToolBar = (function(){
 		this.pauzeButton.y = 520;
 
 		this.pauzeButton.addEventListener('rollover',function(){ this.pauzeButton.cursor = "pointer"; });
-		this.pauzeButton.addEventListener('click',function(){ dispatchEvent(new Event("pauzeGame"),true); });
-		
+		this.pauzeButton.addEventListener('click',function(){
+			console.log('[ToolBar] Click');
+			dispatchEvent(new Event("pauzeGame"),true);
+		})
+
+		/* MUSICBUTTON */
+		this.soundBtnSheet = new createjs.SpriteSheet({
+			images:["./assets/btn_geluid.png"], 
+			frames:{width:192, height:192},
+			animations: {musicoff:0, musicon:1},
+			count:2
+		});
+		this.soundBtn = new createjs.Sprite(this.soundBtnSheet);
+		this.soundBtn.gotoAndStop("musicoff");
+		this.soundBtn.x = 180;
+		this.soundBtn.y = 300;
+
+		this.soundBtn.addEventListener('rollover',function(){ this.soundBtn.cursor = "pointer"; });
+		this.soundBtn.addEventListener('click',function(evt){
+			//console.log( evt.target.cu );
+			if( evt.target.currentAnimation == "musicon" ){evt.target.gotoAndStop("musicoff")}else{evt.target.gotoAndStop("musicon")}
+			dispatchEvent(new Event("musicMaestro"),true);
+		})
+
+		/* ALLES TOEVOEGEN */
+		this.container.addChild(this.soundBtn);
 		this.container.addChild(this.bugs);
 		this.container.addChild(this.levelText);
 		this.container.addChild(this.clockText);
@@ -80,8 +106,6 @@ var ToolBar = (function(){
 		this.clockText.text = this.calculateTime(this.counter);
 
 		if(this.bugCountChanged) {
-			console.log("bugs changed");
-			console.log("bugs"+this.bugCount);
 			this.bugs.gotoAndStop("bugs"+this.bugCount);
 			this.bugCountChanged = false;
 		}

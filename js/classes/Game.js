@@ -137,6 +137,7 @@ var progress;
 		var rows;
 		var cols;
 		var toolBar;
+		var pauzeContainer, pauzeScherm;
 
 		console.log("Game Started");
 		boxes = [];
@@ -171,6 +172,7 @@ var progress;
 		ticker = createjs.Ticker;
 		ticker.setFPS(30);
 		ticker.addEventListener("tick",update);
+		
 
 		window.onkeyup = keyup;
 		window.onkeydown = keydown;
@@ -179,13 +181,58 @@ var progress;
 		stage.addChild(toolBar.container);
 		stage.addChild(energyBar.container);
 
-		this.addEventListener('pauzeGame',pauzeerGame);
+		/* PAUZEREN */
+		this.addEventListener('pauzeGame',function(){
 
-		function update(){
-		energyBar.updateEnergy(player.speed);
+			this.pauzeContainer = new createjs.Container();
+			this.scale = window.innerHeight/1875;
+			this.pauzeContainer.scaleX = this.pauzeContainer.scaleY = this.scale;
+			this.pauzeContainer.x =window.innerWidth/2;
+			this.pauzeContainer.regX =4167/2;
+			this.pauzeContainer.name = "pauzeContainer";
+		
+			this.pauzeScherm = new createjs.Bitmap("assets/bg_pauze.png");
+			
+			this.unPauzeBtn = new createjs.Bitmap("assets/btn_continue.png");
+			this.unPauzeBtn.x = 1030;
+			this.unPauzeBtn.y = 435;
 
-//			console.log(player.speed);
-				// om x aantal ticks gaat de snelheid van maurice naar beneden
+			this.unPauzeBtn.addEventListener('rollover',function(){
+				this.unPauzeBtn.cursor = "pointer";
+			})
+			this.unPauzeBtn.addEventListener('click',function(){
+				console.log("unpause please");
+				ticker.setPaused(false);	
+			})
+
+			this.pauzeContainer.addChild(this.pauzeScherm);
+			this.pauzeContainer.addChild(this.unPauzeBtn);
+			stage.addChild(this.pauzeContainer);
+			
+			ticker.setPaused(true);
+		})
+
+		
+
+		function update(event){
+			
+			if(event.paused){
+
+				stage.update();
+				
+				if( ticker.getTicks()%1000 == 0 ){
+					ticker.setPaused(false);
+				}
+				return;
+			
+			}else{
+
+
+				for(var i = 0; i < stage.children.length; i++){
+					if(stage.children[i].name == "pauzeContainer") stage.removeChild(this.pauzeContainer);
+				}
+				energyBar.updateEnergy(player.speed);
+
 				if( ticker.getTicks()%30 == 0 ){
 					if (player.speed > 0.1 ){
 						player.speed -= 0.1;	
@@ -274,6 +321,7 @@ var progress;
 				stage.update();
 				//dispatchEvent(new Event('updateStage'))
 			}
+		}
 
 			function keyup(e){
 				keys[e.keyCode] = false;
@@ -374,9 +422,6 @@ var progress;
 		});
 	}
 
-	function pauzeerGame(){
-
-	}
 
 	return Game;
 })()

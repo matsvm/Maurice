@@ -3,6 +3,8 @@
 	var oldScreen, currentScreen,ticker;
 	var firstTime = true;
 	var progress = {};
+	var instance;
+	var isPlaying;
 	function init(){
 
 				
@@ -16,11 +18,8 @@
 		}else{
 			console.log("new user");
 		}
-<<<<<<< HEAD
 		progress.currentlvl = 1;
-=======
 //			progress.currentlvl = 3;
->>>>>>> 7f8336401ed0bd9d6d342e8859458e0b9e4f307a
 
 		var canvas = document.getElementById("cnvs");
 		canvas.width = window.innerWidth;
@@ -30,6 +29,8 @@
 		width = stage.canvas.width;						// om mee te geven aan World, om player te volgen
 		height = stage.canvas.height;
 		stage.enableMouseOver();
+
+		isPlaying = false;
 
 		ticker = createjs.Ticker;
 		ticker.setFPS(60);
@@ -78,6 +79,13 @@
 			//console.log(stage);
 			changeSong("ingame");
 		})
+
+		/* MUZIEKKNOP (VANUIT DE TOOLBAR) BEHEERSEN */	
+		this.addEventListener('musicMaestro',function(){
+			isPlaying = !isPlaying;
+			console.log("muziek speelt: " + isPlaying);
+			if(isPlaying){instance.stop();}else{instance.play();}
+		});
 		
 	}		
 
