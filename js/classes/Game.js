@@ -120,6 +120,7 @@ var progress;
 		var timer = setInterval(function(){console.log(counter);counter ++},1000);
 
 		container.removeChild(progressScreen);
+		dispatchEvent(new Event("GameStarted"),true);
 		var boxes, stage, player, width, height, bugs, platform;
 		var img, maurice;
 		var ticker, keys, world;
