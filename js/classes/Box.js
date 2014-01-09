@@ -1,7 +1,7 @@
 
 var Box = (function(){
 
-	function Box(x, y, width, height, name, data){
+	function Box(x, y, width, height, name){
 
 		this.x = x;
 		this.y = y;
@@ -12,6 +12,14 @@ var Box = (function(){
 		this.shape.x = this.x;
 		this.shape.y = this.y;
 		
+		var data = {
+					images:["./assets/sprites/boxen.png"], 
+					frames:{width:83, height:83},
+					animations: {worm1:0, worm2:1, worm3:2, bug1:3, bug2:4, bug3:5, wormpower:6, empty:7},
+					count:7
+		}
+				
+
 		this.boxSheet = new createjs.SpriteSheet(data);
 		this.box = new createjs.Sprite(this.boxSheet);
 		this.draw();

@@ -6,6 +6,25 @@ var CollisionDetection = (function(){
 		
 	}
 
+	CollisionDetection.gasCollision = function(shapeA,arrayShape){
+
+		var shapeB = arrayShape[0];
+		var vX = (shapeA.x) - (shapeB.x + (shapeB.width/2));
+		var vY = ((shapeA.y-50 + (shapeA.height/2)) - (shapeB.y + (shapeB.height))) + 200;
+
+		var hWidths = (shapeB.width/2);
+		var hHeights = (shapeB.height/2);
+
+		if( Math.abs(vX) < hWidths && Math.abs(vY) < hHeights ){
+			arrayShape[1] = true;
+			return arrayShape;
+		}else{
+			arrayShape[1] = false;
+			return arrayShape;
+		}
+
+	}
+
 	CollisionDetection.checkCollision = function(shapeA,shapeB){
 
 		var vX = (shapeA.x + (shapeA.width/2)) - (shapeB.x + (shapeB.width/2));
@@ -25,7 +44,7 @@ var CollisionDetection = (function(){
 			vY = (shapeA.y-100 + (shapeA.height/2)) - (shapeB.y + (shapeB.height));			//regY is ingesteld op 100
 
 			if(shapeB.name == "rock") vY += 100;
-			if(shapeB.name == "gas") vY += 200;
+			//if(shapeB.name == "gas") vY += 200;
 
 			hWidths = (shapeB.width/2);
 			hHeights = (shapeB.height/2);

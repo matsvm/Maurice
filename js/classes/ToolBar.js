@@ -2,8 +2,10 @@ var ToolBar = (function(){
 
 	this.soundBtn;
 
-	function ToolBar(){
+	function ToolBar(level, punten){
 		this.counter = 0;
+		this.level = level.toString();
+		this.punten = punten.toString();
 		this.container = new createjs.Container();
 		this.width = window.innerWidth;
 		this.height = window.innerHeight;
@@ -19,9 +21,21 @@ var ToolBar = (function(){
 		this.bugCount = 0;
 		this.bugCountChanged = false;
 
-		/* SOUNDBUTTON */
-		
-		
+		/* VOGEL */
+		this.vogelSheet = new createjs.SpriteSheet({
+				"animations":
+				{
+					"panic": [0, 15, "panic"]},
+					"framerate":100,
+					"images": ["./assets/sprites/vogel.png"],
+					"frames":
+						{
+							"height": 717,
+							"width":392
+						}
+				});
+		/* PUNTEN */
+		this.puntenText = new createjs.Text();
 
 		this.container.x = this.width - (377*this.scale)*2;				// 377 = breedte background	
 		this.draw();
@@ -35,7 +49,7 @@ var ToolBar = (function(){
 		/* LEVEL */
 		this.levelText.font = "70px American";
 		this.levelText.color = "#4c4446"; 
-		this.levelText.text = "Level 1";
+		this.levelText.text = "Level " +this.level;
 		this.levelText.textBaseline = "alphabetic";
 		this.levelText.x = 174; 
 		this.levelText.y = 190;
@@ -63,7 +77,7 @@ var ToolBar = (function(){
 
 		/* PAUZEBUTTON */
 		this.pauzeButton = new createjs.Bitmap("assets/btn_pauze.png");
-		this.pauzeButton.x = 140;
+		this.pauzeButton.x = 120;
 		this.pauzeButton.y = 520;
 
 		this.pauzeButton.addEventListener('rollover',function(){ this.pauzeButton.cursor = "pointer"; });
@@ -81,7 +95,7 @@ var ToolBar = (function(){
 		});
 		this.soundBtn = new createjs.Sprite(this.soundBtnSheet);
 		this.soundBtn.gotoAndStop("musicoff");
-		this.soundBtn.x = 180;
+		this.soundBtn.x = 160;
 		this.soundBtn.y = 300;
 
 		this.soundBtn.addEventListener('rollover',function(){ this.soundBtn.cursor = "pointer"; });
@@ -91,7 +105,23 @@ var ToolBar = (function(){
 			dispatchEvent(new Event("musicMaestro"),true);
 		})
 
+		/* PUNTEN */
+		this.puntenText.font = "70px American";
+		this.puntenText.color = "#EEEEEE"; 
+		this.puntenText.text = this.punten + " PTS";
+		this.puntenText.textBaseline = "alphabetic";
+		this.puntenText.x = 174; 
+		this.puntenText.y = 1680;
+
+		/* VOGEL */
+		this.vogel = new createjs.Sprite(this.vogelSheet);
+		this.vogel.gotoAndStop(0);
+		this.vogel.x = 354;
+		this.vogel.y = 0;
+
 		/* ALLES TOEVOEGEN */
+		this.container.addChild(this.vogel);
+		this.container.addChild(this.puntenText);
 		this.container.addChild(this.soundBtn);
 		this.container.addChild(this.bugs);
 		this.container.addChild(this.levelText);

@@ -138,13 +138,20 @@ var progress;
 		var cols;
 		var toolBar;
 		var pauzeContainer, pauzeScherm;
+		var gasBoxesActive, gasBoxes, gasFlag;
 
 		console.log("Game Started");
 		boxes = [];
 		keys = [];
+		gasBoxes = [];
+		gasFlag = false;
+		
 		bugs = 0;
 		var energyBar = new EnergyBar();
 		energyBar.x = window.innerWidth/2;
+		
+		
+		
 
 		var canvas = document.getElementById("cnvs");
 		canvas.width = window.innerWidth;
@@ -153,10 +160,11 @@ var progress;
 		stage = new createjs.Stage("cnvs");
 		width = stage.canvas.width;						// om mee te geven aan World, om player te volgen
 		height = stage.canvas.height;
-		toolBar = new ToolBar();
+		// nog punten uit te lezen
+		toolBar = new ToolBar(progress.currentlvl,7);
 		
 		var wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
-		world = new World(wereldBreedte,2700,1);			//breedte, hoogte, level
+		world = new World(wereldBreedte,2700,progress.currentlvl);			//breedte, hoogte, huidige level
 
 		// marges die je hebt om de wereld te bewegen, is een negatieve waarde
 		world.boundH = -(world.height - height);
@@ -251,21 +259,38 @@ var progress;
 					if(player.angle>215)player.angle --;
 				}
 
-				for(var i = 0; i < boxes.length; i++){
-					returnedBox = CollisionDetection.checkCollision(player, boxes[i]);
-					if(boxes[i].name!='bound'){
-						//console.log("Frame: "+boxes[i].box.currentFrame);
+				/* GASCOLLISION */
+				gasBoxesActive = 0;
+				for(var i = 0; i < gasBoxes.length; i++){
+						gasBox = CollisionDetection.gasCollision(player, gasBoxes[i]);
+						if( gasBox[1] == true){
+							gasBoxesActive++;
+						}
+				}
+				if(gasBoxesActive > 0){
+					if(!gasFlag){
+						gasFlag = true;
+						toolBar.vogel.paused = false;
 					}
+				}else{
+					if(gasFlag){
+						gasFlag = false;
+						toolBar.vogel.gotoAndStop(0);
+					}
+				}
 
+				//* GEWONE COLLISION *//
+				for(var i = 0; i < boxes.length; i++){
+					
+					returnedBox = CollisionDetection.checkCollision(player, boxes[i]);
 					if( typeof(returnedBox) === "object" && returnedBox.name != ""){
 
 						if(returnedBox.name != "bound"){
 							
 							if( returnedBox.box.currentFrame != 7){
-							
 							switch (returnedBox.name){
 								case "worm":
-								if(player.speed <= 0.9) player.speed = 0.9;	
+								player.speed += 1;	
 								returnedBox.box.gotoAndStop("empty");
 								break;
 								case "bug":
@@ -275,7 +300,7 @@ var progress;
 								returnedBox.box.gotoAndStop("empty");
 								break;
 								case "gas":
-								player.speed = 10;
+								console.log("boom!");
 								returnedBox.box.gotoAndStop("empty");
 								break;
 								case "magmagas":
@@ -333,18 +358,13 @@ var progress;
 
 			// uitlezen xml en plaatsen elementen
 			function buildGrid(xml){
+
 				console.log('building grid')
 
 				rows = world.width / gridWidth;
 				cols = world.height / gridHeight;
 
 				var huidigeLvlData;
-				var data = {
-					images:["./assets/sprites/boxen.png"], 
-					frames:{width:83, height:83},
-					animations: {worm1:0, worm2:1, worm3:2, bug1:3, bug2:4, bug3:5, wormpower:6, empty:7},
-					count:7
-				}
 				//console.log(xml);
 				$(xml).find('level').each(function(index, value){
 					//console.log(value);
@@ -362,28 +382,29 @@ var progress;
 
 		 				switch( split[i] ){
 		 					case "w":
-		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "worm", data );
+		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "worm" );
 							break;
 		 					case "-":
 		 					//platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,10 , 10, "box" );
 							break;
 		 					case "b":
-		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "bug", data );
+		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "bug" );
 							break;
 							case "g":
-		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "gas", data );
+							platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "gas" );
+		 					gasBoxes.push(new Array(platform,false));
 							break;
 							case "m":
-		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "magmagas", data );
+		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "magmagas" );
 							break;
 							case "s":
-		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "stone", data );
+		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "stone" );
 							break;
 							case "r":
-		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "rock", data );
+		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "rock" );
 							break;
 							case "c":
-		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "checkpoint", data );
+		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "checkpoint" );
 		 					break;
 
 		 				}
