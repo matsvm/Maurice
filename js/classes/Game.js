@@ -120,10 +120,13 @@ var priceScreen;
 
 	function endLevel(){
 		if(gameEnded==false){
+			console.log("einde van de lvl");
+
 			ticker.removeAllEventListeners();
 			window.clearInterval(timer);
-			stage.removeChild(world.container);
 			stage.removeChild(toolBar.container);
+
+			stage.removeChild(world.container);
 			stage.removeChild(energyBar.container);
 			gameEnded=true;
 
@@ -137,7 +140,7 @@ var priceScreen;
 			progress.currentlvl +=1;
 			document.cookie="progress="+JSON.stringify(progress);
 			stage.addChild(priceScreen.container);
-
+			update();
 			//container.addChild(priceScreen.container);
 
 			//console.log( "einde level bereikt, op naar het volgende" );
@@ -173,7 +176,7 @@ var priceScreen;
 		var rows;
 		var cols;
 
-		var toolBar;
+		
 		var pauzeContainer, pauzeScherm;
 		var gasBoxesActive, gasBoxes, gasFlag;
 
@@ -493,3 +496,11 @@ var priceScreen;
 
 	return Game;
 })()
+
+
+
+	
+		
+
+	
+

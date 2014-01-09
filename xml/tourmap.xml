@@ -1,8 +1,4 @@
 <canvas>
-<<<<<<< HEAD
-	<level layer='1' id='1' x='2220' y='680' maxTime='50'>
-
-=======
 	<level layer='1' id='1' x='2220' y='680'>
 		<line>w - - - - - - b -</line>
 		<line>- b - - b - - w -</line>
@@ -11,14 +7,14 @@
 		<line>- - - w b - - w -</line>
 		<line>w w - - b - - w -</line>
 		<line>w - - - - - - - -</line>
-		<line>- w - - - - - w -</line>
+		<line>- w - - c - - w -</line>
 		<line>- - - - - - - - w</line>
 		<line>- - - - - - - - -</line>
 		<line>- - - w - - - w -</line>
 		<line>w w - - w - - w -</line>
 		<line>- w - - - - - - -</line>
 		<line>- - - w - - - b -</line>
-		<line>- b - - c w g - -</line>
+		<line>- b - - - w g - -</line>
 	</level>
 	<level layer='1' id='2' x='2480' y='750' maxTime='50'>
 		<line>w - - - w - - b -</line>
