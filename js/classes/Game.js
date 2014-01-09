@@ -31,6 +31,8 @@ var bugs;
 var timer;
 var gameEnded=false;
 var priceScreen;
+var savedXml;
+
 	function Game(receivedProgress){
 		console.log("GameKlasse Added");
 		this.container = new createjs.Container()
@@ -42,7 +44,6 @@ var priceScreen;
 		container.scaleX = container.scaleY=this.scale;
 		container.x =window.innerWidth/2;
 		container.regX =4167/2;
-		//console.log(progress);
 		progress=receivedProgress;
 		getXML();
 		this.container.addEventListener("nextLevel",startGame);
@@ -118,6 +119,54 @@ var priceScreen;
 		
 	}
 
+/*
+	function stopLevel(doneWrong){
+			ticker.removeAllEventListeners();
+			window.clearInterval(timer);
+			stage.removeChild(world.container);
+			//stage.removeChild(toolBar.container);
+			stage.removeChild(energyBar.container);
+			console.log( world );
+			console.log( toolBar );
+			console.log( energyBar );
+			stage.update();
+			
+			console.log( world );
+			console.log( toolBar );
+			console.log( energyBar );
+			stage.autoClear = true; // This must be true to clear the stage.
+			stage.clear();
+			stage.removeAllChildren();
+			stage.removeAllEventListeners();
+			stage.update();
+			
+			console.log('stop het level: ' + doneWrong);
+			window.clearInterval(timer);
+			console.log( stage.getNumChildren() );
+			console.log( stage.children );
+			stage.removeChild(world);
+			//stage.removeAllChildren();
+			
+			//stage.update();
+			console.log( stage.getNumChildren() );
+			console.log( stage.children );
+			console.log( world );
+			console.log( toolBar );
+			console.log( energyBar );
+			ticker.setPaused(true);
+
+			
+
+			this.betweenScreen = new BetweenScreen(doneWrong);
+			stage.addChild(this.betweenScreen.container);
+
+			this.addEventListener('retakeLevel',function(){
+				startGame(savedXml);
+				ticker.setPaused(false);
+			});
+
+	}*/
+
 	function endLevel(){
 		if(gameEnded==false){
 			ticker.removeAllEventListeners();
@@ -160,6 +209,7 @@ var priceScreen;
 
 		container.removeChild(progressScreen);
 		dispatchEvent(new Event("GameStarted"),true);
+
 		var boxes, player, width, height,  platform;
 		var img, maurice;
 		var keys;
@@ -176,6 +226,7 @@ var priceScreen;
 		var toolBar;
 		var pauzeContainer, pauzeScherm;
 		var gasBoxesActive, gasBoxes, gasFlag;
+		var decreaseTicks;								// hoe snel gaat snelheid achteruit: sneller bij stones/rocks
 
 		console.log("Game Started");
 		boxes = [];
@@ -183,48 +234,56 @@ var priceScreen;
 		gasBoxes = [];
 		gasFlag = false;
 		
+		console.log( world );
+			console.log( toolBar );
+			console.log( energyBar );
+
 		bugs = 0;
 		energyBar = new EnergyBar();
 		energyBar.x = window.innerWidth/2;
 		
-		
-		
+		decreaseTicks = 1000;
 
-		var canvas = document.getElementById("cnvs");
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
 
-		stage = new createjs.Stage("cnvs");
+
+		if( ticker == undefined ){
+			console.log('ik maak ticker aan');
+
+			ticker = createjs.Ticker;
+			ticker.setFPS(30);
+			ticker.addEventListener("tick",update);
+			
+			var canvas = document.getElementById("cnvs");
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+			stage = new createjs.Stage("cnvs");
+				
+		}
+		
 		width = stage.canvas.width;						// om mee te geven aan World, om player te volgen
-		height = stage.canvas.height;
-		// nog punten uit te lezen
-		toolBar = new ToolBar(progress.currentlvl,7);
+			height = stage.canvas.height;
+			// nog punten uit te lezen
+			toolBar = new ToolBar(progress.currentlvl,7);
 		
-		var wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
-		world = new World(wereldBreedte,2700,progress.currentlvl);			//breedte, hoogte, huidige level
+			var wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
+			world = new World(wereldBreedte,2700,progress.currentlvl);			//breedte, hoogte, huidige level
 
-		// marges die je hebt om de wereld te bewegen, is een negatieve waarde
-		world.boundH = -(world.height - height);
-		world.boundW = -(world.width - width);	
-		gridWidth = world.width/9;
-		gridHeight = world.height/9;
-		
+			// marges die je hebt om de wereld te bewegen, is een negatieve waarde
+			world.boundH = -(world.height - height);
+			world.boundW = -(world.width - width);	
+			gridWidth = world.width/9;
+			gridHeight = world.height/9;
+
 		buildBounds();
-		
-		//getXML();
 		buildGrid( xml );
-
-		ticker = createjs.Ticker;
-		ticker.setFPS(30);
-		ticker.addEventListener("tick",update);
-		
 
 		window.onkeyup = keyup;
 		window.onkeydown = keydown;
 
-		stage.addChild(world.container);
-		stage.addChild(toolBar.container);
-		stage.addChild(energyBar.container);
+		container.addChild(world.container);
+		container.addChild(toolBar.container);
+		container.addChild(energyBar.container);
+		stage.addChild(container);
 
 		/* PAUZEREN */
 		this.addEventListener('pauzeGame',function(){
@@ -262,17 +321,11 @@ var priceScreen;
 		function update(event){
 			
 			if(event.paused){
-
+				stage.removeChild(world.container);
 				stage.update();
-				
-				if( ticker.getTicks()%1000 == 0 ){
-					ticker.setPaused(false);
-				}
+				console.log( world );
 				return;
-			
 			}else{
-
-
 				for(var i = 0; i < stage.children.length; i++){
 					if(stage.children[i].name == "pauzeContainer") stage.removeChild(this.pauzeContainer);
 				}
@@ -284,7 +337,8 @@ var priceScreen;
 
 					}else{
 						player.speed = 0;
-						player.maurice.gotoAndStop(0);
+						stopLevel("asleep");
+						//player.maurice.gotoAndStop(0);
 					}
 				}
 				
@@ -306,6 +360,7 @@ var priceScreen;
 				}
 				if(gasBoxesActive > 0){
 					if(!gasFlag){
+						console.log();
 						gasFlag = true;
 						toolBar.vogel.paused = false;
 					}
@@ -339,24 +394,27 @@ var priceScreen;
 								case "gas":
 								console.log("boom!");
 								returnedBox.box.gotoAndStop("empty");
+								ticker.removeAllEventListeners();
+								stage.removeAllEventListeners();
+								//stopLevel("boom");
+								dispatchEvent(new Event("boomEnded"),true);
 								break;
 								case "magmagas":
 								player.speed = 10;
 								returnedBox.box.gotoAndStop("empty");
 								break;
-								case "rock":
-								console.log("stuck!");
-								break;
 								case "checkpoint":
 								console.log("checkpoint bereikt");
 								endLevel();
 								break;
+								case "rock":
 								case "stone":
 									if( !flagSpeed ){
+										decreaseTicks = 500;
 										flagSpeed = true;
 										oldSpeed = player.speed;
 									}
-								player.speed = 1;
+									if(returnedBox.name == "stone")player.speed = 1;
 								break;
 							}
 								
@@ -368,6 +426,7 @@ var priceScreen;
 						if( flagSpeed ){
 							flagSpeed = false;
 							player.speed = oldSpeed;
+							decreaseTicks = 1000;
 						}
 					}
 				}
@@ -400,18 +459,7 @@ var priceScreen;
 
 				rows = world.width / gridWidth;
 				cols = world.height / gridHeight;
-
-<<<<<<< HEAD
-				var huidigeLvlData;
-=======
 				
-				var data = {
-					images:["./assets/sprites/boxen.png"], 
-					frames:{width:83, height:83},
-					animations: {worm1:0, worm2:1, worm3:2, bug1:3, bug2:4, bug3:5, wormpower:6, empty:7},
-					count:7
-				}
->>>>>>> e1845f3bfa92bf98da7c482164e3c7134341ba98
 				//console.log(xml);
 				$(xml).find('level').each(function(index, value){
 					//console.log(value);
@@ -478,13 +526,14 @@ var priceScreen;
 				boxes.push( new Bounds(world.width - 1, 0, 1, world.height, "bound") );				//rechts
 			}
 		}
-
+	
 	function getXML(){
 		$.ajax({        	
         	type: "GET",
 			url: "xml/tourmap.xml",
 			dataType: "xml",
 			success: function(xml) {
+				savedXml = xml;
  				addProgressScreen	( xml );
 			}
 		});

@@ -1,36 +1,41 @@
 var IntroScreen = (function(){
 var counter = 1;
 var background;
+
 	function IntroScreen(){
 		console.log("IntroScreen Added");
-		this.container = new createjs.Container()
+		this.container = new createjs.Container();
+		this.scale = window.innerHeight/1875;
+		this.container.scaleX = this.container.scaleY = this.scale;
+		this.container.x =window.innerWidth/2;
+		this.container.regX =4167/2;
+		this.draw();
 
 		this.draw();
 	}
 	IntroScreen.prototype.draw = function() {
 
-		background= new createjs.Bitmap("assets/Intro1.png");
-
-		background.scaleX = background.scaleY= 0.5;
+		var background = new createjs.Bitmap("assets/HomeIntro.png");
 		this.container.addChild(background);
 
-		var btn = new createjs.Bitmap("assets/btnBackground.png");
-		btn.x = 900;
-		btn.y = 76;
-
+		var btn = new createjs.Bitmap("assets/PlayBtn.png");
+		btn.x = 2500;
+		btn.y = 800;
 		btn.addEventListener('rollover',function(){
 			btn.cursor = "pointer";
 		})
-		this.container.addChild(btn);
-
 		btn.addEventListener('click',function(){
+			/*
 			counter++;
 			if(counter<6){
 				dispatchEvent(new Event("updateInfoScreen"),true);	
 				console.log(counter);
 
 			}
+			*/
+			dispatchEvent(new Event("removeIntroScreen"),true);
 		})
+		this.container.addChild(btn);
 	}
 	
 	IntroScreen.prototype.updateInfoScreen = function() {

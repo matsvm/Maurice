@@ -1,26 +1,22 @@
 (function(){
+
 	var stage;
-	var oldScreen, currentScreen,ticker;
+	var oldScreen, currentScreen, ticker;
 	var firstTime = true;
 	var progress = {};
 	var instance;
-	var isPlaying;
+	var isPlaying;	
+	var xml;					
+
 	function init(){
 
-				
 		progress = getCookie('progress');
-		if(progress!=''){
-			console.log("existing user");
+		if(progress!=''){															//bestaande gebruiker
 			firstTime = false;
 			progress = JSON.parse(getCookie('progress'));
-			console.log(progress);
-			//progress.currentStage = document.cookie="username=John Doe";
-		}else{
-			console.log("new user");
+		}else{//Nieuwe gebruiker
 		}
-
 		progress.currentlvl = 1;
-//			progress.currentlvl = 3;
 
 		var canvas = document.getElementById("cnvs");
 		canvas.width = window.innerWidth;
@@ -33,51 +29,57 @@
 
 		isPlaying = false;
 
+		getXML();
+
 		ticker = createjs.Ticker;
-		ticker.setFPS(60);
+		ticker.setFPS(30);
 		ticker.addEventListener("tick",update);
+
 		createjs.Sound.addEventListener("fileload", handleLoadComplete);
 		createjs.Sound.registerSound({src:"assets/music/ingame.mp3|assets/music/ingame.ogg", id:"ingame"});
 		createjs.Sound.registerSound({src:"assets/music/menu.mp3|assets/music/menu.ogg", id:"menu"});
-		function handleLoadComplete(event) {
-			if(event.id == "menu"){
-				changeScreen('welcome');
-
-			}
-
-			console.log(event.src);
-		}
 
 
+		/* STAGE UPDATER */
+		this.addEventListener('updateStage',function(){
+			console.log('[App] update the stage!')
+			update();
+		})
+
+		/* EVENTLISTENERS SCHERMEN */
 		this.addEventListener('removeHomeScreen',function(){
-			console.log('[App] dispatched event received')
 			if(firstTime){
 				changeScreen('intro')
 			}else{
-				changeScreen('Game');
+				//changeScreen('Game');
+				changeScreen('progress');
 			}
-		})
-		
+		});
 		this.addEventListener('removeIntroScreen',function(){
 			console.log('[App] dispatched event received')
 			progress = {'currentlvl':1,'points':0};
 			//progress = JSON.stringify(progress);
 			document.cookie="progress="+JSON.stringify(progress);
-
-			changeScreen('Game');
-		})
+			//changeScreen('Game');
+			changeScreen('progress');
+		});
 		this.addEventListener('updateInfoScreen',function(){
 			console.log('[App] dispatched event received')
 			currentScreen.updateInfoScreen();
-		})
-		this.addEventListener('updateStage',function(){
-			console.log('[App] update the stage!')
-			console.log(stage);
-			update();
-		})
+		});
+		
+
+
+		/* SPELSCHERMEN */
+		this.addEventListener('boomEnded',function(){
+			console.log('[App] dispatched event received - boom')
+			changeScreen('boomEnded');
+		});
+		
+
+		/* SOUND */
 		this.addEventListener('GameStarted',function(){
 			console.log('[App] change song!')
-			//console.log(stage);
 			changeSong("ingame");
 		})
 
@@ -88,7 +90,13 @@
 			if(isPlaying){instance.stop();}else{instance.play();}
 		});
 		
-	}		
+	}	
+
+	function handleLoadComplete(event) {
+			if(event.id == "menu"){
+				changeScreen('welcome');
+			}
+	}	
 
 	function changeSong(song){
 		createjs.Sound.stop();
@@ -101,7 +109,6 @@
 			instance = createjs.Sound.play("menu",createjs.Sound.INTERRUPT_ANY, 0, 0, 1, 1, 0);
 			break;
 		}
-
 	}
 
 	function getCookie(cname){
@@ -117,37 +124,53 @@
 
 	function changeScreen(screenName){
 
-
 		if(currentScreen!=null){
 			oldScreen = currentScreen;
-			console.log(stage);
 			stage.removeChild(oldScreen.container);
-
+			update();
 		}
-		switch(screenName){
+
+		console.log(screenName);
+		switch(screenName){			//boomEnded
 			case "Game":
 				console.log('change screen to Game');
-				//startGame();
-				//console.log(progress);
 				currentScreen = new Game(progress);
-
-				//currentScreen.init();
+				break;
+			case "boomEnded":
+				console.log('change screen to Boom');
+				currentScreen = new BetweenScreen("boom");
+				changeSong("menu");
+				break;
+			case "progress":
+				console.log('change screen to Progress');
+				currentScreen = new ProgressScreen(progress, xml);
+				break;
+			case "intro":
+				console.log('change screen to Intro');
+				currentScreen = new IntroScreen();
 				break;
 			case "welcome":
 				console.log('change screen to Welcome');
 				currentScreen = new WelcomeScreen();
 				changeSong("menu");
 				break;
-			case "intro":
-				console.log('change screen to Intro');
-				currentScreen = new IntroScreen();
-				break;
-
 		}
-		stage.addChild(currentScreen.container);
 
+		stage.addChild(currentScreen.container);
 		update();
 	}
+
+	function getXML(){
+		$.ajax({        	
+        	type: "GET",
+			url: "xml/tourmap.xml",
+			dataType: "xml",
+			success: function(data) {
+				xml = data;
+			}
+		});
+	}
+
 	function update(){
 		stage.update();
 	}

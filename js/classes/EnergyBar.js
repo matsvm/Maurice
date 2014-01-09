@@ -18,12 +18,9 @@ var container;
 		this.container.scaleX = this.container.scaleY = this.scale
 
 		this.draw();
-
-
 	}
 
 	EnergyBar.prototype.draw = function(){
-
 		var background =  new createjs.Bitmap("assets/energyBar/background.png");
 		this.container.addChild(background);
 		this.energyBar =  new createjs.Bitmap("assets/energyBar/worm.png");
@@ -37,9 +34,6 @@ var container;
  		this.mask.graphics.dr(150, 0, 1200, 264);
  		this.mask.graphics.ef();
  		this.energyBar.mask = this.mask;
-
-
-
 	}
 	EnergyBar.prototype.updateEnergy = function(energy) {
 
