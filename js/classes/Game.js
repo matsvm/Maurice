@@ -128,7 +128,7 @@ var Game = (function(){
 
 		if( this.ticks%30 == 0 ){
 			if (player.speed > 0.1 ){
-				player.speed -= 0.3;	
+				player.speed -= 0.2;	
 			}else{
 				player.speed = 0;
 				dispatchEvent(new Event("sleepyEnded"),true);
@@ -186,8 +186,18 @@ var Game = (function(){
 								console.log("boom!");
 								dispatchEvent(new Event("boomEnded"),true);
 								break;
-								case "checkpoint":
-								dispatchEvent(new Event("checkPointReached"),true);
+								case "checkpoint":	
+									var maxTime = $(huidigeLvlData).attr('maxTime');
+									var tijdFactor = (maxTime/counter)
+									console.log(tijdFactor);
+									this.score = Math.floor(tijdFactor*bugs);
+									console.log(this.score);
+									//priceScreen = new PriceScreen(score,progress.points,progress.points+score);
+									this.progress.points +=this.score;
+									this.progress.currentlvl +=1;
+									this.progress.latestPoints = this.score;
+									document.cookie="progress="+JSON.stringify(this.progress);
+									dispatchEvent(new Event("checkPointReached"),true);
 								break;
 								case "rock":
 								case "stone":
@@ -235,27 +245,23 @@ var Game = (function(){
 		energyBar = new EnergyBar();
 		energyBar.x = energyBar.x = window.innerWidth/2;
 		toolBar = new ToolBar(this.progress.currentlvl,7);
-		//toolBar.container.x = window.innerWidth - (785*this.scale);				// 785 = breedte background	
-		this.scale = window.innerHeight/(window.innerHeight-toolBar.height);
-		toolBar.container.scaleX = toolBar.container.scaleY = this.scale;
+
+		//this.scale = toolBar.height/100 * window.innerHeight;
+		//toolBar.container.scaleX = toolBar.container.scaleY = this.scale;
 		toolBar.container.x = window.innerWidth-378;
 		
 		wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
 		world = new World(1728,3239,this.progress.currentlvl);
 		world.boundH = -(world.height - height);
 		world.boundW = -(world.width - width);	
-		gridWidth = world.width/9;
-		gridHeight = world.height/34;
+		gridWidth = world.width/12;
+		gridHeight = world.height/20;
+
 		console.log("breedte wereld: " + world.width);
 		
 		boxes = this.buildBounds();
-		console.log("voor grid");
-		console.log(boxes);
 		this.buildGrid( this.xml );
-		console.log("na grid");
-		toolBar.x=400;
-		console.log(boxes);
-
+		
 		window.onkeyup = this.keyup;
 		window.onkeydown = this.keydown;
 		
