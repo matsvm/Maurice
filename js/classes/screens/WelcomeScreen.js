@@ -7,6 +7,7 @@ var WelcomeScreen = (function(){
 		this.container.scaleX = this.container.scaleY = this.scale;
 		this.container.x =window.innerWidth/2;
 		this.container.regX =4167/2;
+		this.name = "welcome";
 		this.draw();
 	}
 	WelcomeScreen.prototype.draw = function() {
