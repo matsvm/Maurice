@@ -11,51 +11,75 @@ var Box = (function(){
 		this.shape = new createjs.Shape();
 		this.shape.x = this.x;
 		this.shape.y = this.y;
-		
-		var data = {
-					images:["./assets/sprites/boxen.png"], 
-					frames:{width:83, height:83},
-					animations: {worm1:0, worm2:1, worm3:2, bug1:3, bug2:4, bug3:5, wormpower:6, empty:7},
-					count:7
-		}
-				
 
-		this.boxSheet = new createjs.SpriteSheet(data);
-		this.box = new createjs.Sprite(this.boxSheet);
 		this.draw();
-
-
 	}
 
 	Box.prototype.draw = function(){
 
-		this.box.x = this.x + 17;
-		this.box.y = this.y + 17;
-		var random = Math.floor(Math.random() * 3) + 1
 		switch (this.name){
+
 			case "bug":
-			this.box.gotoAndStop("bug" + random);
-			break;
-			case "worm":
-			this.box.gotoAndStop("worm" + random);
-			break;
-			case "gas":
-			this.box.gotoAndStop("wormpower");
-			break;
-			case "magmagas":
-			this.box.gotoAndStop("wormpower");
-			break;
-			case "stone":
-			this.box.gotoAndStop("wormpower");
-			break;
-			case "rock":
-			this.box.gotoAndStop("wormpower");
-			break;
-			case "checkpoint":
-			this.box.gotoAndStop("wormpower");
-			break;
-			}
+			var data = {
+	            images:["./assets/sprites/bugboxes.png"], 
+	            frames:{width:83, height:83},
+	            animations: {bug1:0, bug2:1, bug3:2, bug4:3},
+	            count:4
+	        }
+	        break;
+
+	        case "worm":
+			var data = {
+	            images:["./assets/sprites/wormboxes.png"], 
+	            frames:{width:83, height:83},
+	            animations: {worm1:0, worm2:1, worm3:2, worm4:3},
+	            count:4
+	        }
+	        break;
+
+	        case "gas":
+	        case "checkpoint":
+			var data = {
+	            images:["./assets/sprites/emptyboxes.png"], 
+	            frames:{width:83, height:83},
+	            animations: {empty1:0, empty2:1, empty3:2, empty4:3},
+	            count:4
+	        }
+	        break;
+
+	        case "rock":
+			var data = {
+	            images:["./assets/sprites/rockboxes.png"], 
+	            frames:{width:83, height:83},
+	            animations: {empty1:0, empty2:1, empty3:2, empty4:3},
+	            count:4
+	        }
+	        break;
+
+	        case "stone":
+			var data = {
+	            images:["./assets/sprites/stoneboxes.png"], 
+	            frames:{width:83, height:83},
+	            animations: {empty1:0, empty2:1, empty3:2, empty4:3},
+	            count:4
+	        }
+	        break;
+	    }
+
+	    var random = Math.floor(Math.random() * 2) + 1;    
+		this.boxSheet = new createjs.SpriteSheet(data);
+        this.box = new createjs.Sprite(this.boxSheet);
+		this.box.x = this.x + 17;
+        this.box.y = this.y + 17;
+        this.box.gotoAndStop(random);
+		console.log("huidigeframe");
+        console.log(this.box.currentFrame);
+
 	};
+
+	Box.prototype.random = function(max){
+		var random = Math.floor(Math.random() * max) + 1;
+	}
 	return Box;
 
 })();

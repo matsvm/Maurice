@@ -42,7 +42,6 @@
 
 		/* STAGE UPDATER */
 		this.addEventListener('updateStage',function(){
-
 			console.log('[App] update the stage!')
 			update();
 		})

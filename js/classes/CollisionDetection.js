@@ -10,12 +10,16 @@ var CollisionDetection = (function(){
 
 		var shapeB = arrayShape[0];
 		var vX = (shapeA.x) - (shapeB.x + (shapeB.width/2));
-		var vY = ((shapeA.y-50 + (shapeA.height/2)) - (shapeB.y + (shapeB.height))) + 200;
+		var vY = ((shapeA.y + (shapeA.height/2)) - (shapeB.y + (shapeB.height))) + 200;
 
 		var hWidths = (shapeB.width/2);
 		var hHeights = (shapeB.height/2);
 
-		if( Math.abs(vX) < hWidths && Math.abs(vY) < hHeights ){
+		console.log();
+		if( Math.abs(vX) < hWidths && vY < hHeights ){
+			console.log("vY: " + Math.abs(vY));
+			console.log("hHeights: " + hHeights);
+
 			arrayShape[1] = true;
 			return arrayShape;
 		}else{
@@ -27,6 +31,8 @@ var CollisionDetection = (function(){
 
 	CollisionDetection.checkCollision = function(shapeA,shapeB){
 
+		//console.log(shapeB);
+		//console.log(shapeB.name);
 		var vX = (shapeA.x + (shapeA.width/2)) - (shapeB.x + (shapeB.width/2));
 		var vY = (shapeA.y) - (shapeB.y + (shapeB.height/2));
 
@@ -76,9 +82,7 @@ var CollisionDetection = (function(){
 					
 				}
 			}else{
-				//console.log("[CollisionDetection] Shabe B:"+shapeB.box.currentFrame);
-				if(shapeB.box.currentFrame != 7){				// zorgen dat als holleke empty is controles niet meer worden gedaan	
-				}
+
 			}
 			return shapeB;
 		}

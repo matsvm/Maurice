@@ -131,14 +131,10 @@ var Game = (function(){
 				energyBar.updateEnergy(player.speed);
 
 		if( this.ticks%30 == 0 ){
-			//dispatchEvent(new Event("boomEnded"),true);
 			if (player.speed > 0.1 ){
 				player.speed -= 0.3;	
-
 			}else{
 				player.speed = 0;
-
-
 				dispatchEvent(new Event("sleepyEnded"),true);
 			}
 		}
@@ -153,59 +149,52 @@ var Game = (function(){
 
 				/* GASCOLLISION */
 				gasBoxesActive = 0;
-				//console.log(gasBoxes);
 				for(var i = 0; i < gasBoxes.length; i++){
-						//console.log("controleer gas");
 						gasBox = CollisionDetection.gasCollision(player, gasBoxes[i]);
 						if( gasBox[1] == true){
 							gasBoxesActive++;
-							console.log("er is gas");
 						}
 				}
 				if(gasBoxesActive > 0){
 					if(!gasFlag){
-						console.log("er is geen gas");
 						gasFlag = true;
-						console.log(toolBar.vogel);
 						toolBar.vogel.paused = false;
-						console.log(toolBar.vogel);
 					}
-				}else{
+				}else if(gasBoxesActive == 0){
 					if(gasFlag){
+						console.log("er is geen gas");
 						gasFlag = false;
 						toolBar.vogel.gotoAndStop(0);
 					}
 				}
 
 				//* GEWONE COLLISION *//
+				//console.log( secondBoxes[i] );
 				for(var i = 0; i < secondBoxes.length; i++){
+					//console.log( secondBoxes[i] );
+					//console.log( secondBoxes[i].name );
 					returnedBox = CollisionDetection.checkCollision(player, secondBoxes[i]);
 					if( typeof(returnedBox) === "object" && returnedBox.name != ""){
-						console.log(returnedBox.name);
 						if(returnedBox.name != "bound"){
 							
-							if( returnedBox.box.currentFrame != 7){
+							console.log(returnedBox.sprite);
+							if( returnedBox.box.currentFrame != 3){
 							switch (returnedBox.name){
 								case "worm":
 								player.speed += 1;	
-								returnedBox.box.gotoAndStop("empty");
+								returnedBox.box.gotoAndStop(3);
 								break;
 								case "bug":
 								bugs++;
 								toolBar.bugCount = bugs;
 								toolBar.bugCountChanged = true;
-								returnedBox.box.gotoAndStop("empty");
+								returnedBox.box.gotoAndStop(3);
 								break;
 								case "gas":
 								console.log("boom!");
 								dispatchEvent(new Event("boomEnded"),true);
 								break;
-								case "magmagas":
-								player.speed = 10;
-								returnedBox.box.gotoAndStop("empty");
-								break;
 								case "checkpoint":
-								console.log("checkpoint bereikt");
 								dispatchEvent(new Event("checkPointReached"),true);
 								break;
 								case "rock":
@@ -215,11 +204,13 @@ var Game = (function(){
 										flagSpeed = true;
 										oldSpeed = player.speed;
 									}
-									if(returnedBox.name == "stone")player.speed = 1;
+									if(returnedBox.name == "stone"){
+										player.speed = 1;	
+									}
 								break;
 							}
 								
-						}
+							}
 						}						
 						break;
 					
@@ -312,23 +303,20 @@ var Game = (function(){
 		console.log(huidigeLvlData);
 		var secondGasBoxes = [];
 		$(huidigeLvlData).find('line').each(function(index, value){
-			//console.log("in xml");
-			//console.log(gasBoxes);
 			var split = $(this).text().split(" ");
+			var types = [];
+
 		 	for( var i=0 ; i < split.length ; i++ ){
-		 		//console.log("in loop");
-				//console.log(gasBoxes);
 
 		 		switch( split[i] ){
 		 			case "w":
 		 				platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "worm" );
-						break;
+		 				break;
 		 			case "-":
-		 				//platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,10 , 10, "box" );
-						break;
+		 			break;
 		 			case "b":
 		 				platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "bug" );
-						break;
+		 				break;
 					case "g":
 						platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "gas" );
 						console.log("gasBoxen pushen");
@@ -336,21 +324,35 @@ var Game = (function(){
 						break;
 					case "m":
 		 				platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "magmagas" );
+		 				//world.addChild(platform.wormBox,0);
 						break;
 					case "s":
 		 				platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "stone" );
-						break;
+		 				break;
 					case "r":
 		 				platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "rock" );
-						break;
+		 				break;
 					case "c":
 		 				platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "checkpoint" );
 		 				break;
 		 		}
-		 			world.addChild(platform.box,0);
-					boxes.push(platform);
+		 		console.log(platform.box);
+		 		world.addChild(platform.box);
+		 		console.log(world.container.getNumChildren());
+		 		if(split[i] != "-"){ boxes.push(platform); }
+		 		console.log(boxes.length);
 			}
 		});
+
+		this.boxSheet = new createjs.SpriteSheet({
+				images:["./assets/sprites/wormboxes.png"],
+				frames:{width:83, height:83}
+				//animations:{worm1:0,worm2:1,worm3:2,worm4:3}
+			});
+		this.box = new createjs.Sprite(this.boxSheet, 0);
+		this.box.x = window.width/2;
+		this.box.y = 300;
+		world.addChild(platform.box);
 			
 		player = new Player( Math.round(world.width/2), 0, 173, 203);
 		world.addChild( player.maurice, 0 );
@@ -359,54 +361,10 @@ var Game = (function(){
 		world.oldMidPoint = world.oldPoint;
 
 		secondBoxes = boxes;
-		console.log("grid aangemaakt")
-		console.log( gasBoxes );
+		console.log("grid aangemaakt");
+		console.log(boxes);
 
 	}
-
-
-
-/*
-
-
-
-	
-
-		
-
-		
-		/* PAUZEREN 
-		this.addEventListener('pauzeGame',function(){
-
-			this.pauzeContainer = new createjs.Container();
-			this.scale = window.innerHeight/1875;
-			this.pauzeContainer.scaleX = this.pauzeContainer.scaleY = this.scale;
-			this.pauzeContainer.x =window.innerWidth/2;
-			this.pauzeContainer.regX =4167/2;
-			this.pauzeContainer.name = "pauzeContainer";
-		
-			this.pauzeScherm = new createjs.Bitmap("assets/bg_pauze.png");
-			
-			this.unPauzeBtn = new createjs.Bitmap("assets/btn_continue.png");
-			this.unPauzeBtn.x = 1030;
-			this.unPauzeBtn.y = 435;
-
-			this.unPauzeBtn.addEventListener('rollover',function(){
-				this.unPauzeBtn.cursor = "pointer";
-			})
-			this.unPauzeBtn.addEventListener('click',function(){
-				console.log("unpause please");
-				ticker.setPaused(false);	
-			})
-
-			this.pauzeContainer.addChild(this.pauzeScherm);
-			this.pauzeContainer.addChild(this.unPauzeBtn);
-			stage.addChild(this.pauzeContainer);
-			
-			ticker.setPaused(true);
-		})
-*/
-
 
 	return Game;
 })()

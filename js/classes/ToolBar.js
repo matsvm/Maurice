@@ -26,7 +26,7 @@ var ToolBar = (function(){
 				"animations":
 				{
 					"panic": [0, 15, "panic"]},
-					"framerate":15,
+					"framerate":240,
 					"images": ["./assets/sprites/vogel.png"],
 					"frames":
 						{
