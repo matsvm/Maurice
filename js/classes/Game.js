@@ -170,7 +170,6 @@ var Game = (function(){
 					if( typeof(returnedBox) === "object" && returnedBox.name != ""){
 						if(returnedBox.name != "bound"){
 							
-							console.log(returnedBox.sprite);
 							if( returnedBox.box.currentFrame != 3){
 							switch (returnedBox.name){
 								case "worm":
@@ -237,6 +236,8 @@ var Game = (function(){
 		energyBar.x = energyBar.x = window.innerWidth/2;
 		toolBar = new ToolBar(this.progress.currentlvl,7);
 		//toolBar.container.x = window.innerWidth - (785*this.scale);				// 785 = breedte background	
+		this.scale = window.innerHeight/(window.innerHeight-toolBar.height);
+		toolBar.container.scaleX = toolBar.container.scaleY = this.scale;
 		toolBar.container.x = window.innerWidth-378;
 		
 		wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
@@ -301,7 +302,7 @@ var Game = (function(){
 			var types = [];
 
 		 	for( var i=0 ; i < split.length ; i++ ){
-
+		 		console.log(split[i]);
 		 		switch( split[i] ){
 		 			case "w":
 		 				platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "worm" );

@@ -9,6 +9,9 @@
 	var xml;	
 	var pauseScreen;
 
+	/* PRELOADER */
+	var queue;
+
 	function init(){
 		pauseScreen = new PauseScreen();
 		progress = getCookie('progress');
@@ -246,7 +249,35 @@
 		} 
 	}
 
+	function preload(){
+		var queue = new createjs.LoadQueue(true);
+		queue.loadManifest([
+			"assets/bg/bg_level1.png",
+			"assets/bg/fg_level1.png",
+			"assets/bg_gewonnen.png",
+			"assets/bg_pauze.png",
+			"assets/bg_sleepy.png",
+			"assets/bg_toolbar.png",
+			"assets/ProgressBackground.png",
+			"assets/HomeIntro.png",
+			"assets/Intro1.png",
+			"assets/Intro2.png",
+			]);
+		queue.load();
+		queue.addEventListener("complete", showManifest);
+		queue.addEventListener("progress", showProgress);
+	}
+	
+	function showProgress(evt) {
+		var perc = evt.loaded / evt.total;
+		console.log(Math.ceil(perc*100).toString());
+	}
+	function showManifest() {
+		console.log("Files are loaded");
+		init();
+	} 
 
-	init();
+	preload();
+	//init();
 
 })();

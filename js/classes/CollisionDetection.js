@@ -73,12 +73,14 @@ var CollisionDetection = (function(){
 					}
 				}else{
 					if(vX > 0){	
+						console.log('hop: ' + shapeA.angle);
 						shapeA.x += oX;
 					}else{
+						console.log('hip: ' + shapeA.angle);
 						shapeA.x -= oX;
 					}
 
-					if(shapeB.name == "bound") shapeA.maurice.rotation = 0;
+					if(shapeB.name == "bound") player.angle = 0;
 					
 				}
 			}else{
