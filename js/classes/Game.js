@@ -1,22 +1,6 @@
-/* DEURTIE CODE & BASIS MAAR WERKEND:
-1. INLEZEN XML en AANMAKEN VERSCHILLENDE BLOKJES
-2. OPETEN BLOKJES (EET ZE WEL NI ALTIJD OP)
-3. MASK + VOLGEN PLAYER
-4. VERTRAGEN VELY NA TE WEINIG WORMEN ETEN + UITEINDELIJK IN SLAAP VALLEN
-5. INSTELLEN SNELHEID NA ETEN WORM
-6. SNELLER NA POWERUP
-7. VERZAMELEN BUGS OM POWERUPS TE VERZAMELEN
-
-TODO:
-2. PRINCIPE TIJD + STRAFTIJD (BIJ IN SLAAP VALLEN) ED
-4. PROPER MAKEN CODE DIE NU BIJZONDER VUIL IS
-5. STOPPEN VAN DE MOL EENS HIJ HET EINDE VAN DE 'WORLD' HEEFT BEREIKT
-4. ... EN NOG VEEL MEER :)
-HALLO
-
- */
 
 var Game = (function(){
+
 var progress;
 var container;
 var progressScreen;
@@ -33,89 +17,102 @@ var gameEnded=false;
 var priceScreen;
 var savedXml;
 
-	function Game(receivedProgress){
-		console.log("GameKlasse Added");
-		this.container = new createjs.Container()
-		container = this.container;
-		this.width = window.innerWidth;
-		this.height = window.innerHeight;
-		this.scale = this.height/1875;
+
+	function Game(receivedProgress, receivedXml){
+
+		console.log('[GAME] constructor');
+
+		this.container = new createjs.Container();
+		this.scale = window.innerHeight/1875;
+		this.container.scaleX = this.container.scaleY = this.scale;
+		this.container.x =window.innerWidth/2;
+		this.container.regX =4167/2;
 		
-		container.scaleX = container.scaleY=this.scale;
-		container.x =window.innerWidth/2;
-		container.regX =4167/2;
-		progress=receivedProgress;
-		getXML();
-		this.container.addEventListener("nextLevel",startGame);
+		this.progress = receivedProgress;
+		this.xml = receivedXml;
+		this.name = "game";
 
+		console.log(this.name);
+
+		//this.draw();
+
+		this.container.addEventListener("nextLevel",this.update);
+		//this.container.addEventListener("nextLevel",startGame);
 	}
-	function addProgressScreen(xml){
-		progressScreen = new createjs.Container();
-		var currentP;
-		var tempCont;
-		var background = new createjs.Bitmap("assets/ProgressBackground.png");
-		progressScreen.addChild(background);
 
-		var data = {
-			images:["./assets/sprites/grondsoorten.png"], 
-			frames:{width:117, height:117},
-			animations: {laag1:0, laag2:1, laag3:2, laag4:3, laag5:4, laag6:5}
-		}
+	Game.prototype.update = function(){
+		console.log(update);
+	}
 
-		var grondSheet = new createjs.SpriteSheet(data);
-		console.log(xml)
+	Game.prototype.draw = function(){
+
+		buildGrid(this.xml);
+	}
+
+	function buildGrid(xml){
+
+		console.log('building grid')
+
+		rows = world.width/gridWidth;
+		cols = world.height/gridHeight;
+				
+		console.log(xml);
 		$(xml).find('level').each(function(index, value){
-
-			//console.log($(value).attr("id"));
-			//console.log(progress)
+			
 			var id = $(value).attr("id");
-			var laag = $(value).attr("layer");
-			if(progressScreen.currentlvl>id){
-				console.log("Lvl gepasseerd");
-			}
-			else if(progress.currentlvl == id){
-				console.log("ben op de moment aan deze lvl")
-				var x=$(value).attr("x")
-				var y=$(value).attr("y")
-				tempCont= new createjs.Container();
-				tempCont.regX=3;
-				tempCont.regY= 280;
-
-				currentP = new createjs.Bitmap("assets/progressLVL.png");
-				currentP.x = x;
-				currentP.y = y;
-
-				//currentP.hitArea();
-
-
-				currentP.addEventListener('click',function(){
-					console.log('click');
-					startGame(xml);
-				});	
-				currentP.addEventListener('rollover',function(){
-					currentP.cursor = "pointer";
-				})
-			}else if(progress.currentlvl<id){
-				//console.log('lvl te doen')
-				
-				var grond = new createjs.Sprite(grondSheet);
-				
-				//console.log("laag"+laag);
-				grond.gotoAndStop('laag'+laag);
-				grond.x=$(value).attr("x");
-				grond.y=$(value).attr("y");
-				progressScreen.addChild(grond);
-
-
+			if(this.progress.currentlvl == id){
+				huidigeLvlData=value;
 			}
 		})
-		var overlay  = new createjs.Bitmap("assets/NumberOverlay_wormpjes.png");
-		progressScreen.addChild(overlay);
-		progressScreen.addChild(tempCont);
-		tempCont.addChild(currentP);
-		container.addChild(progressScreen);
-
 		
+		console.log(huidigeLvlData);
+		$(huidigeLvlData).find('line').each(function(index, value){
+
+		 	var split = $(this).text().split(" ");
+		 	for( var i=0 ; i < split.length ; i++ ){
+
+		 		switch( split[i] ){
+		 			case "w":
+		 				platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "worm" );
+						break;
+		 			case "-":
+		 				//platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,10 , 10, "box" );
+						break;
+		 			case "b":
+		 				platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "bug" );
+						break;
+					case "g":
+						platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "gas" );
+		 				gasBoxes.push(new Array(platform,false));
+						break;
+					case "m":
+		 				platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "magmagas" );
+						break;
+					case "s":
+		 				platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "stone" );
+						break;
+					case "r":
+		 				platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "rock" );
+						break;
+					case "c":
+		 				platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "checkpoint" );
+		 				break;
+		 		}
+		 			world.addChild(platform.box,0);
+					boxes.push(platform);
+					
+					dispatchEvent(new Event("updateStage"),true);
+			}
+		});
+
+				player = new Player( Math.round(world.width/2), 0, 173, 203);
+				world.addChild( player.maurice, 0 );
+				world.oldPoint.x = player.x;
+				world.oldPoint.y = player.y;
+				world.oldMidPoint = world.oldPoint;
+
+				
+
 	}
 
 /*
@@ -206,10 +203,9 @@ var savedXml;
 		counter = 0;
 		timer = setInterval(function(){counter ++},1000);
 
-		container.removeChild(progressScreen);
-		dispatchEvent(new Event("GameStarted"),true);
+		//dispatchEvent(new Event("GameStarted"),true);
 
-		var boxes, player, width, height,  platform;
+		var boxes, player, width, height, platform;
 		var img, maurice;
 		var keys;
 		var flagSpeed = false;
@@ -218,7 +214,6 @@ var savedXml;
 
 		var gridHeight;
 		var gridWidth;
-
 		var rows;
 		var cols;
 
@@ -233,32 +228,12 @@ var savedXml;
 		gasBoxes = [];
 		gasFlag = false;
 		
-		console.log( world );
-			console.log( toolBar );
-			console.log( energyBar );
-
 		bugs = 0;
 		energyBar = new EnergyBar();
 		energyBar.x = window.innerWidth/2;
 		
 		decreaseTicks = 1000;
 
-
-
-		if( ticker == undefined ){
-			console.log('ik maak ticker aan');
-
-			ticker = createjs.Ticker;
-			ticker.setFPS(30);
-			ticker.addEventListener("tick",update);
-			
-			var canvas = document.getElementById("cnvs");
-			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight;
-			stage = new createjs.Stage("cnvs");
-				
-		}
-		
 		width = stage.canvas.width;						// om mee te geven aan World, om player te volgen
 			height = stage.canvas.height;
 			// nog punten uit te lezen
@@ -317,7 +292,7 @@ var savedXml;
 
 		
 
-		function update(event){
+		 function updates(){
 			
 			if(event.paused){
 				stage.removeChild(world.container);
@@ -452,72 +427,7 @@ var savedXml;
 			}
 
 			// uitlezen xml en plaatsen elementen
-			function buildGrid(xml){
-
-				console.log('building grid')
-
-				rows = world.width / gridWidth;
-				cols = world.height / gridHeight;
-				
-				//console.log(xml);
-				$(xml).find('level').each(function(index, value){
-					//console.log(value);
-					var id = $(value).attr("id");
-					//console.log(id);
-					if(progress.currentlvl == id){
-						huidigeLvlData=value;
-					}
-				})
-				console.log(huidigeLvlData);
-				$(huidigeLvlData).find('line').each(function(index, value){
-
-		 			var split = $(this).text().split(" ");
-		 			for( var i=0 ; i < split.length ; i++ ){
-
-		 				switch( split[i] ){
-		 					case "w":
-		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "worm" );
-							break;
-		 					case "-":
-		 					//platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,10 , 10, "box" );
-							break;
-		 					case "b":
-		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "bug" );
-							break;
-							case "g":
-							platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "gas" );
-		 					gasBoxes.push(new Array(platform,false));
-							break;
-							case "m":
-		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "magmagas" );
-							break;
-							case "s":
-		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "stone" );
-							break;
-							case "r":
-		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "rock" );
-							break;
-							case "c":
-		 					platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "checkpoint" );
-		 					break;
-
-		 				}
-		 				world.addChild(platform.box,0);
-						boxes.push(platform);
-						stage.update();
-		 			}
-
-				});
-
-				player = new Player( Math.round(world.width/2), 0, 173, 203);
-				world.addChild( player.maurice, 0 );
-				world.oldPoint.x = player.x;
-				world.oldPoint.y = player.y;
-				world.oldMidPoint = world.oldPoint;
-
-				
-
-			}
+			
 
 			function buildBounds(){
 				boxes.push( new Bounds(0, world.height - 1, world.width, 1, "bound") );				//onderaan
@@ -525,18 +435,6 @@ var savedXml;
 				boxes.push( new Bounds(world.width - 1, 0, 1, world.height, "bound") );				//rechts
 			}
 		}
-
-	function getXML(){
-		$.ajax({        	
-        	type: "GET",
-			url: "xml/tourmap.xml",
-			dataType: "xml",
-			success: function(xml) {
-				savedXml = xml;
- 				addProgressScreen	( xml );
-			}
-		});
-	}
 
 
 	return Game;

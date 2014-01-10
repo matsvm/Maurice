@@ -132,9 +132,9 @@
 
 		console.log(screenName);
 		switch(screenName){			//boomEnded
-			case "Game":
+			case "game":
 				console.log('change screen to Game');
-				currentScreen = new Game(progress);
+				currentScreen = new Game(progress, xml);
 				break;
 			case "boomEnded":
 				console.log('change screen to Boom');
@@ -143,7 +143,8 @@
 				break;
 			case "progress":
 				console.log('change screen to Progress');
-				currentScreen = new ProgressScreen(progress, xml);
+				//currentScreen = new ProgressScreen(progress, xml);
+				currentScreen = new Game(progress, xml);
 				break;
 			case "intro":
 				console.log('change screen to Intro');
@@ -173,6 +174,8 @@
 
 	function update(){
 		stage.update();
+		console.log( currentScreen.name );
+		if(currentScreen.name == "game") currentScreen.update();
 	}
 
 
