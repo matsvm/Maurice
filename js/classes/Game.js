@@ -60,6 +60,8 @@ var Game = (function(){
 		/* SETTINGS */
 		gameEnded=false;
 		counter = 0;
+		window.clearInterval(timer);
+
 		timer = setInterval(function(){counter ++},1000);
 		boxes = [];
 		keys = [];
@@ -68,17 +70,17 @@ var Game = (function(){
 		bugs = 0;
 		decreaseTicks = 1000;
 
-		this.container.addEventListener('pauzeGame',function(){
-			console.log('[Game] dispatched event received - en pauzeGame');
-			 window.clearInterval(timer);
-		});	
-		this.container.addEventListener('resumeGame',function(){
-			console.log('[Game] dispatched event received - en resumeGame');
-			timer = setInterval(function(){counter ++},1000);
 
-		});	
 
 	}
+	Game.prototype.pauseTimer = function() {
+		console.log('[Game] dispatched event received - en pauzeGame');
+
+		window.clearInterval(timer);
+	};
+	Game.prototype.resumeTimer = function() {
+		timer = setInterval(function(){counter ++},1000);
+	};
 
 	Game.prototype.update = function(){
 		 //CHEAT
@@ -94,6 +96,7 @@ var Game = (function(){
 					player.speed+=1;
 					shift=false;
 				}
+				break;
 				case 83: 
 					if(gameEnded==false){
 						var maxTime = $(huidigeLvlData).attr('maxTime');

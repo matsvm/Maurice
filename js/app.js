@@ -94,6 +94,7 @@
 			console.log('[App] dispatched event received - en pauzeGame');
 			ticker.setPaused(true);
 			stage.addChild(pauseScreen.container);
+			currentScreen.pauseTimer();
 				
 
 			//changeScreen('paused');
@@ -103,6 +104,7 @@
 			stage.removeChild(pauseScreen.container);
 			//changeScreen('game');
 			ticker.setPaused(false);	
+			currentScreen.resumeTimer();
 
 		});	
 

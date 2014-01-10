@@ -74,7 +74,7 @@ var World = (function(){
 		//console.log(player.x + " - " + player.y);
 		var x = -(player.x - (breedte/2)) + offset;
 		if( x < 0 && x > -(this.width-breedte)) {
-			this.container.x = x + 1440/2;	
+			this.container.x = x + 1728/2;	
 		}
 	};
 
