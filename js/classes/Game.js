@@ -120,18 +120,7 @@ var Game = (function(){
 			}
 		})
 		
-
-
-		//console.log("update begin");
-		//console.log(boxes);
 		this.ticks++;
-		//console.log('update');
-			//if(event.paused){
-			//	stage.removeChild(world.container);
-			//	stage.update();
-		//		console.log( world );
-		//		return;
-		//	}else{
 				for(var i = 0; i < this.container.children.length; i++){
 					if(this.container.children[i].name == "pauzeContainer") this.container.removeChild(this.pauzeContainer);
 				}
@@ -139,8 +128,12 @@ var Game = (function(){
 
 		if( this.ticks%30 == 0 ){
 			if (player.speed > 0.1 ){
+<<<<<<< HEAD
 				player.speed -= 0.2;	
 
+=======
+				player.speed -= 0.3;	
+>>>>>>> 7aae6ca9c65868a0439d4a4c0e86967987171e24
 			}else{
 				player.speed = 0;
 				dispatchEvent(new Event("sleepyEnded"),true);
@@ -177,10 +170,7 @@ var Game = (function(){
 				}
 
 				//* GEWONE COLLISION *//
-				//console.log( secondBoxes[i] );
 				for(var i = 0; i < secondBoxes.length; i++){
-					//console.log( secondBoxes[i] );
-					//console.log( secondBoxes[i].name );
 					returnedBox = CollisionDetection.checkCollision(player, secondBoxes[i]);
 					if( typeof(returnedBox) === "object" && returnedBox.name != ""){
 						if(returnedBox.name != "bound"){
@@ -270,6 +260,7 @@ var Game = (function(){
 		world.boundW = -(world.width - width);	
 		gridWidth = world.width/12;
 		gridHeight = world.height/20;
+
 		console.log("breedte wereld: " + world.width);
 		
 		boxes = this.buildBounds();

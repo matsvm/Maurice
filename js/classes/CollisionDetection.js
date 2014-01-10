@@ -33,7 +33,7 @@ var CollisionDetection = (function(){
 
 		//console.log(shapeB);
 		//console.log(shapeB.name);
-		var vX = (shapeA.x + (shapeA.width/2)) - (shapeB.x + (shapeB.width/2));
+		var vX = (shapeA.x) - (shapeB.x + (shapeB.width/2));
 		var vY = (shapeA.y) - (shapeB.y + (shapeB.height/2));
 
 		// halve breedtes, halve hoogtes
