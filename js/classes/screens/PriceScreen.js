@@ -19,6 +19,9 @@ var PriceScreen = (function(){
 		btn.addEventListener('rollover',function(){
 			btn.cursor = "pointer";
 		})
+		var text = new createjs.Text(score+" punten", "20px Arial", "#ff7700"); 
+		text.x = 100; text.textBaseline = "alphabetic";
+		this.container(text);
 		this.container.addChild(btn);
 
 		btn.addEventListener('click',function(){

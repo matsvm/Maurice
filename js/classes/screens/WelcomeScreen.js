@@ -22,6 +22,8 @@ var WelcomeScreen = (function(){
 			btn.cursor = "pointer";
 		})
 		btn.addEventListener('click',function(){
+			console.log('removeHomeScreen')
+
 			dispatchEvent(new Event("removeHomeScreen"),true);
 		})
 		this.container.addChild(btn);

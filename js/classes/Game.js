@@ -31,7 +31,7 @@ var Game = (function(){
 	var timer;
 	var wereldBreedte
 
-	var gameEnded=false;
+	var gameEnded;
 	var priceScreen;
 	var secondBoxes;
 	var secondGasBoxes;
@@ -47,8 +47,9 @@ var Game = (function(){
 		console.log(this.container.width);
 		this.container.x = 0;
 		//this.container.regX =4167/2;
-		
 		this.progress = receivedProgress;
+		console.log(this.progress);
+
 		this.xml = receivedXml;
 		this.name = "game";
 		this.ticks = 0;
@@ -57,6 +58,7 @@ var Game = (function(){
 		this.draw();
 		
 		/* SETTINGS */
+		gameEnded=false;
 		counter = 0;
 		timer = setInterval(function(){counter ++},1000);
 		boxes = [];
@@ -68,6 +70,39 @@ var Game = (function(){
 	}
 
 	Game.prototype.update = function(){
+		 //CHEAT
+		$(window).keydown(function(e){
+			console.log(e.keyCode);
+			switch(e.keyCode){
+				case 16:
+				shift = true;
+				break;
+
+				case 187:
+				if(shift== true){
+					player.speed+=1;
+					shift=false;
+				}
+				case 91: 
+					if(gameEnded==false){
+						var maxTime = $(huidigeLvlData).attr('maxTime');
+						var tijdFactor = (maxTime/counter)
+						console.log(tijdFactor);
+						var score = Math.floor(tijdFactor*bugs);
+						console.log(score);
+						//priceScreen = new PriceScreen(score,progress.points,progress.points+score);
+						this.progress.points +=score;
+						this.progress.currentlvl +=1;
+						document.cookie="progress="+JSON.stringify(this.progress);
+
+						dispatchEvent(new Event("checkPointReached"),true);
+						gameEnded=true;
+					}
+				break;
+			}
+		})
+		
+
 
 		//console.log("update begin");
 		//console.log(boxes);
@@ -91,6 +126,8 @@ var Game = (function(){
 
 			}else{
 				player.speed = 0;
+
+
 				dispatchEvent(new Event("sleepyEnded"),true);
 			}
 		}
@@ -158,7 +195,7 @@ var Game = (function(){
 								break;
 								case "checkpoint":
 								console.log("checkpoint bereikt");
-								endLevel();
+								dispatchEvent(new Event("checkPointReached"),true);
 								break;
 								case "rock":
 								case "stone":
@@ -316,6 +353,8 @@ var Game = (function(){
 
 	}
 
+
+
 /*
 	/*
 	function endLevel(){
@@ -354,22 +393,7 @@ var Game = (function(){
 
 	
 
-		/* CHEAT
-		$(window).keydown(function(e){
-			console.log(e.keyCode);
-			switch(e.keyCode){
-				case 16:
-				shift = true;
-				break;
-
-				case 187:
-				if(shift== true){
-					player.speed+=1;
-					shift=false;
-				}
-			}
-		})
-		*/
+		
 
 		
 		/* PAUZEREN 

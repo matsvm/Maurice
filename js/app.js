@@ -11,12 +11,13 @@
 	function init(){
 
 		progress = getCookie('progress');
+		//console.log(progress);
 		if(progress!=''){															//bestaande gebruiker
 			firstTime = false;
 			progress = JSON.parse(getCookie('progress'));
 		}else{//Nieuwe gebruiker
 		}
-		progress.currentlvl = 1;
+		//progress.currentlvl = 1;
 
 		var canvas = document.getElementById("cnvs");
 		canvas.width = window.innerWidth;
@@ -75,7 +76,12 @@
 		});
 		this.addEventListener('sleepyEnded',function(){
 			console.log('[App] dispatched event received - sleepy')
-			changeScreen('boomEnded');
+			changeScreen('sleepyEnded');
+		});
+
+		this.addEventListener('checkPointReached',function(){
+			console.log('[App] dispatched event received - checkPointReached')
+			changeScreen('checkPointReached');
 		});
 
 		this.addEventListener('retakeLevel',function(){
@@ -90,13 +96,21 @@
 			changeScreen('game');
 			changeSong("ingame");
 		})
+		this.addEventListener('nextLevel',function(){
+			console.log('[App] change song!');
+			progress = JSON.parse(getCookie('progress'));
 
+			changeScreen('game');
+			changeSong("ingame");
+		})
 		/* MUZIEKKNOP (VANUIT DE TOOLBAR) BEHEERSEN */	
 		this.addEventListener('musicMaestro',function(){
 			isPlaying = !isPlaying;
 			console.log("muziek speelt: " + isPlaying);
 			if(isPlaying){instance.stop();}else{instance.play();}
 		});
+
+		
 		
 	}	
 
@@ -150,6 +164,17 @@
 				currentScreen = new BetweenScreen("boom");
 				changeSong("menu");
 				break;
+
+			case "checkPointReached":
+				console.log('change screen to checkPointReached');
+				currentScreen = new BetweenScreen("checkpoint");
+				break;
+
+			case "sleepyEnded":
+				console.log('change screen to sleepyEnded');
+				currentScreen = new BetweenScreen("sleepyEnded");
+				break;
+
 			case "progress":
 				console.log('change screen to Progress');
 				currentScreen = new ProgressScreen(progress, xml);
