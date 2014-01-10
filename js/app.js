@@ -41,8 +41,8 @@
 
 
 		/* STAGE UPDATER */
-		this.addEventListener('updateStage',function(event){
-			
+		this.addEventListener('updateStage',function(){
+
 			console.log('[App] update the stage!')
 			update();
 		})
@@ -165,7 +165,7 @@
 		if(currentScreen!=null){
 			oldScreen = currentScreen;
 			stage.removeChild(oldScreen.container);
-			update();
+			
 		}
 
 		console.log(screenName);
@@ -208,7 +208,7 @@
 		}
 
 		stage.addChild(currentScreen.container);
-		update();
+		
 	}
 
 	function getXML(){
