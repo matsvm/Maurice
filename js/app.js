@@ -29,7 +29,7 @@
 
 		isPlaying = false;
 
-		getXML();
+	
 
 		ticker = createjs.Ticker;
 		ticker.setFPS(30);
@@ -94,7 +94,8 @@
 
 	function handleLoadComplete(event) {
 			if(event.id == "menu"){
-				changeScreen('welcome');
+				getXML();
+				
 			}
 	}	
 
@@ -143,6 +144,7 @@
 				break;
 			case "progress":
 				console.log('change screen to Progress');
+				//console.log(xml);
 				currentScreen = new ProgressScreen(progress, xml);
 				break;
 			case "intro":
@@ -167,6 +169,7 @@
 			dataType: "xml",
 			success: function(data) {
 				xml = data;
+				changeScreen('welcome');
 			}
 		});
 	}
