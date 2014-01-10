@@ -110,11 +110,11 @@
 		createjs.Sound.stop();
 		switch(song){
 			case "ingame":
-			//instance = createjs.Sound.play("ingame");
+			instance = createjs.Sound.play("ingame");
 			break;
 
 			case "menu":
-			//instance = createjs.Sound.play("menu",createjs.Sound.INTERRUPT_ANY, 0, 0, 1, 1, 0);
+			instance = createjs.Sound.play("menu",createjs.Sound.INTERRUPT_ANY, 0, 0, 1, 1, 0);
 			break;
 		}
 	}
