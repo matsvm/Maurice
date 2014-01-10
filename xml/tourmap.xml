@@ -1,17 +1,14 @@
 <canvas>
 	<level layer='1' id='1' x='2220' y='680' maxTime='50'>
 		<line>w - - - - - - - -</line>
-<<<<<<< HEAD
 		<line>- w - - w w - w -</line>
 		<line>- - - w - w - - w</line>
 		<line>- - - - - - - - -</line>
 		<line>- - - w - - - w -</line>
-=======
 		<line>- w - - - - - w -</line>
 		<line>- - - w - w - - w</line>
 		<line>- - - - - - - - -</line>
 		<line>- - - - - - - w -</line>
->>>>>>> e05f7e46795dc163fdc0c14512517a18c1f376f0
 		<line>w w - - - - - w -</line>
 		<line>w - - - - - - - -</line>
 		<line>- w - - - - - w -</line>
@@ -35,11 +32,8 @@
 		<line>w w - - w - - w -</line>
 		<line>- w - - - - - - -</line>
 		<line>- - - w - - - - -</line>
-<<<<<<< HEAD
 		<line>c c c c c c c c -</line>
-=======
 		<line>c c c c c c c c c</line>
->>>>>>> e05f7e46795dc163fdc0c14512517a18c1f376f0
 	</level>
 	<level layer='1' id='2' x='2480' y='750' maxTime='50'>
 		<line>w - - - w - - - -</line>
