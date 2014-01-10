@@ -14,7 +14,7 @@ var World = (function(){
 		this.background = new createjs.Bitmap(bg_path);
 
 		/* voorgrond + pad */
-		var fg_path = "./assets/bg/fg_level" + level + ".png"
+		var fg_path = "./assets/bg/fg_level" + 1 + ".png"
 		this.forground = new createjs.Bitmap(fg_path);
 
 		/* mask */

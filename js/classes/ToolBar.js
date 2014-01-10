@@ -49,7 +49,7 @@ var ToolBar = (function(){
 		this.levelText.color = "#4c4446"; 
 		this.levelText.text = "Level " +this.level;
 		this.levelText.textBaseline = "alphabetic";
-		this.levelText.x = 87; 
+		this.levelText.x = 82; 
 		this.levelText.y = 87;
 
 		/* CLOCK */
@@ -60,7 +60,7 @@ var ToolBar = (function(){
 		this.clockText.text = this.calculateTime(this.counter);
 		this.clockText.textBaseline = "alphabetic";
 		this.clockText.x = 238; 
-		this.clockText.y = 563;
+		this.clockText.y = 560;
 		
 		/* BOKAAL MET BUGS */
 		// Spritesheet
@@ -119,12 +119,13 @@ var ToolBar = (function(){
 
 		/* ALLES TOEVOEGEN */
 		this.container.addChild(this.vogel);
-		this.container.addChild(this.puntenText);
 		this.container.addChild(this.soundBtn);
 		this.container.addChild(this.bugs);
+		
 		this.container.addChild(this.levelText);
 		this.container.addChild(this.clockText);
 		this.container.addChild(this.pauzeButton);
+		this.container.addChild(this.puntenText);
 
 
 	}
