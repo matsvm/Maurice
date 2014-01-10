@@ -10,11 +10,11 @@ var World = (function(){
 		this.container.x = this.width/2;
 
 		/* verborgen achtergrond inladen */
-		var bg_path = "./assets/bg/bg_level" + 1 + ".png"
+		var bg_path = "./assets/bg/bg_level" + level + ".png"
 		this.background = new createjs.Bitmap(bg_path);
 
 		/* voorgrond + pad */
-		var fg_path = "./assets/bg/fg_level" + 1 + ".png"
+		var fg_path = "./assets/bg/fg_level" + level + ".png"
 		this.forground = new createjs.Bitmap(fg_path);
 
 		/* mask */
