@@ -137,7 +137,7 @@ var Game = (function(){
 		if( this.ticks%30 == 0 ){
 			//dispatchEvent(new Event("boomEnded"),true);
 			if (player.speed > 0.1 ){
-				player.speed -= 0.3;	
+				player.speed -= 0.2;	
 
 			}else{
 				player.speed = 0;
@@ -367,50 +367,6 @@ var Game = (function(){
 		console.log( gasBoxes );
 
 	}
-
-
-
-/*
-
-
-
-	
-
-		
-
-		
-		/* PAUZEREN 
-		this.addEventListener('pauzeGame',function(){
-
-			this.pauzeContainer = new createjs.Container();
-			this.scale = window.innerHeight/1875;
-			this.pauzeContainer.scaleX = this.pauzeContainer.scaleY = this.scale;
-			this.pauzeContainer.x =window.innerWidth/2;
-			this.pauzeContainer.regX =4167/2;
-			this.pauzeContainer.name = "pauzeContainer";
-		
-			this.pauzeScherm = new createjs.Bitmap("assets/bg_pauze.png");
-			
-			this.unPauzeBtn = new createjs.Bitmap("assets/btn_continue.png");
-			this.unPauzeBtn.x = 1030;
-			this.unPauzeBtn.y = 435;
-
-			this.unPauzeBtn.addEventListener('rollover',function(){
-				this.unPauzeBtn.cursor = "pointer";
-			})
-			this.unPauzeBtn.addEventListener('click',function(){
-				console.log("unpause please");
-				ticker.setPaused(false);	
-			})
-
-			this.pauzeContainer.addChild(this.pauzeScherm);
-			this.pauzeContainer.addChild(this.unPauzeBtn);
-			stage.addChild(this.pauzeContainer);
-			
-			ticker.setPaused(true);
-		})
-*/
-
 
 	return Game;
 })()
