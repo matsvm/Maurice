@@ -15,7 +15,9 @@ var Game = (function(){
 
 	var toolBar;
 	var pauzeContainer, pauzeScherm;
-	var gasBoxesActive, gasBoxes, gasFlag;
+	var gasBoxesActive;
+	var gasFlag;
+	var gasBoxes;
 	var decreaseTicks;
 	var progress;
 	var container;
@@ -31,6 +33,8 @@ var Game = (function(){
 
 	var gameEnded=false;
 	var priceScreen;
+	var secondBoxes;
+	var secondGasBoxes;
 
 	function Game(receivedProgress, receivedXml){
 
@@ -48,6 +52,7 @@ var Game = (function(){
 		this.xml = receivedXml;
 		this.name = "game";
 		this.ticks = 0;
+		gasBoxes = [];
 
 		this.draw();
 		
@@ -56,7 +61,7 @@ var Game = (function(){
 		timer = setInterval(function(){counter ++},1000);
 		boxes = [];
 		keys = [];
-		gasBoxes = [];
+		
 		gasFlag = false;
 		bugs = 0;
 		decreaseTicks = 1000;
@@ -64,6 +69,8 @@ var Game = (function(){
 
 	Game.prototype.update = function(){
 
+		//console.log("update begin");
+		//console.log(boxes);
 		this.ticks++;
 		//console.log('update');
 			//if(event.paused){
@@ -98,17 +105,22 @@ var Game = (function(){
 
 				/* GASCOLLISION */
 				gasBoxesActive = 0;
+				//console.log(gasBoxes);
 				for(var i = 0; i < gasBoxes.length; i++){
+						//console.log("controleer gas");
 						gasBox = CollisionDetection.gasCollision(player, gasBoxes[i]);
 						if( gasBox[1] == true){
 							gasBoxesActive++;
+							console.log("er is gas");
 						}
 				}
 				if(gasBoxesActive > 0){
 					if(!gasFlag){
-						console.log();
+						console.log("er is geen gas");
 						gasFlag = true;
+						console.log(toolBar.vogel);
 						toolBar.vogel.paused = false;
+						console.log(toolBar.vogel);
 					}
 				}else{
 					if(gasFlag){
@@ -118,11 +130,10 @@ var Game = (function(){
 				}
 
 				//* GEWONE COLLISION *//
-				for(var i = 0; i < boxes.length; i++){
-					
-					returnedBox = CollisionDetection.checkCollision(player, boxes[i]);
+				for(var i = 0; i < secondBoxes.length; i++){
+					returnedBox = CollisionDetection.checkCollision(player, secondBoxes[i]);
 					if( typeof(returnedBox) === "object" && returnedBox.name != ""){
-
+						console.log(returnedBox.name);
 						if(returnedBox.name != "bound"){
 							
 							if( returnedBox.box.currentFrame != 7){
@@ -139,9 +150,6 @@ var Game = (function(){
 								break;
 								case "gas":
 								console.log("boom!");
-								returnedBox.box.gotoAndStop("empty");
-								ticker.removeAllEventListeners();
-								stage.removeAllEventListeners();
 								dispatchEvent(new Event("boomEnded"),true);
 								break;
 								case "magmagas":
@@ -179,7 +187,6 @@ var Game = (function(){
 			// aanpassen van wereld aan positie player
 			// offset kan je visueel mee spelen om dynamiek in beeld te brengen
 			
-			// terug aanzetten straksjes
 			world.followPlayerX(player, wereldBreedte, 0);				//wereldBreedte, andere breedte klopt ni meer
 			world.followPlayerY(player, height, 90);
 
@@ -199,10 +206,7 @@ var Game = (function(){
 		toolBar = new ToolBar(this.progress.currentlvl,7);
 		//toolBar.container.x = window.innerWidth - (785*this.scale);				// 785 = breedte background	
 		toolBar.container.x = window.innerWidth-378;
-		console.log();
-
-
-
+		
 		wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
 		world = new World(1728,3239,this.progress.currentlvl);
 		world.boundH = -(world.height - height);
@@ -212,8 +216,12 @@ var Game = (function(){
 		console.log("breedte wereld: " + world.width);
 		
 		boxes = this.buildBounds();
+		console.log("voor grid");
+		console.log(boxes);
 		this.buildGrid( this.xml );
+		console.log("na grid");
 		toolBar.x=400;
+		console.log(boxes);
 
 		window.onkeyup = this.keyup;
 		window.onkeydown = this.keydown;
@@ -242,7 +250,7 @@ var Game = (function(){
 
 	Game.prototype.buildGrid = function(xml){
 
-		console.log('building grid')
+		console.log(gasBoxes);
 		rows = world.width/gridWidth;
 		cols = world.height/gridHeight;
 		var progressie = this.progress;
@@ -254,10 +262,14 @@ var Game = (function(){
 		})
 		
 		console.log(huidigeLvlData);
+		var secondGasBoxes = [];
 		$(huidigeLvlData).find('line').each(function(index, value){
-
-		 	var split = $(this).text().split(" ");
+			//console.log("in xml");
+			//console.log(gasBoxes);
+			var split = $(this).text().split(" ");
 		 	for( var i=0 ; i < split.length ; i++ ){
+		 		//console.log("in loop");
+				//console.log(gasBoxes);
 
 		 		switch( split[i] ){
 		 			case "w":
@@ -271,6 +283,7 @@ var Game = (function(){
 						break;
 					case "g":
 						platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "gas" );
+						console.log("gasBoxen pushen");
 		 				gasBoxes.push(new Array(platform,false));
 						break;
 					case "m":
@@ -288,8 +301,6 @@ var Game = (function(){
 		 		}
 		 			world.addChild(platform.box,0);
 					boxes.push(platform);
-					
-					dispatchEvent(new Event("updateStage"),true);
 			}
 		});
 			
@@ -298,6 +309,10 @@ var Game = (function(){
 		world.oldPoint.x = player.x;
 		world.oldPoint.y = player.y;
 		world.oldMidPoint = world.oldPoint;
+
+		secondBoxes = boxes;
+		console.log("grid aangemaakt")
+		console.log( gasBoxes );
 
 	}
 

@@ -51,6 +51,8 @@ var CollisionDetection = (function(){
 		}
 			
 		if( Math.abs(vX) < hWidths && Math.abs(vY) < hHeights ){
+
+			console.log("ik sta er bovenop!");
 			
 			if( shapeB.name == "bound" || shapeB.name == "rock" ){
 				var oX = hWidths - Math.abs( vX );

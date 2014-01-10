@@ -31,15 +31,14 @@ var container;
 		this.mask = new createjs.Shape();
 		this.mask.graphics.c();
 		this.mask.graphics.f("rgba(0, 0, 0, 1)");
- 		this.mask.graphics.dr(150, 0, 1200, 264);
+ 		this.mask.graphics.dr(70, 0, 1200, 264);
  		this.mask.graphics.ef();
  		this.energyBar.mask = this.mask;
 	}
 	EnergyBar.prototype.updateEnergy = function(energy) {
 
 
-		var currentEnergy = mapNumber(energy,0,10,-1100,0)
-
+		var currentEnergy = mapNumber(energy,0,10,-500,0)
 		var tween = createjs.Tween.get(this.energyBar,{override:true}).to({x:currentEnergy},500)
 		//this.energyBar.x = -currentEnergy;
 		
