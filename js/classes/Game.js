@@ -76,7 +76,6 @@ var Game = (function(){
 		energyBar = new EnergyBar();
 		energyBar.x = energyBar.x = window.innerWidth/2;
 		toolBar = new ToolBar(this.progress.currentlvl,7);
-
 		var wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
 		world = new World(wereldBreedte,2700,this.progress.currentlvl);
 		world.boundH = -(world.height - height);
@@ -87,7 +86,8 @@ var Game = (function(){
 		boxes = this.buildBounds();
 		console.log( boxes );
 		this.buildGrid( this.xml );
-		
+		toolBar.x=400;
+
 
 		window.onkeyup = this.keyup;
 		window.onkeydown = this.keydown;
@@ -266,84 +266,7 @@ var Game = (function(){
 	
 	function startGame(xml) {
 		//console.log('game started');
-<<<<<<< HEAD
-=======
-		counter = 0;
-		timer = setInterval(function(){counter ++},1000);
 
-		container.removeChild(progressScreen);
-		dispatchEvent(new Event("GameStarted"),true);
-		
-		var shift=false;
-
-		var boxes, player, width, height,  platform;
-		var img, maurice;
-		var keys;
-		var flagSpeed = false;
-		var oldSpeed;
-		var scale;
-
-		var gridHeight;
-		var gridWidth;
-
-		var rows;
-		var cols;
-
-		var toolBar;
-		var pauzeContainer, pauzeScherm;
-		var gasBoxesActive, gasBoxes, gasFlag;
-		var decreaseTicks;								// hoe snel gaat snelheid achteruit: sneller bij stones/rocks
-
-		console.log("Game Started");
-		boxes = [];
-		keys = [];
-		gasBoxes = [];
-		gasFlag = false;
-		
-		console.log( world );
-			console.log( toolBar );
-			console.log( energyBar );
-
-		bugs = 0;
-		energyBar = new EnergyBar();
-		energyBar.x = window.innerWidth/2;
-		
-		decreaseTicks = 1000;
-
-
-		$(window).keydown(function(e){
-			console.log(e.keyCode);
-			switch(e.keyCode){
-				case 16:
-				shift = true;
-				break;
-
-				case 187:
-				if(shift== true){
-					player.speed+=1;
-					shift=false;
-				}
-			}
-		})
-		if( ticker == undefined ){
-			console.log('ik maak ticker aan');
-
-			ticker = createjs.Ticker;
-			ticker.setFPS(30);
-			ticker.addEventListener("tick",update);
-			
-			var canvas = document.getElementById("cnvs");
-			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight;
-			stage = new createjs.Stage("cnvs");
-				
-		}
-		
-		width = stage.canvas.width;						// om mee te geven aan World, om player te volgen
-			height = stage.canvas.height;
-			// nog punten uit te lezen
-			toolBar = new ToolBar(progress.currentlvl,7);
->>>>>>> 42fd4c3c8496ec533ba996d477973b6ad345a2bb
 		
 		/* PAUZEREN */
 		this.addEventListener('pauzeGame',function(){
