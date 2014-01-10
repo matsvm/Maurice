@@ -28,7 +28,7 @@
 		<line>w w - - w - - w -</line>
 		<line>- w - - - - - - -</line>
 		<line>- - - w - - - - -</line>
-		<line>- - - - c w - - -</line>
+		<line>c c c c c c c c c</line>
 	</level>
 	<level layer='1' id='2' x='2480' y='750' maxTime='50'>
 		<line>w - - - w - - - -</line>

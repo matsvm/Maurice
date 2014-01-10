@@ -58,7 +58,7 @@
 		});
 		this.addEventListener('removeIntroScreen',function(){
 			console.log('[App] dispatched event received')
-			progress = {'currentlvl':1,'points':0};
+			progress = {'currentlvl':1,'points':0,'latestPoints':0};
 			//progress = JSON.stringify(progress);
 			document.cookie="progress="+JSON.stringify(progress);
 			//changeScreen('Game');
@@ -83,7 +83,11 @@
 
 		this.addEventListener('checkPointReached',function(){
 			console.log('[App] dispatched event received - checkPointReached')
+			
+			//container.log(score);
 			changeScreen('checkPointReached');
+			currentScreen.checkPointReached();
+
 		});
 
 		this.addEventListener('retakeLevel',function(){
@@ -142,7 +146,7 @@
 		createjs.Sound.stop();
 		switch(song){
 			case "ingame":
-			instance = createjs.Sound.play("ingame");
+			instance = createjs.Sound.play("ingame",createjs.Sound.INTERRUPT_ANY, 0, 0, 1, 1, 0); 
 			break;
 
 			case "menu":

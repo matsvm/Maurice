@@ -13,6 +13,34 @@ var BetweenScreen = (function(){
 
 		console.log('[BetweenScreen] constructor');
 	}
+	BetweenScreen.prototype.checkPointReached = function() {
+		console.log("checkpointReached");
+
+		this.background = new createjs.Bitmap("assets/bg_gewonnen.png");
+
+		var data = JSON.parse(getCookie('progress'));
+		var score = data.latestPoints;
+		console.log(score);
+
+		this.puntenText = new createjs.Text();
+		this.puntenText.font = "150px American";
+		this.puntenText.textAlgin = "center"
+		this.puntenText.color = "#FED214"; 
+		this.puntenText.text = score + " punten";
+		this.puntenText.textBaseline = "alphabetic";
+		this.puntenText.x = 1750; 
+		this.puntenText.y = 400;
+		this.container.addChildAt(this.puntenText)
+		this.retakeBtn.addEventListener('click',function(){
+			console.log("nextLevel please");
+			dispatchEvent(new Event("nextLevel"),true);	
+		})
+		this.container.addChild(this.background);
+		this.container.addChild(this.retakeBtn);
+
+		this.container.addChild(this.puntenText);
+
+	};
 	BetweenScreen.prototype.draw = function() {
 		console.log(this.doneWrong)
 		this.retakeBtn = new createjs.Bitmap("assets/btn_continue.png");
@@ -36,25 +64,16 @@ var BetweenScreen = (function(){
 			case "sleepyEnded":
 			this.background = new createjs.Bitmap("assets/bg_sleepy.png");
 
+			
+			break;
+
+			
+		}
+
 			this.retakeBtn.addEventListener('click',function(){
 				console.log("retake please");
 				dispatchEvent(new Event("retakeLevel"),true);
 			})
-			break;
-
-			case "checkpoint":
-			console.log('checkPointReached')
-			this.background = new createjs.Bitmap("assets/bg_gewonnen.png");
-
-			var progress = JSON.parse(getCookie('progress'));
-			this.retakeBtn.addEventListener('click',function(){
-				console.log("nextLevel please");
-				dispatchEvent(new Event("nextLevel"),true);	
-			})
-			break;
-		}
-
-
 
 		this.container.addChild(this.background);
 		this.container.addChild(this.retakeBtn);

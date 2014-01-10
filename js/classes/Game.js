@@ -85,7 +85,7 @@ var Game = (function(){
 	Game.prototype.update = function(){
 		 //CHEAT
 		$(window).keydown(function(e){
-			console.log(e.keyCode);
+			//console.log(e.keyCode);
 			switch(e.keyCode){
 				case 16:
 				shift = true;
@@ -102,11 +102,12 @@ var Game = (function(){
 						var maxTime = $(huidigeLvlData).attr('maxTime');
 						var tijdFactor = (maxTime/counter)
 						console.log(tijdFactor);
-						var score = Math.floor(tijdFactor*bugs);
-						console.log(score);
+						this.score = Math.floor(tijdFactor*bugs);
+						console.log(this.score);
 						//priceScreen = new PriceScreen(score,progress.points,progress.points+score);
-						this.progress.points +=score;
+						this.progress.points +=this.score;
 						this.progress.currentlvl +=1;
+						this.progress.latestPoints = this.score;
 						document.cookie="progress="+JSON.stringify(this.progress);
 
 						dispatchEvent(new Event("checkPointReached"),true);
