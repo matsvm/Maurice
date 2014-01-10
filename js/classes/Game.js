@@ -47,6 +47,7 @@ var Game = (function(){
 		console.log(this.container.width);
 		this.container.x = 0;
 		//this.container.regX =4167/2;
+
 		this.progress = receivedProgress;
 		console.log(this.progress);
 
@@ -54,7 +55,9 @@ var Game = (function(){
 		this.name = "game";
 		this.ticks = 0;
 		gasBoxes = [];
-
+		if(this.progress.currentlvl>=13){
+			dispatchEvent(new Event('comingSoon'),true);
+		}
 		this.draw();
 		
 		/* SETTINGS */
@@ -308,6 +311,7 @@ var Game = (function(){
 		var progressie = this.progress;
 		$(xml).find('level').each(function(index, value){
 			var id = $(value).attr("id");
+
 			if(progressie.currentlvl == id){
 				huidigeLvlData=value;
 			}
