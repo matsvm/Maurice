@@ -192,7 +192,7 @@ var Game = (function(){
 									var tijdFactor = (maxTime/counter)
 									console.log(tijdFactor);
 									this.score = Math.floor(tijdFactor*10);
-									this.score += Math.floor(tijdFactor*bugs);
+									this.score += Math.floor(10*bugs);
 									console.log(this.score);
 									//priceScreen = new PriceScreen(score,progress.points,progress.points+score);
 									this.progress.points +=this.score;
