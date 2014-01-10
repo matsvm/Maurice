@@ -208,6 +208,8 @@ var savedXml;
 
 		container.removeChild(progressScreen);
 		dispatchEvent(new Event("GameStarted"),true);
+		
+		var shift=false;
 
 		var boxes, player, width, height,  platform;
 		var img, maurice;
@@ -244,7 +246,20 @@ var savedXml;
 		decreaseTicks = 1000;
 
 
+		$(window).keydown(function(e){
+			console.log(e.keyCode);
+			switch(e.keyCode){
+				case 16:
+				shift = true;
+				break;
 
+				case 187:
+				if(shift== true){
+					player.speed+=1;
+					shift=false;
+				}
+			}
+		})
 		if( ticker == undefined ){
 			console.log('ik maak ticker aan');
 
