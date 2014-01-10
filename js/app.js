@@ -6,7 +6,7 @@
 	var progress = {};
 	var instance;
 	var isPlaying;	
-	var xml;					
+	var xml;	
 
 	function init(){
 
@@ -28,8 +28,6 @@
 		stage.enableMouseOver();
 
 		isPlaying = false;
-
-	
 
 		ticker = createjs.Ticker;
 		ticker.setFPS(30);
