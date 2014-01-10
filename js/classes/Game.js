@@ -27,7 +27,6 @@ var Game = (function(){
 	var energyBar;
 	var bugs;
 	var timer;
-	var ticks;
 	var wereldBreedte
 
 	var gameEnded=false;
@@ -40,12 +39,15 @@ var Game = (function(){
 		this.container = new createjs.Container();
 		this.scale = window.innerHeight/1875;
 		this.container.scaleX = this.container.scaleY = this.scale;
-		this.container.x =window.innerWidth/2;
-		this.container.regX =4167/2;
+		this.container.width = window.innerWidth;
+		console.log(this.container.width);
+		this.container.x = 0;
+		//this.container.regX =4167/2;
 		
 		this.progress = receivedProgress;
 		this.xml = receivedXml;
 		this.name = "game";
+		this.ticks = 0;
 
 		this.draw();
 		
@@ -62,7 +64,7 @@ var Game = (function(){
 
 	Game.prototype.update = function(){
 
-		ticks++;
+		this.ticks++;
 		//console.log('update');
 			//if(event.paused){
 			//	stage.removeChild(world.container);
@@ -70,13 +72,13 @@ var Game = (function(){
 		//		console.log( world );
 		//		return;
 		//	}else{
-			console.log(player);
 				for(var i = 0; i < this.container.children.length; i++){
 					if(this.container.children[i].name == "pauzeContainer") this.container.removeChild(this.pauzeContainer);
 				}
 				energyBar.updateEnergy(player.speed);
 
-		if( ticks%30 == 0 ){
+		if( this.ticks%30 == 0 ){
+			//dispatchEvent(new Event("boomEnded"),true);
 			if (player.speed > 0.1 ){
 				player.speed -= 0.1;	
 
@@ -140,7 +142,6 @@ var Game = (function(){
 								returnedBox.box.gotoAndStop("empty");
 								ticker.removeAllEventListeners();
 								stage.removeAllEventListeners();
-								//stopLevel("boom");
 								dispatchEvent(new Event("boomEnded"),true);
 								break;
 								case "magmagas":
@@ -177,8 +178,10 @@ var Game = (function(){
 
 			// aanpassen van wereld aan positie player
 			// offset kan je visueel mee spelen om dynamiek in beeld te brengen
-			world.followPlayerX(player, wereldBreedte, 0);				//wereldBreedte, andere breedte klopt ni meer
-			world.followPlayerY(player, height, 90);
+			
+			// terug aanzetten straksjes
+			//world.followPlayerX(player, wereldBreedte, 0);				//wereldBreedte, andere breedte klopt ni meer
+			//world.followPlayerY(player, height, 90);
 
 			toolBar.update(counter);
 			player.update();
@@ -195,29 +198,24 @@ var Game = (function(){
 		energyBar = new EnergyBar();
 		energyBar.x = energyBar.x = window.innerWidth/2;
 		toolBar = new ToolBar(this.progress.currentlvl,7);
-<<<<<<< HEAD
+		//toolBar.container.x = window.innerWidth - (785*this.scale);				// 785 = breedte background	
+		toolBar.container.x = 2500;
+		console.log();
+
+
 
 		wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
-		console.log(width);
-
-=======
-		var wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
->>>>>>> 87dd56cccb04a3f3e7e81e576fba0dd0e021987b
-		world = new World(wereldBreedte,2700,this.progress.currentlvl);
+		world = new World(5760,10800,this.progress.currentlvl);
 		world.boundH = -(world.height - height);
 		world.boundW = -(world.width - width);	
 		gridWidth = world.width/9;
 		gridHeight = world.height/9;
+		console.log("breedte wereld: " + world.width);
 		
 		boxes = this.buildBounds();
 		this.buildGrid( this.xml );
-<<<<<<< HEAD
-		
-=======
 		toolBar.x=400;
 
-
->>>>>>> 87dd56cccb04a3f3e7e81e576fba0dd0e021987b
 		window.onkeyup = this.keyup;
 		window.onkeydown = this.keydown;
 		
@@ -357,6 +355,7 @@ var Game = (function(){
 
 	}*/
 
+	/*
 	function endLevel(){
 		if(gameEnded==false){
 			ticker.removeAllEventListeners();
@@ -388,56 +387,12 @@ var Game = (function(){
 
 		//container.removeChild(progressScreen);
 		
-	}
+	}*/
 
 
 	
-	function startGame(xml) {
-		//console.log('game started');
-<<<<<<< HEAD
-		counter = 0;
-		timer = setInterval(function(){counter ++},1000);
 
-		container.removeChild(progressScreen);
-		dispatchEvent(new Event("GameStarted"),true);
-		
-		var shift=false;
-
-		var boxes, player, width, height,  platform;
-		var img, maurice;
-		var keys;
-		var flagSpeed = false;
-		var oldSpeed;
-		var scale;
-
-		var gridHeight;
-		var gridWidth;
-
-		var rows;
-		var cols;
-
-		var toolBar;
-		var pauzeContainer, pauzeScherm;
-		var gasBoxesActive, gasBoxes, gasFlag;
-		var decreaseTicks;								// hoe snel gaat snelheid achteruit: sneller bij stones/rocks
-
-		console.log("Game Started");
-		boxes = [];
-		keys = [];
-		gasBoxes = [];
-		gasFlag = false;
-		
-		console.log( world );
-			console.log( toolBar );
-			console.log( energyBar );
-
-		bugs = 0;
-		energyBar = new EnergyBar();
-		energyBar.x = window.innerWidth/2;
-		
-		decreaseTicks = 1000;
-
-
+		/* CHEAT
 		$(window).keydown(function(e){
 			console.log(e.keyCode);
 			switch(e.keyCode){
@@ -452,30 +407,10 @@ var Game = (function(){
 				}
 			}
 		})
-		if( ticker == undefined ){
-			console.log('ik maak ticker aan');
+		*/
 
-			ticker = createjs.Ticker;
-			ticker.setFPS(30);
-			ticker.addEventListener("tick",update);
-			
-			var canvas = document.getElementById("cnvs");
-			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight;
-			stage = new createjs.Stage("cnvs");
-				
-		}
 		
-		width = stage.canvas.width;						// om mee te geven aan World, om player te volgen
-			height = stage.canvas.height;
-			// nog punten uit te lezen
-			toolBar = new ToolBar(progress.currentlvl,7);
-
-=======
-
->>>>>>> 87dd56cccb04a3f3e7e81e576fba0dd0e021987b
-		
-		/* PAUZEREN */
+		/* PAUZEREN 
 		this.addEventListener('pauzeGame',function(){
 
 			this.pauzeContainer = new createjs.Container();
@@ -505,18 +440,7 @@ var Game = (function(){
 			
 			ticker.setPaused(true);
 		})
-
-		
-
-		 function updates(){}
-
-			
-
-			// uitlezen xml en plaatsen elementen
-			
-
-			
-		}
+*/
 
 
 	return Game;

@@ -30,7 +30,7 @@
 		isPlaying = false;
 
 		ticker = createjs.Ticker;
-		ticker.setFPS(30);
+		ticker.setFPS(60);
 		ticker.addEventListener("tick",update);
 
 		createjs.Sound.addEventListener("fileload", handleLoadComplete);
@@ -72,6 +72,11 @@
 		this.addEventListener('boomEnded',function(){
 			console.log('[App] dispatched event received - boom')
 			changeScreen('boomEnded');
+		});
+
+		this.addEventListener('retakeLevel',function(){
+			console.log('[App] dispatched event received - en oppernieuw')
+			changeScreen('game');
 		});
 		
 
@@ -175,7 +180,6 @@
 
 	function update(){
 		stage.update();
-		console.log( currentScreen.name );
 		if(currentScreen.name === "game"){
 			currentScreen.update();	
 		} 

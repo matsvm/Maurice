@@ -14,8 +14,8 @@ var Player = (function(){
 		this.height = height;
 
 		console.log("[PLAYER] constructor");
-		console.log(this.x + " - " + this.y);
-		console.log(this.angle + " - " + this.speed);
+		//console.log(this.x + " - " + this.y);
+		//console.log(this.angle + " - " + this.speed);
 
 		// Spritesheet
 		this.mauriceSheet = new createjs.SpriteSheet({
@@ -23,14 +23,14 @@ var Player = (function(){
 				"animations":
 				{
 					"dig": [0, 23, "dig"]},
-					"framerate":15,
+					"framerate":25,
 					"images": ["./assets/sprites/moldigging.png"],
 					"frames":
 						{
-							"height": 203,
-							"width":173,
-							"regX": 173/2,
-							"regY": 100
+							"height": 423,
+							"width":360,
+							"regX": 360/2,
+							"regY": 200
 						}
 				});
 		this.maurice = new createjs.Sprite(this.mauriceSheet, "dig");
@@ -42,12 +42,6 @@ var Player = (function(){
 Player.prototype.update = function() {
 	this.x -= this.speed * Math.cos(this.angle * Math.PI / 180);
 	this.y -= this.speed * Math.sin(this.angle * Math.PI / 180);
-
-	//console.log(this.x + " - " + this.y);
-
-	//console.log("[PLAYER] update");
-	//console.log(this.x + " - " + this.y);
-	//console.log(this.angle + " - " + this.speed);
 
 	this.maurice.rotation = this.angle - 270;
 	this.maurice.x = this.x;

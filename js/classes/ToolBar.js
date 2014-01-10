@@ -36,8 +36,6 @@ var ToolBar = (function(){
 				});
 		/* PUNTEN */
 		this.puntenText = new createjs.Text();
-
-		this.container.x = this.width - (377*this.scale)*2;				// 377 = breedte background	
 		this.draw();
 	}
 

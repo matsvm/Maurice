@@ -3,11 +3,11 @@ var World = (function(){
 
 	function World(width, height, level){
 		console.log(width);
-		this.width = 1440;
+		this.width = width;
 		this.height = height;
 		this.container = new createjs.Container();
-		this.container.x = width/2;
-		this.container.regX = 1440/2;
+		//this.container.regX = this.width/2;
+		//this.container.x = 0;
 
 		/* verborgen achtergrond inladen */
 		var bg_path = "./assets/bg/bg_level" + 1 + ".png"
@@ -21,9 +21,9 @@ var World = (function(){
 		this.mask = new createjs.Shape();
 		this.mask.graphics.c();
 		this.mask.graphics.f("rgba(0, 0, 0, .5)");
- 		this.mask.graphics.dr(0, 0, 1440, 2700);
+ 		this.mask.graphics.dr(0, 0, this.width, this.height);
  		this.mask.graphics.ef();
- 		this.mask.cache(0, 0, 1440, 2700);
+ 		this.mask.cache(0, 0, this.width, this.height);
 
  		this.container.addChild(this.background, this.forground);
 
@@ -64,14 +64,14 @@ var World = (function(){
         this.oldMidPoint.x = midPoint.x;
         this.oldMidPoint.y = midPoint.y;
 			
-		this.mask.updateCache(0, 0, 1440, 2700);
-		this.forground.updateCache(0, 0, 1440, 2700);
+		this.mask.updateCache(0, 0, this.width, this.height);
+		this.forground.updateCache(0, 0, this.width, this.height);
 	}
 
 	// player, width van onze canvastag, offset = karakter ni perfect in midden
 	World.prototype.followPlayerX = function(player,breedte,offset) {
 
-		console.log(player.x + " - " + player.y);
+		//console.log(player.x + " - " + player.y);
 		var x = -(player.x - (breedte/2)) + offset;
 		if( x < 0 && x > -(this.width-breedte)) {
 			this.container.x = x + 1440/2;	

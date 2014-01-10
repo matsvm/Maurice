@@ -40,11 +40,11 @@ var ProgressScreen = (function(){
 		var tempContainer = new createjs.Container();
 
 		$(this.xml).find('level').each(function(index, value){
-			console.log(progress)
+			//console.log(progress)
 			//console.log(this.container);
 			var id = $(value).attr("id");
 			var laag = $(value).attr("layer");
-			console.log(laag)
+			//console.log(laag)
 
 			if(progress.currentlvl>id){
 				console.log("Lvl gepasseerd");
@@ -87,7 +87,6 @@ var ProgressScreen = (function(){
 		var overlay  = new createjs.Bitmap("assets/NumberOverlay_wormpjes.png");
 		this.container.addChild(overlay);
 		this.container.addChild(btnContainer);
-		//console.log( this.container.getNumChildren() );
 			
 	}
 

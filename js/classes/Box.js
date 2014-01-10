@@ -14,7 +14,7 @@ var Box = (function(){
 		
 		var data = {
 					images:["./assets/sprites/boxen.png"], 
-					frames:{width:83, height:83},
+					frames:{width:172, height:171},
 					animations: {worm1:0, worm2:1, worm3:2, bug1:3, bug2:4, bug3:5, wormpower:6, empty:7},
 					count:7
 		}

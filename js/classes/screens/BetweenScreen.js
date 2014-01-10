@@ -27,7 +27,7 @@ var BetweenScreen = (function(){
 		this.retakeBtn.y = 435;
 
 		this.retakeBtn.addEventListener('rollover',function(){
-			this.unPauzeBtn.cursor = "pointer";
+			this.retakeBtn.cursor = "pointer";
 		})
 		this.retakeBtn.addEventListener('click',function(){
 			console.log("retake please");
