@@ -47,6 +47,7 @@ var Game = (function(){
 		console.log(this.container.width);
 		this.container.x = 0;
 		//this.container.regX =4167/2;
+
 		this.progress = receivedProgress;
 		console.log(this.progress);
 
@@ -54,12 +55,16 @@ var Game = (function(){
 		this.name = "game";
 		this.ticks = 0;
 		gasBoxes = [];
-
+		if(this.progress.currentlvl>=13){
+			dispatchEvent(new Event('comingSoon'),true);
+		}
 		this.draw();
 		
 		/* SETTINGS */
 		gameEnded=false;
 		counter = 0;
+		window.clearInterval(timer);
+
 		timer = setInterval(function(){counter ++},1000);
 		boxes = [];
 		keys = [];
@@ -68,22 +73,22 @@ var Game = (function(){
 		bugs = 0;
 		decreaseTicks = 1000;
 
-		this.container.addEventListener('pauzeGame',function(){
-			console.log('[Game] dispatched event received - en pauzeGame');
-			 window.clearInterval(timer);
-		});	
-		this.container.addEventListener('resumeGame',function(){
-			console.log('[Game] dispatched event received - en resumeGame');
-			timer = setInterval(function(){counter ++},1000);
 
-		});	
 
 	}
+	Game.prototype.pauseTimer = function() {
+		console.log('[Game] dispatched event received - en pauzeGame');
+
+		window.clearInterval(timer);
+	};
+	Game.prototype.resumeTimer = function() {
+		timer = setInterval(function(){counter ++},1000);
+	};
 
 	Game.prototype.update = function(){
 		 //CHEAT
 		$(window).keydown(function(e){
-			console.log(e.keyCode);
+			//console.log(e.keyCode);
 			switch(e.keyCode){
 				case 16:
 				shift = true;
@@ -94,16 +99,18 @@ var Game = (function(){
 					player.speed+=1;
 					shift=false;
 				}
+				break;
 				case 83: 
 					if(gameEnded==false){
 						var maxTime = $(huidigeLvlData).attr('maxTime');
 						var tijdFactor = (maxTime/counter)
 						console.log(tijdFactor);
-						var score = Math.floor(tijdFactor*bugs);
-						console.log(score);
+						this.score = Math.floor(tijdFactor*bugs);
+						console.log(this.score);
 						//priceScreen = new PriceScreen(score,progress.points,progress.points+score);
-						this.progress.points +=score;
+						this.progress.points +=this.score;
 						this.progress.currentlvl +=1;
+						this.progress.latestPoints = this.score;
 						document.cookie="progress="+JSON.stringify(this.progress);
 
 						dispatchEvent(new Event("checkPointReached"),true);
@@ -132,7 +139,12 @@ var Game = (function(){
 
 		if( this.ticks%30 == 0 ){
 			if (player.speed > 0.1 ){
+<<<<<<< HEAD
 				player.speed -= 0.3;	
+=======
+				player.speed -= 0.2;	
+
+>>>>>>> e05f7e46795dc163fdc0c14512517a18c1f376f0
 			}else{
 				player.speed = 0;
 				dispatchEvent(new Event("sleepyEnded"),true);
@@ -295,6 +307,7 @@ var Game = (function(){
 		var progressie = this.progress;
 		$(xml).find('level').each(function(index, value){
 			var id = $(value).attr("id");
+
 			if(progressie.currentlvl == id){
 				huidigeLvlData=value;
 			}

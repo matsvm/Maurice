@@ -57,7 +57,7 @@
 		});
 		this.addEventListener('removeIntroScreen',function(){
 			console.log('[App] dispatched event received')
-			progress = {'currentlvl':1,'points':0};
+			progress = {'currentlvl':1,'points':0,'latestPoints':0};
 			//progress = JSON.stringify(progress);
 			document.cookie="progress="+JSON.stringify(progress);
 			//changeScreen('Game');
@@ -82,7 +82,11 @@
 
 		this.addEventListener('checkPointReached',function(){
 			console.log('[App] dispatched event received - checkPointReached')
+			
+			//container.log(score);
 			changeScreen('checkPointReached');
+			currentScreen.checkPointReached();
+
 		});
 
 		this.addEventListener('retakeLevel',function(){
@@ -93,6 +97,7 @@
 			console.log('[App] dispatched event received - en pauzeGame');
 			ticker.setPaused(true);
 			stage.addChild(pauseScreen.container);
+			currentScreen.pauseTimer();
 				
 
 			//changeScreen('paused');
@@ -102,6 +107,7 @@
 			stage.removeChild(pauseScreen.container);
 			//changeScreen('game');
 			ticker.setPaused(false);	
+			currentScreen.resumeTimer();
 
 		});	
 
@@ -125,7 +131,12 @@
 			if(isPlaying){instance.stop();}else{instance.play();}
 		});
 
-		
+		this.addEventListener('comingSoon',function(){
+			console.log('[App] comming soon!');
+			changeScreen('progress');
+			
+		})
+	
 		
 	}	
 
@@ -139,11 +150,11 @@
 		createjs.Sound.stop();
 		switch(song){
 			case "ingame":
-			instance = createjs.Sound.play("ingame");
+			//instance = createjs.Sound.play("ingame",createjs.Sound.INTERRUPT_ANY, 0, 0, 1, 1, 0); 
 			break;
 
 			case "menu":
-			instance = createjs.Sound.play("menu",createjs.Sound.INTERRUPT_ANY, 0, 0, 1, 1, 0);
+			//instance = createjs.Sound.play("menu",createjs.Sound.INTERRUPT_ANY, 0, 0, 1, 1, 0);
 			break;
 		}
 	}

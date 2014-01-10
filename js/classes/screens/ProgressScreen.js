@@ -49,7 +49,11 @@ var ProgressScreen = (function(){
 			if(progress.currentlvl>id){
 				console.log("Lvl gepasseerd");
 			}
-			else if(progress.currentlvl == id){
+			else if(progress.currentlvl>=13){
+
+				
+			}else if(progress.currentlvl == id){
+			
 
 				var x=$(value).attr("x")
 				var y=$(value).attr("y")
@@ -69,6 +73,7 @@ var ProgressScreen = (function(){
 					dispatchEvent(new Event('GameStarted'),true);
 				});	
 				btnContainer.addChild(btnPlay);	
+			
 				
 			}else if(progress.currentlvl<id){
 				this.sprite = new createjs.Sprite(spriteSheet);
