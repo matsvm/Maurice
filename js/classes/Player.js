@@ -27,10 +27,10 @@ var Player = (function(){
 					"images": ["./assets/sprites/moldigging.png"],
 					"frames":
 						{
-							"height": 423,
-							"width":360,
-							"regX": 360/2,
-							"regY": 200
+							"height": 203,
+							"width":173,
+							"regX": 173/2,
+							"regY": 100
 						}
 				});
 		this.maurice = new createjs.Sprite(this.mauriceSheet, "dig");

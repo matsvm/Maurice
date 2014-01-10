@@ -186,7 +186,7 @@
 		stage.update();
 		console.log("fps: " + ticker.getMeasuredFPS());
 		if(currentScreen.name === "game"){
-			//currentScreen.update();	
+			currentScreen.update();	
 		} 
 	}
 

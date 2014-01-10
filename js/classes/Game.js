@@ -37,8 +37,8 @@ var Game = (function(){
 		console.log('[GAME] constructor');
 
 		this.container = new createjs.Container();
-		this.scale = window.innerHeight/1875;
-		this.container.scaleX = this.container.scaleY = this.scale;
+		//this.scale = window.innerHeight/1875;
+		//this.container.scaleX = this.container.scaleY = this.scale;
 		this.container.width = window.innerWidth;
 		console.log(this.container.width);
 		this.container.x = 0;
@@ -180,8 +180,8 @@ var Game = (function(){
 			// offset kan je visueel mee spelen om dynamiek in beeld te brengen
 			
 			// terug aanzetten straksjes
-			//world.followPlayerX(player, wereldBreedte, 0);				//wereldBreedte, andere breedte klopt ni meer
-			//world.followPlayerY(player, height, 90);
+			world.followPlayerX(player, wereldBreedte, 0);				//wereldBreedte, andere breedte klopt ni meer
+			world.followPlayerY(player, height, 90);
 
 			toolBar.update(counter);
 			player.update();
@@ -198,13 +198,13 @@ var Game = (function(){
 		energyBar.x = energyBar.x = window.innerWidth/2;
 		toolBar = new ToolBar(this.progress.currentlvl,7);
 		//toolBar.container.x = window.innerWidth - (785*this.scale);				// 785 = breedte background	
-		toolBar.container.x = window.innerWidth;
+		toolBar.container.x = window.innerWidth-378;
 		console.log();
 
 
 
 		wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
-		world = new World(5760,10800,this.progress.currentlvl);
+		world = new World(1728,3239,this.progress.currentlvl);
 		world.boundH = -(world.height - height);
 		world.boundW = -(world.width - width);	
 		gridWidth = world.width/9;
@@ -220,7 +220,7 @@ var Game = (function(){
 		
 		this.container.addChild(world.container);
 		this.container.addChild(toolBar.container);
-		//this.container.addChild(energyBar.container);
+		this.container.addChild(energyBar.container);
 	}
 
 	Game.prototype.keyup = function(e){

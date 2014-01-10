@@ -26,12 +26,12 @@ var ToolBar = (function(){
 				"animations":
 				{
 					"panic": [0, 15, "panic"]},
-					"framerate":100,
+					"framerate":15,
 					"images": ["./assets/sprites/vogel.png"],
 					"frames":
 						{
-							"height": 717,
-							"width":392
+							"height": 345,
+							"width":188
 						}
 				});
 		/* PUNTEN */
@@ -45,38 +45,38 @@ var ToolBar = (function(){
 		this.container.addChild(background);	
 
 		/* LEVEL */
-		this.levelText.font = "70px American";
+		this.levelText.font = "34px American";
 		this.levelText.color = "#4c4446"; 
 		this.levelText.text = "Level " +this.level;
 		this.levelText.textBaseline = "alphabetic";
-		this.levelText.x = 174; 
-		this.levelText.y = 190;
+		this.levelText.x = 87; 
+		this.levelText.y = 87;
 
 		/* CLOCK */
-		this.clockText.font = "50px American";
+		this.clockText.font = "24px American";
 		this.clockText.textAlign = "center";
 		this.clockText.color = "#4c4446"; 
 		this.clockText.text = "0";
 		this.clockText.text = this.calculateTime(this.counter);
 		this.clockText.textBaseline = "alphabetic";
-		this.clockText.x = 484; 
-		this.clockText.y = 1166;
+		this.clockText.x = 238; 
+		this.clockText.y = 563;
 		
 		/* BOKAAL MET BUGS */
 		// Spritesheet
 		this.bugSheet = new createjs.SpriteSheet({
 				images:["./assets/sprites/bugs.png"],
-				frames:{width:283, height:430},
+				frames:{width:136, height:207},
 				animations: {bugs12:0, bugs11:1, bugs10:2, bugs9:3, bugs8:4, bugs7:5, bugs6:6, bugs5:7, bugs4:8, bugs3:9, bugs2:10, bugs1:11, bugs0:12}
 		});
 		this.bugs = new createjs.Sprite(this.bugSheet, "bugs0");
-		this.bugs.x = 30;
-		this.bugs.y = 800;
+		this.bugs.x = 15;
+		this.bugs.y = 400;
 
 		/* PAUZEBUTTON */
 		this.pauzeButton = new createjs.Bitmap("assets/btn_pauze.png");
-		this.pauzeButton.x = 120;
-		this.pauzeButton.y = 520;
+		this.pauzeButton.x = 60;
+		this.pauzeButton.y = 260;
 
 		this.pauzeButton.addEventListener('rollover',function(){ this.pauzeButton.cursor = "pointer"; });
 		this.pauzeButton.addEventListener('click',function(){
@@ -87,14 +87,14 @@ var ToolBar = (function(){
 		/* MUSICBUTTON */
 		this.soundBtnSheet = new createjs.SpriteSheet({
 			images:["./assets/btn_geluid.png"], 
-			frames:{width:192, height:192},
+			frames:{width:93, height:93},
 			animations: {musicoff:0, musicon:1},
 			count:2
 		});
 		this.soundBtn = new createjs.Sprite(this.soundBtnSheet);
 		this.soundBtn.gotoAndStop("musicoff");
-		this.soundBtn.x = 160;
-		this.soundBtn.y = 300;
+		this.soundBtn.x = 80;
+		this.soundBtn.y = 150;
 
 		this.soundBtn.addEventListener('rollover',function(){ this.soundBtn.cursor = "pointer"; });
 		this.soundBtn.addEventListener('click',function(evt){
@@ -104,17 +104,17 @@ var ToolBar = (function(){
 		})
 
 		/* PUNTEN */
-		this.puntenText.font = "70px American";
+		this.puntenText.font = "35px American";
 		this.puntenText.color = "#EEEEEE"; 
 		this.puntenText.text = this.punten + " PTS";
 		this.puntenText.textBaseline = "alphabetic";
-		this.puntenText.x = 174; 
-		this.puntenText.y = 1680;
+		this.puntenText.x = 85; 
+		this.puntenText.y = 740;
 
 		/* VOGEL */
 		this.vogel = new createjs.Sprite(this.vogelSheet);
 		this.vogel.gotoAndStop(0);
-		this.vogel.x = 354;
+		this.vogel.x = 177;
 		this.vogel.y = 0;
 
 		/* ALLES TOEVOEGEN */
