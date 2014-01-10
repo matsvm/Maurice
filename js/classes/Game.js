@@ -195,10 +195,14 @@ var Game = (function(){
 		energyBar = new EnergyBar();
 		energyBar.x = energyBar.x = window.innerWidth/2;
 		toolBar = new ToolBar(this.progress.currentlvl,7);
+<<<<<<< HEAD
 
 		wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
 		console.log(width);
 
+=======
+		var wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
+>>>>>>> 87dd56cccb04a3f3e7e81e576fba0dd0e021987b
 		world = new World(wereldBreedte,2700,this.progress.currentlvl);
 		world.boundH = -(world.height - height);
 		world.boundW = -(world.width - width);	
@@ -207,7 +211,13 @@ var Game = (function(){
 		
 		boxes = this.buildBounds();
 		this.buildGrid( this.xml );
+<<<<<<< HEAD
 		
+=======
+		toolBar.x=400;
+
+
+>>>>>>> 87dd56cccb04a3f3e7e81e576fba0dd0e021987b
 		window.onkeyup = this.keyup;
 		window.onkeydown = this.keydown;
 		
@@ -384,6 +394,7 @@ var Game = (function(){
 	
 	function startGame(xml) {
 		//console.log('game started');
+<<<<<<< HEAD
 		counter = 0;
 		timer = setInterval(function(){counter ++},1000);
 
@@ -460,6 +471,9 @@ var Game = (function(){
 			// nog punten uit te lezen
 			toolBar = new ToolBar(progress.currentlvl,7);
 
+=======
+
+>>>>>>> 87dd56cccb04a3f3e7e81e576fba0dd0e021987b
 		
 		/* PAUZEREN */
 		this.addEventListener('pauzeGame',function(){
