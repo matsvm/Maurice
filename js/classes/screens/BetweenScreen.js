@@ -20,7 +20,7 @@ var BetweenScreen = (function(){
 
 		var data = JSON.parse(getCookie('progress'));
 		var score = data.latestPoints;
-		console.log(score);
+		console.log(data);
 
 		this.puntenText = new createjs.Text();
 		this.puntenText.font = "150px American";
@@ -31,9 +31,14 @@ var BetweenScreen = (function(){
 		this.puntenText.x = 1750; 
 		this.puntenText.y = 400;
 		this.container.addChildAt(this.puntenText)
+
 		this.retakeBtn.addEventListener('click',function(){
 			console.log("nextLevel please");
-			dispatchEvent(new Event("nextLevel"),true);	
+			if(data.currentlvl == 13){
+				dispatchEvent(new Event("comingSoon"),true);
+			}else{
+				dispatchEvent(new Event("nextLevel"),true);	
+			}
 		})
 		this.container.addChild(this.background);
 		this.container.addChild(this.retakeBtn);
