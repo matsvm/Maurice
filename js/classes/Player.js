@@ -43,11 +43,11 @@ Player.prototype.update = function() {
 	this.x -= this.speed * Math.cos(this.angle * Math.PI / 180);
 	this.y -= this.speed * Math.sin(this.angle * Math.PI / 180);
 
-	console.log(this.x + " - " + this.y);
+	//console.log(this.x + " - " + this.y);
 
-	console.log("[PLAYER] update");
-	console.log(this.x + " - " + this.y);
-	console.log(this.angle + " - " + this.speed);
+	//console.log("[PLAYER] update");
+	//console.log(this.x + " - " + this.y);
+	//console.log(this.angle + " - " + this.speed);
 
 	this.maurice.rotation = this.angle - 270;
 	this.maurice.x = this.x;

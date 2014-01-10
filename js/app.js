@@ -176,7 +176,9 @@
 	function update(){
 		stage.update();
 		console.log( currentScreen.name );
-		if(currentScreen.name == "game") dispatchEvent(new Event('UpdateGame'),true);
+		if(currentScreen.name === "game"){
+			currentScreen.update();	
+		} 
 	}
 
 
