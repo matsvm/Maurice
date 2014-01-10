@@ -128,9 +128,7 @@ var Game = (function(){
 
 		if( this.ticks%30 == 0 ){
 			if (player.speed > 0.1 ){
-
 				player.speed -= 0.2;	
-
 			}else{
 				player.speed = 0;
 				dispatchEvent(new Event("sleepyEnded"),true);
@@ -172,7 +170,6 @@ var Game = (function(){
 					if( typeof(returnedBox) === "object" && returnedBox.name != ""){
 						if(returnedBox.name != "bound"){
 							
-							console.log(returnedBox.sprite);
 							if( returnedBox.box.currentFrame != 3){
 							switch (returnedBox.name){
 								case "worm":
@@ -248,7 +245,9 @@ var Game = (function(){
 		energyBar = new EnergyBar();
 		energyBar.x = energyBar.x = window.innerWidth/2;
 		toolBar = new ToolBar(this.progress.currentlvl,7);
-		//toolBar.container.x = window.innerWidth - (785*this.scale);				// 785 = breedte background	
+
+		//this.scale = toolBar.height/100 * window.innerHeight;
+		//toolBar.container.scaleX = toolBar.container.scaleY = this.scale;
 		toolBar.container.x = window.innerWidth-378;
 		
 		wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
@@ -261,13 +260,8 @@ var Game = (function(){
 		console.log("breedte wereld: " + world.width);
 		
 		boxes = this.buildBounds();
-		console.log("voor grid");
-		console.log(boxes);
 		this.buildGrid( this.xml );
-		console.log("na grid");
-		toolBar.x=400;
-		console.log(boxes);
-
+		
 		window.onkeyup = this.keyup;
 		window.onkeydown = this.keydown;
 		
@@ -314,7 +308,7 @@ var Game = (function(){
 			var types = [];
 
 		 	for( var i=0 ; i < split.length ; i++ ){
-
+		 		console.log(split[i]);
 		 		switch( split[i] ){
 		 			case "w":
 		 				platform = new Box( i%cols * gridWidth , index%cols * gridHeight ,83 , 83, "worm" );

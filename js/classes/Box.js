@@ -37,7 +37,6 @@ var Box = (function(){
 	        }
 	        break;
 
-	        case "gas":
 	        case "checkpoint":
 			var data = {
 	            images:["./assets/sprites/emptyboxes.png"], 
@@ -47,6 +46,15 @@ var Box = (function(){
 	        }
 	        break;
 
+	        case "gas":
+			var data = {
+	            images:["./assets/sprites/gas.png"], 
+	            frames:{width:83, height:83},
+	            animations: {empty1:0, empty2:1, empty3:2, empty4:3},
+	            count:4
+	        }
+	        break;
+	        
 	        case "rock":
 			var data = {
 	            images:["./assets/sprites/rockboxes.png"], 

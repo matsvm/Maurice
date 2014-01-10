@@ -36,8 +36,6 @@ var container;
  		this.energyBar.mask = this.mask;
 	}
 	EnergyBar.prototype.updateEnergy = function(energy) {
-
-
 		var currentEnergy = mapNumber(energy,0,10,-500,0)
 		var tween = createjs.Tween.get(this.energyBar,{override:true}).to({x:currentEnergy},500)
 		//this.energyBar.x = -currentEnergy;
