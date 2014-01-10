@@ -199,7 +199,7 @@ var Game = (function(){
 		energyBar.x = energyBar.x = window.innerWidth/2;
 		toolBar = new ToolBar(this.progress.currentlvl,7);
 		//toolBar.container.x = window.innerWidth - (785*this.scale);				// 785 = breedte background	
-		toolBar.container.x = 2500;
+		toolBar.container.x = window.innerWidth;
 		console.log();
 
 
@@ -221,7 +221,7 @@ var Game = (function(){
 		
 		this.container.addChild(world.container);
 		this.container.addChild(toolBar.container);
-		this.container.addChild(energyBar.container);
+		//this.container.addChild(energyBar.container);
 	}
 
 	Game.prototype.keyup = function(e){
@@ -244,13 +244,8 @@ var Game = (function(){
 	Game.prototype.buildGrid = function(xml){
 
 		console.log('building grid')
-		console.log(xml);
-
-		
 		rows = world.width/gridWidth;
 		cols = world.height/gridHeight;
-				
-		console.log(xml);
 		var progressie = this.progress;
 		$(xml).find('level').each(function(index, value){
 			var id = $(value).attr("id");
@@ -308,53 +303,6 @@ var Game = (function(){
 	}
 
 /*
-	function stopLevel(doneWrong){
-			ticker.removeAllEventListeners();
-			window.clearInterval(timer);
-			stage.removeChild(world.container);
-			//stage.removeChild(toolBar.container);
-			stage.removeChild(energyBar.container);
-			console.log( world );
-			console.log( toolBar );
-			console.log( energyBar );
-			stage.update();
-			
-			console.log( world );
-			console.log( toolBar );
-			console.log( energyBar );
-			stage.autoClear = true; // This must be true to clear the stage.
-			stage.clear();
-			stage.removeAllChildren();
-			stage.removeAllEventListeners();
-			stage.update();
-			
-			console.log('stop het level: ' + doneWrong);
-			window.clearInterval(timer);
-			console.log( stage.getNumChildren() );
-			console.log( stage.children );
-			stage.removeChild(world);
-			//stage.removeAllChildren();
-			
-			//stage.update();
-			console.log( stage.getNumChildren() );
-			console.log( stage.children );
-			console.log( world );
-			console.log( toolBar );
-			console.log( energyBar );
-			ticker.setPaused(true);
-
-			
-
-			this.betweenScreen = new BetweenScreen(doneWrong);
-			stage.addChild(this.betweenScreen.container);
-
-			this.addEventListener('retakeLevel',function(){
-				startGame(savedXml);
-				ticker.setPaused(false);
-			});
-
-	}*/
-
 	/*
 	function endLevel(){
 		if(gameEnded==false){

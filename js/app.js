@@ -30,7 +30,7 @@
 		isPlaying = false;
 
 		ticker = createjs.Ticker;
-		ticker.setFPS(60);
+		ticker.setFPS(20);
 		ticker.addEventListener("tick",update);
 
 		createjs.Sound.addEventListener("fileload", handleLoadComplete);
@@ -180,6 +180,7 @@
 
 	function update(){
 		stage.update();
+		console.log("fps: " + ticker.getMeasuredFPS());
 		if(currentScreen.name === "game"){
 			currentScreen.update();	
 		} 

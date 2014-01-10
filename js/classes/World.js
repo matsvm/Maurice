@@ -6,8 +6,8 @@ var World = (function(){
 		this.width = width;
 		this.height = height;
 		this.container = new createjs.Container();
-		//this.container.regX = this.width/2;
-		//this.container.x = 0;
+		this.container.regX = this.width/2;
+		this.container.x = this.width/4;
 
 		/* verborgen achtergrond inladen */
 		var bg_path = "./assets/bg/bg_level" + 1 + ".png"
