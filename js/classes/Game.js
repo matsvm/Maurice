@@ -128,12 +128,9 @@ var Game = (function(){
 
 		if( this.ticks%30 == 0 ){
 			if (player.speed > 0.1 ){
-<<<<<<< HEAD
+
 				player.speed -= 0.2;	
 
-=======
-				player.speed -= 0.3;	
->>>>>>> 7aae6ca9c65868a0439d4a4c0e86967987171e24
 			}else{
 				player.speed = 0;
 				dispatchEvent(new Event("sleepyEnded"),true);
