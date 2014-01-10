@@ -1,177 +1,136 @@
 <canvas>
 	<level layer='1' id='1' x='2220' y='680' maxTime='50'>
-		<line>w - - - - - - - -</line>
-<<<<<<< HEAD
-		<line>- w - - w w - w -</line>
-		<line>- - - w - w - - w</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - w - - - w -</line>
-=======
-		<line>- w - - - - - w -</line>
-		<line>- - - w - w - - w</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - - - - - w -</line>
->>>>>>> e05f7e46795dc163fdc0c14512517a18c1f376f0
-		<line>w w - - - - - w -</line>
-		<line>w - - - - - - - -</line>
-		<line>- w - - - - - w -</line>
-		<line>- - - - - - - - w</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - w - - - w -</line>
-		<line>w - - - w - - w -</line>
-		<line>- w - - - - - - -</line>
-		<line>- - - w - - - - -</line>
-		<line>- - - - - - - w -</line>
-		<line>- w - - - - - - w</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - w - - - w -</line>
-		<line>w w - - w - - w -</line>
-		<line>- w - - - - - - -</line>
-		<line>- - - w - - - - -</line>
-		<line>- w - - - - - w -</line>
-		<line>- w - - - - - - w</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - w - - - w -</line>
-		<line>w w - - w - - w -</line>
-		<line>- w - - - - - - -</line>
-		<line>- - - w - - - - -</line>
-<<<<<<< HEAD
-		<line>c c c c c c c c -</line>
-=======
-		<line>c c c c c c c c c</line>
->>>>>>> e05f7e46795dc163fdc0c14512517a18c1f376f0
+		<line>w - - - - - - - - - - -</line>
+		<line>- w - - w w - w - - w -</line>
+		<line>- - - w - w - - w - - w</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - - w - - - w - - w -</line>
+		<line>- w - - - - - w - - w -</line>
+		<line>- - - w - w - - w - - w</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - - - - - - w - - w -</line>
+		<line>w w - - - - - w - - w -</line>
+		<line>w - - - - - - - - - - -</line>
+		<line>- w - - - - - w - - w -</line>
+		<line>- - - - - - - - w - - w</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - - w - - - w - - w -</line>
+		<line>w - - - w - - w - - w -</line>
+		<line>- - - w - - - - - - - -</line>
+		<line>- - - - - - - w - - w -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>c c c c c c c c c c c c</line>
 	</level>
 	<level layer='1' id='2' x='2480' y='750' maxTime='50'>
-		<line>w - - - w - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - w - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>w - - - - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>w - - - w - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - w - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>w - - - - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - w - - - w -</line>
-		<line>w - - - - - - w -</line>
-		<line>- w - - - - - - -</line>
-		<line>- - - w - - - - -</line>
-		<line>- - - - - - c - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - - w - - w - - - - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - w - - - - - - - - -</line>
+		<line>w - - - - - - - - - - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>w - - - - - - w - - - -</line>
+		<line>- - w - - - - - - - - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - - w - - w - - - - -</line>
+		<line>- - - - - - w - - - - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - - - - w - - w - - -</line>
+		<line>w - - - - - - - - - w -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>c c c c c c c c c c c c</line>
 	</level>
 
 	<level layer="1" id="3" x="2735" y="900" maxTime='50'>
-		<line>w - - - w - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- - b - b - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - w - - b - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- b - - - - - - -</line>
-		<line>w - - - - - - - -</line>
-		<line>- - - - - - b - -</line>
-		<line>- b - - - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - w - - - w -</line>
-		<line>w - - - - - - w -</line>
-		<line>- w - - - - - - -</line>
-		<line>- - - w - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- b - - c - b - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - - w - - w - b - - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - w - - b - - - - - -</line>
+		<line>w - - - - - - - - - - -</line>
+		<line>- - - - - - - - b - - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>w - - - - b - w - - - -</line>
+		<line>- - w - - - - - - - - -</line>
+		<line>- b - - - - - - - b - -</line>
+		<line>- - - w - - w - - - - -</line>
+		<line>- - - - - - w - - - - -</line>
+		<line>b - - - - - - - - - - -</line>
+		<line>- - - - - w - - w - - -</line>
+		<line>w - - - b - - - - - w -</line>
+		<line>- - - b - - - - - - - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>c c c c c c c c c c c c</line>
 	</level>
 	<level layer="2" id="4" x="2595" y="1020" maxTime='50'>
-		<line>w - - - w - - - -</line>
-		<line>s s s s s s s s -</line>
-		<line>- s s s s s s s -</line>
-		<line>- s s - - w - - -</line>
-		<line>- - - w - - - - -</line>
-		<line>- - - - s - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>w - - s s s - - -</line>
-		<line>- - - s s s - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>w - - - w - - - -</line>
-		<line>- - w - - - - - -</line>
-		<line>- - - - - s s s -</line>
-		<line>- - - - - s s s -</line>
-		<line>- - - w - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>- - - - - - - - -</line>
-		<line>w - - - - - - - -</line>
-		<line>- - s - - - s - -</line>
-		<line>- - s s - s s - -</line>
-		<line>- - s - s - s - -</line>
-		<line>- - - w - - - w -</line>
-		<line>w - - - - - - w -</line>
-		<line>- w - - - - - - -</line>
-		<line>- - - w - - - - -</line>
-		<line>- - - - - - c - -</line>
+		<line>w - - - - - - - - - - -</line>
+		<line>- s s s w w - w - - w -</line>
+		<line>- s s s s w - - w - - w</line>
+		<line>- - - s s s s - - - - -</line>
+		<line>- - - w - - - w - - w -</line>
+		<line>s s s s s s s s s s s s</line>
+		<line>- - - w - w - - w - - w</line>
+		<line>- - - - - s - s - - - -</line>
+		<line>- - - - - - - s - - w -</line>
+		<line>w w - - - - - w - - w -</line>
+		<line>w - s s s - s - - - - -</line>
+		<line>- w - - - - - w - - w -</line>
+		<line>- - - s s s s - w - - w</line>
+		<line>- s - - - - - - - - - -</line>
+		<line>- s - w - s - w - - w -</line>
+		<line>w s s - w - - w - - w -</line>
+		<line>- - - w - - - - - - - -</line>
+		<line>- - - - - s - w - - w -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>c c c c c c c c c c c c</line>
 	</level>
 	<level layer="2" id="5" x="2250" y="885" maxTime='50'>
-		<line>w - - - w - - - -</line>
-		<line>s s - s s s b s -</line>
-		<line>- s - s s s s s -</line>
-		<line>- s - - - w - - -</line>
-		<line>- - - w - - - - -</line>
-		<line>- - - s s s s - -</line>
-		<line>- - - s - - - - -</line>
-		<line>w - - s s s - - -</line>
-		<line>- - - s s s s - -</line>
-		<line>s s s - - - - - -</line>
-		<line>w s s - w - - - -</line>
-		<line>- s s - - - - - -</line>
-		<line>- s s - - s s s -</line>
-		<line>- s s s - s s s -</line>
-		<line>- - s w - - - - -</line>
-		<line>- - s - s - - - -</line>
-		<line>- - s s s - - - -</line>
-		<line>w - - - - - - - -</line>
-		<line>- - s - s - s - -</line>
-		<line>- - s s - s s - -</line>
-		<line>- - s - s - s - -</line>
-		<line>- - - w - - - w -</line>
-		<line>w - - - - - - w -</line>
-		<line>- w - - - - - - -</line>
-		<line>- - - w - - - - -</line>
-		<line>- - - - - - c - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - s s s s s - - - - -</line>
+		<line>- - s w s s w - b - - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - s s - b - - - - - -</line>
+		<line>w - s w - - - - - - - -</line>
+		<line>- - s s s s s s b s s s</line>
+		<line>- - s - s s s s s s s s</line>
+		<line>w - - - - b - w - - - -</line>
+		<line>- - w - - - - - - - - -</line>
+		<line>- b - s s s s s s b - -</line>
+		<line>- - - w - s s - - - - -</line>
+		<line>- - - - - s s - s s - -</line>
+		<line>b - - - - s - - - - - -</line>
+		<line>- - s s - w - s w - - -</line>
+		<line>w - - - b - - - - - w -</line>
+		<line>- - - b - - - - - - - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>- - - - - - - - - - - -</line>
+		<line>c c c c c c c c c c c c</line>
 	</level>
 	<level layer="2" id="6" x="1870" y="890" maxTime='50'>
-		<line>w - - - w - - - -</line>
-		<line>s s - s s s b s -</line>
-		<line>- s - s s s s s -</line>
-		<line>- s - - - w - - -</line>
-		<line>- - - w - - - - -</line>
-		<line>- b - s s s s - -</line>
-		<line>- - b s - - b - -</line>
-		<line>w - - s s s - - -</line>
-		<line>- - - s s s s - -</line>
-		<line>s s s - - - - - -</line>
-		<line>w s s - w - b - -</line>
-		<line>- b s - - - - - -</line>
-		<line>- s s - - s s s -</line>
-		<line>- s s s - s s s -</line>
-		<line>- b s w - - - - -</line>
-		<line>- - s - s - - - -</line>
-		<line>- - s s s - - - -</line>
-		<line>w - - - - - - - -</line>
-		<line>- b s - s - s - -</line>
-		<line>- - s s - s s - -</line>
-		<line>- - s b s b s - -</line>
-		<line>- - - w - - - w -</line>
-		<line>w - - - - - - w -</line>
-		<line>- w - - - b - - -</line>
-		<line>- - - w - - - - -</line>
-		<line>- - - - - - c - -</line>
+		<line>w - - - w - - w - - - -</line>
+		<line>s s - s s s s s s b s -</line>
+		<line>- s - s s s s s s s s -</line>
+		<line>- s - - - w - - w - - -</line>
+		<line>- - - w - - w - - - - -</line>
+		<line>- b - s s s s s s s - -</line>
+		<line>- - b s - - s - - b - -</line>
+		<line>w - - s s s s s s - - -</line>
+		<line>- - - s s s s s s s - -</line>
+		<line>s s s - - - - - - - - -</line>
+		<line>w s s - w - - w - b - -</line>
+		<line>- b s - - - - - - - - -</line>
+		<line>- s s - - s - - s s s -</line>
+		<line>- s s s - s s - s s s -</line>
+		<line>- b s w - - w - - - - -</line>
+		<line>- - s - s - - s - - - -</line>
+		<line>- - s s s - s s - - - -</line>
+		<line>w - - - - - - - - - - -</line>
+		<line>- b s - s - - s - s - -</line>
+		<line>c c c c c c c c c c c c</line>
 	</level>
 	<level layer="3" id="7" x="1950" y="1080" maxTime='50'>
 		<line>w - - - w - - - -</line>

@@ -139,12 +139,8 @@ var Game = (function(){
 
 		if( this.ticks%30 == 0 ){
 			if (player.speed > 0.1 ){
-<<<<<<< HEAD
-				player.speed -= 0.3;	
-=======
 				player.speed -= 0.2;	
 
->>>>>>> e05f7e46795dc163fdc0c14512517a18c1f376f0
 			}else{
 				player.speed = 0;
 				dispatchEvent(new Event("sleepyEnded"),true);
@@ -206,8 +202,18 @@ var Game = (function(){
 								console.log("boom!");
 								dispatchEvent(new Event("boomEnded"),true);
 								break;
-								case "checkpoint":
-								dispatchEvent(new Event("checkPointReached"),true);
+								case "checkpoint":	
+									var maxTime = $(huidigeLvlData).attr('maxTime');
+									var tijdFactor = (maxTime/counter)
+									console.log(tijdFactor);
+									this.score = Math.floor(tijdFactor*bugs);
+									console.log(this.score);
+									//priceScreen = new PriceScreen(score,progress.points,progress.points+score);
+									this.progress.points +=this.score;
+									this.progress.currentlvl +=1;
+									this.progress.latestPoints = this.score;
+									document.cookie="progress="+JSON.stringify(this.progress);
+									dispatchEvent(new Event("checkPointReached"),true);
 								break;
 								case "rock":
 								case "stone":
@@ -262,8 +268,8 @@ var Game = (function(){
 		world = new World(1728,3239,this.progress.currentlvl);
 		world.boundH = -(world.height - height);
 		world.boundW = -(world.width - width);	
-		gridWidth = world.width/9;
-		gridHeight = world.height/9;
+		gridWidth = world.width/12;
+		gridHeight = world.height/20;
 		console.log("breedte wereld: " + world.width);
 		
 		boxes = this.buildBounds();

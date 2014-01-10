@@ -120,9 +120,9 @@
 		this.addEventListener('nextLevel',function(){
 			console.log('[App] change song!');
 			progress = JSON.parse(getCookie('progress'));
-
+			console.log(progress);
 			changeScreen('game');
-			changeSong("ingame");
+			//changeSong("ingame");
 		})
 		/* MUZIEKKNOP (VANUIT DE TOOLBAR) BEHEERSEN */	
 		this.addEventListener('musicMaestro',function(){
@@ -150,11 +150,11 @@
 		createjs.Sound.stop();
 		switch(song){
 			case "ingame":
-			//instance = createjs.Sound.play("ingame",createjs.Sound.INTERRUPT_ANY, 0, 0, 1, 1, 0); 
+			instance = createjs.Sound.play("ingame",createjs.Sound.INTERRUPT_ANY, 0, 0, 1, 1, 0); 
 			break;
 
 			case "menu":
-			//instance = createjs.Sound.play("menu",createjs.Sound.INTERRUPT_ANY, 0, 0, 1, 1, 0);
+			instance = createjs.Sound.play("menu",createjs.Sound.INTERRUPT_ANY, 0, 0, 1, 1, 0);
 			break;
 		}
 	}
