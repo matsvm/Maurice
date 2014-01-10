@@ -1,22 +1,36 @@
 
 var Game = (function(){
 
-var progress;
-var container;
-var progressScreen;
-var counter;
-var ticker;
-var huidigeLvlData;
-var stage;
-var world;
-var toolBar;
-var energyBar;
-var bugs;
-var timer;
-var gameEnded=false;
-var priceScreen;
-var savedXml;
+	var player, width, height, platform;
+	var img, maurice;
+	var keys;
+	var flagSpeed = false;
+	var oldSpeed;
+	var scale;
 
+	var gridHeight;
+	var gridWidth;
+	var rows;
+	var cols;
+
+	var toolBar;
+	var pauzeContainer, pauzeScherm;
+	var gasBoxesActive, gasBoxes, gasFlag;
+	var decreaseTicks;
+	var progress;
+	var container;
+	var progressScreen;
+	var counter;
+	var ticker;
+	var huidigeLvlData;
+	var stage;
+	var world;
+	var toolBar;
+	var energyBar;
+	var bugs;
+	var timer;
+	var gameEnded=false;
+	var priceScreen;
 
 	function Game(receivedProgress, receivedXml){
 
@@ -32,27 +46,79 @@ var savedXml;
 		this.xml = receivedXml;
 		this.name = "game";
 
-		console.log(this.name);
+		this.draw();
+		
+		/* SETTINGS */
+		counter = 0;
+		timer = setInterval(function(){counter ++},1000);
+		boxes = [];
+		keys = [];
+		gasBoxes = [];
+		gasFlag = false;
+		bugs = 0;
+		decreaseTicks = 1000;
 
-		//this.draw();
+		console.log(boxes);
 
-		this.container.addEventListener("nextLevel",this.update);
+		this.container.addEventListener("UpdateGame",this.update);
 		//this.container.addEventListener("nextLevel",startGame);
 	}
 
 	Game.prototype.update = function(){
-		console.log(update);
+		console.log('update');
 	}
 
 	Game.prototype.draw = function(){
 
-		buildGrid(this.xml);
+		width = window.innerWidth;
+		height = window.innerHeight;
+		
+		energyBar = new EnergyBar();
+		energyBar.x = energyBar.x = window.innerWidth/2;
+		toolBar = new ToolBar(this.progress.currentlvl,7);
+
+		var wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
+		world = new World(wereldBreedte,2700,this.progress.currentlvl);
+		world.boundH = -(world.height - height);
+		world.boundW = -(world.width - width);	
+		gridWidth = world.width/9;
+		gridHeight = world.height/9;
+		
+		boxes = this.buildBounds();
+		console.log( boxes );
+		this.buildGrid( this.xml );
+		
+
+		window.onkeyup = this.keyup;
+		window.onkeydown = this.keydown;
+		
+		this.container.addChild(world.container);
+		this.container.addChild(toolBar.container);
+		this.container.addChild(energyBar.container);
 	}
 
-	function buildGrid(xml){
+	Game.prototype.keyup = function(e){
+		keys[e.keyCode] = false;
+	}
+
+	Game.prototype.keydown = function(e){
+		keys[e.keyCode] = true;
+	}
+
+	Game.prototype.buildBounds = function(){
+
+		var localBoxes = [];
+		localBoxes.push( new Bounds(0, world.height - 1, world.width, 1, "bound") );				//onderaan
+		localBoxes.push( new Bounds(0, 0, 1, world.height, "bound") );							//links
+		localBoxes.push( new Bounds(world.width - 1, 0, 1, world.height, "bound") );				//rechts
+		return localBoxes;
+	}
+
+	Game.prototype.buildGrid = function(xml){
 
 		console.log('building grid')
 
+		/*
 		rows = world.width/gridWidth;
 		cols = world.height/gridHeight;
 				
@@ -105,13 +171,13 @@ var savedXml;
 			}
 		});
 
-				player = new Player( Math.round(world.width/2), 0, 173, 203);
-				world.addChild( player.maurice, 0 );
-				world.oldPoint.x = player.x;
-				world.oldPoint.y = player.y;
-				world.oldMidPoint = world.oldPoint;
+			player = new Player( Math.round(world.width/2), 0, 173, 203);
+			world.addChild( player.maurice, 0 );
+			world.oldPoint.x = player.x;
+			world.oldPoint.y = player.y;
+			world.oldMidPoint = world.oldPoint;
 
-				
+			*/	
 
 	}
 
@@ -200,65 +266,7 @@ var savedXml;
 	
 	function startGame(xml) {
 		//console.log('game started');
-		counter = 0;
-		timer = setInterval(function(){counter ++},1000);
-
-		//dispatchEvent(new Event("GameStarted"),true);
-
-		var boxes, player, width, height, platform;
-		var img, maurice;
-		var keys;
-		var flagSpeed = false;
-		var oldSpeed;
-		var scale;
-
-		var gridHeight;
-		var gridWidth;
-		var rows;
-		var cols;
-
-		var toolBar;
-		var pauzeContainer, pauzeScherm;
-		var gasBoxesActive, gasBoxes, gasFlag;
-		var decreaseTicks;								// hoe snel gaat snelheid achteruit: sneller bij stones/rocks
-
-		console.log("Game Started");
-		boxes = [];
-		keys = [];
-		gasBoxes = [];
-		gasFlag = false;
 		
-		bugs = 0;
-		energyBar = new EnergyBar();
-		energyBar.x = window.innerWidth/2;
-		
-		decreaseTicks = 1000;
-
-		width = stage.canvas.width;						// om mee te geven aan World, om player te volgen
-			height = stage.canvas.height;
-			// nog punten uit te lezen
-			toolBar = new ToolBar(progress.currentlvl,7);
-		
-			var wereldBreedte = Math.floor(width-(width-toolBar.container.x))+1;
-			world = new World(wereldBreedte,2700,progress.currentlvl);			//breedte, hoogte, huidige level
-
-			// marges die je hebt om de wereld te bewegen, is een negatieve waarde
-			world.boundH = -(world.height - height);
-			world.boundW = -(world.width - width);	
-			gridWidth = world.width/9;
-			gridHeight = world.height/9;
-
-		buildBounds();
-		buildGrid( xml );
-
-		window.onkeyup = keyup;
-		window.onkeydown = keydown;
-
-		container.addChild(world.container);
-		container.addChild(toolBar.container);
-		container.addChild(energyBar.container);
-		stage.addChild(container);
-
 		/* PAUZEREN */
 		this.addEventListener('pauzeGame',function(){
 
@@ -418,22 +426,12 @@ var savedXml;
 			}
 		}
 
-			function keyup(e){
-				keys[e.keyCode] = false;
-			}
-
-			function keydown(e){
-				keys[e.keyCode] = true;
-			}
+			
 
 			// uitlezen xml en plaatsen elementen
 			
 
-			function buildBounds(){
-				boxes.push( new Bounds(0, world.height - 1, world.width, 1, "bound") );				//onderaan
-				boxes.push( new Bounds(0, 0, 1, world.height, "bound") );							//links
-				boxes.push( new Bounds(world.width - 1, 0, 1, world.height, "bound") );				//rechts
-			}
+			
 		}
 
 

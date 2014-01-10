@@ -14,7 +14,7 @@ var ProgressScreen = (function(){
 		this.container.scaleX = this.container.scaleY = this.scale;
 		this.container.x =window.innerWidth/2;
 		this.container.regX =4167/2;
-		this.container.name = "ProgressScreen";
+		this.name = "ProgressScreen";
 
 		progress = receivedProgress;
 		console.log(progress.currentlvl);

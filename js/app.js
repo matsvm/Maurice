@@ -79,7 +79,8 @@
 
 		/* SOUND */
 		this.addEventListener('GameStarted',function(){
-			console.log('[App] change song!')
+			console.log('[App] change song!');
+			changeScreen('game');
 			changeSong("ingame");
 		})
 
@@ -95,7 +96,6 @@
 	function handleLoadComplete(event) {
 			if(event.id == "menu"){
 				getXML();
-				
 			}
 	}	
 
@@ -136,6 +136,7 @@
 			case "game":
 				console.log('change screen to Game');
 				currentScreen = new Game(progress, xml);
+				console.log( currentScreen.name );
 				break;
 			case "boomEnded":
 				console.log('change screen to Boom');
@@ -144,13 +145,8 @@
 				break;
 			case "progress":
 				console.log('change screen to Progress');
-<<<<<<< HEAD
-				//currentScreen = new ProgressScreen(progress, xml);
-				currentScreen = new Game(progress, xml);
-=======
-				//console.log(xml);
 				currentScreen = new ProgressScreen(progress, xml);
->>>>>>> a26cd07b1f994619f0ca9b3d3411b8e6a470fa73
+				console.log( currentScreen.name );
 				break;
 			case "intro":
 				console.log('change screen to Intro');
@@ -182,7 +178,7 @@
 	function update(){
 		stage.update();
 		console.log( currentScreen.name );
-		if(currentScreen.name == "game") currentScreen.update();
+		if(currentScreen.name == "game") dispatchEvent(new Event('UpdateGame'),true);
 	}
 
 

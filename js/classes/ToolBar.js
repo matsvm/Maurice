@@ -9,8 +9,8 @@ var ToolBar = (function(){
 		this.container = new createjs.Container();
 		this.width = window.innerWidth;
 		this.height = window.innerHeight;
-		this.scale = this.height/1875;
-		this.container.scaleX = this.container.scaleY = this.scale;
+		//this.scale = this.height/1875;
+		//this.container.scaleX = this.container.scaleY = this.scale;
 
 		this.levelText = new createjs.Text();
 
