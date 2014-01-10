@@ -62,7 +62,6 @@ var savedXml;
 			animations: {laag1:0, laag2:1, laag3:2, laag4:3, laag5:4, laag6:5}
 		}
 
-
 		var grondSheet = new createjs.SpriteSheet(data);
 		console.log(xml)
 		$(xml).find('level').each(function(index, value){
@@ -526,7 +525,7 @@ var savedXml;
 				boxes.push( new Bounds(world.width - 1, 0, 1, world.height, "bound") );				//rechts
 			}
 		}
-	
+
 	function getXML(){
 		$.ajax({        	
         	type: "GET",

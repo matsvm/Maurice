@@ -5,8 +5,6 @@ var btnPlay;
 
 var ProgressScreen = (function(){
 
-	
-
 	function ProgressScreen(receivedProgress, xml){
 
 		console.log('[ProgressScreen] constructor');
@@ -32,10 +30,15 @@ var ProgressScreen = (function(){
 		
 	}
 	ProgressScreen.prototype.draw = function() {
+
 		console.log( );
 		this.background = new createjs.Bitmap("assets/ProgressBackground.png");
+		
+		btnContainer = new createjs.Container();
 	
 		$(xml).find('level').each(function(index, value){
+
+			console.log(this.container);
 
 			var id = $(value).attr("id");
 			var laag = $(value).attr("layer");
@@ -47,7 +50,7 @@ var ProgressScreen = (function(){
 
 				var x=$(value).attr("x")
 				var y=$(value).attr("y")
-				btnContainer = new createjs.Container();
+				
 				btnContainer.regX = 3;
 				btnContainer.regY = 280;
 
@@ -61,6 +64,7 @@ var ProgressScreen = (function(){
 				btnPlay.addEventListener('click',function(){
 					console.log('start het spel');
 				});	
+				btnContainer.addChild(btnPlay);	
 				
 			}else if(progress.currentlvl<id){
 				this.sprite = new createjs.Sprite(this.spriteSheet);
@@ -68,23 +72,19 @@ var ProgressScreen = (function(){
 				this.sprite.x=$(value).attr("x");
 				this.sprite.y=$(value).attr("y");
 				this.container.addChild(this.sprite);
-
-
 			}
+			
 		});
 
 		this.container.addChild(this.background);
 		var overlay  = new createjs.Bitmap("assets/NumberOverlay_wormpjes.png");
-		
 		this.container.addChild(overlay);
 		this.container.addChild(btnContainer);
-		btnContainer.addChild(btnPlay);
-		this.container.addChild(progressScreen);		
+		console.log( this.container.getNumChildren() );
+			
 	}
 
 	ProgressScreen.prototype.drawProgress = function(progress, spriteSheet){
-
-		
 
 	}
 
