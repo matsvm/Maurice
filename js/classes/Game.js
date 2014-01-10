@@ -84,7 +84,7 @@ var Game = (function(){
 
 			}else{
 				player.speed = 0;
-				console.log(stopLevel);
+				dispatchEvent(new Event("sleepyEnded"),true);
 			}
 		}
 				
@@ -186,7 +186,6 @@ var Game = (function(){
 			toolBar.update(counter);
 			player.update();
 			world.update(player);
-			//dispatchEvent(new Event('updateStage'),true);
 			//}
 	}
 

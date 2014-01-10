@@ -73,6 +73,10 @@
 			console.log('[App] dispatched event received - boom')
 			changeScreen('boomEnded');
 		});
+		this.addEventListener('sleepyEnded',function(){
+			console.log('[App] dispatched event received - sleepy')
+			changeScreen('boomEnded');
+		});
 
 		this.addEventListener('retakeLevel',function(){
 			console.log('[App] dispatched event received - en oppernieuw')
@@ -182,7 +186,7 @@
 		stage.update();
 		console.log("fps: " + ticker.getMeasuredFPS());
 		if(currentScreen.name === "game"){
-			currentScreen.update();	
+			//currentScreen.update();	
 		} 
 	}
 

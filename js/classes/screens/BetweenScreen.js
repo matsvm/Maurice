@@ -21,7 +21,6 @@ var BetweenScreen = (function(){
 			this.background = new createjs.Bitmap("assets/bg_sleepy.png");
 		}
 		
-
 		this.retakeBtn = new createjs.Bitmap("assets/btn_continue.png");
 		this.retakeBtn.x = 1030;
 		this.retakeBtn.y = 435;
