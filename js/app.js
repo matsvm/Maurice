@@ -7,9 +7,10 @@
 	var instance;
 	var isPlaying;	
 	var xml;	
+	var pauseScreen;
 
 	function init(){
-
+		pauseScreen = new PauseScreen();
 		progress = getCookie('progress');
 		//console.log(progress);
 		if(progress!=''){															//bestaande gebruiker
@@ -40,7 +41,8 @@
 
 
 		/* STAGE UPDATER */
-		this.addEventListener('updateStage',function(){
+		this.addEventListener('updateStage',function(event){
+			
 			console.log('[App] update the stage!')
 			update();
 		})
@@ -85,10 +87,24 @@
 		});
 
 		this.addEventListener('retakeLevel',function(){
-			console.log('[App] dispatched event received - en oppernieuw')
+			console.log('[App] dispatched event received - en retakeLevel')
 			changeScreen('game');
 		});
-		
+		this.addEventListener('pauzeGame',function(){
+			console.log('[App] dispatched event received - en pauzeGame');
+			ticker.setPaused(true);
+			stage.addChild(pauseScreen.container);
+				
+
+			//changeScreen('paused');
+		});	
+		this.addEventListener('resumeGame',function(){
+			console.log('[App] dispatched event received - en resumeGame');
+			stage.removeChild(pauseScreen.container);
+			//changeScreen('game');
+			ticker.setPaused(false);	
+
+		});	
 
 		/* SOUND */
 		this.addEventListener('GameStarted',function(){
@@ -124,11 +140,11 @@
 		createjs.Sound.stop();
 		switch(song){
 			case "ingame":
-			//instance = createjs.Sound.play("ingame");
+			instance = createjs.Sound.play("ingame");
 			break;
 
 			case "menu":
-			//instance = createjs.Sound.play("menu",createjs.Sound.INTERRUPT_ANY, 0, 0, 1, 1, 0);
+			instance = createjs.Sound.play("menu",createjs.Sound.INTERRUPT_ANY, 0, 0, 1, 1, 0);
 			break;
 		}
 	}
@@ -162,7 +178,7 @@
 			case "boomEnded":
 				console.log('change screen to Boom');
 				currentScreen = new BetweenScreen("boom");
-				changeSong("menu");
+				//changeSong("menu");
 				break;
 
 			case "checkPointReached":
@@ -207,10 +223,15 @@
 		});
 	}
 
-	function update(){
+	function update(event){
 		stage.update();
 		//console.log("fps: " + ticker.getMeasuredFPS());
-		if(currentScreen.name === "game"){
+		if(event.paused){
+				stage.removeChild(world.container);
+				stage.update();
+				console.log( world );
+				return;
+			}else if(currentScreen.name === "game"){
 			currentScreen.update();	
 		} 
 	}

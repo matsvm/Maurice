@@ -1,7 +1,7 @@
 var IntroScreen = (function(){
 var counter = 1;
 var background;
-
+var btn;
 	function IntroScreen(){
 		console.log("IntroScreen Added");
 		this.container = new createjs.Container();
@@ -15,25 +15,24 @@ var background;
 	}
 	IntroScreen.prototype.draw = function() {
 
-		var background = new createjs.Bitmap("assets/HomeIntro.png");
+		var background = new createjs.Bitmap("assets/Intro1.png");
 		this.container.addChild(background);
 
-		var btn = new createjs.Bitmap("assets/PlayBtn.png");
-		btn.x = 2500;
-		btn.y = 800;
+		btn = new createjs.Bitmap("assets/VolgendeBtn.png");
+		btn.x = 1000;
+		btn.y = 1200;
 		btn.addEventListener('rollover',function(){
 			btn.cursor = "pointer";
 		})
 		btn.addEventListener('click',function(){
-			/*
+			
 			counter++;
 			if(counter<6){
 				dispatchEvent(new Event("updateInfoScreen"),true);	
 				console.log(counter);
 
 			}
-			*/
-			dispatchEvent(new Event("removeIntroScreen"),true);
+			
 		})
 		this.container.addChild(btn);
 	}
@@ -45,14 +44,16 @@ var background;
 			case 2:
 			console.log('change background to prt 2');
 				background = new createjs.Bitmap("assets/Intro2.png");
-				background.scaleX = background.scaleY= 0.5;
+				//background.scaleX = background.scaleY= 0.5;
 
-				this.container.addChild(background);
+				this.container.addChildAt(background,this.container.getChildIndex(btn));
+				btn.x = 2300;
+				btn.y = 1550;
 			break;
 			case 3:
-				background = new createjs.Bitmap("assets/Intro3.png");
-				background.scaleX = background.scaleY= 0.5;
-				this.container.addChild(background);
+				dispatchEvent(new Event("removeIntroScreen"),true);
+
+				
 			break;
 			case 4:
 				background = new createjs.Bitmap("assets/Intro4.png");

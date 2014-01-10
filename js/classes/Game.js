@@ -122,7 +122,7 @@ var Game = (function(){
 		if( this.ticks%30 == 0 ){
 			//dispatchEvent(new Event("boomEnded"),true);
 			if (player.speed > 0.1 ){
-				player.speed -= 0.1;	
+				player.speed -= 0.3;	
 
 			}else{
 				player.speed = 0;
@@ -356,39 +356,7 @@ var Game = (function(){
 
 
 /*
-	/*
-	function endLevel(){
-		if(gameEnded==false){
-			ticker.removeAllEventListeners();
-			window.clearInterval(timer);
-			stage.removeChild(world.container);
-			stage.removeChild(toolBar.container);
-			stage.removeChild(energyBar.container);
-			gameEnded=true;
 
-			var maxTime = $(huidigeLvlData).attr('maxTime');
-			var tijdFactor = (maxTime/counter)
-			console.log(tijdFactor);
-			var score = Math.floor(tijdFactor*bugs);
-			console.log(score);
-			priceScreen = new PriceScreen(score,progress.points,progress.points+score);
-			progress.points +=score;
-			progress.currentlvl +=1;
-			document.cookie="progress="+JSON.stringify(progress);
-			stage.addChild(priceScreen.container);
-
-			//container.addChild(priceScreen.container);
-
-			//console.log( "einde level bereikt, op naar het volgende" );
-
-		}else{
-
-		}
-		//console.log(gameEnded)
-
-		//container.removeChild(progressScreen);
-		
-	}*/
 
 
 	
