@@ -29,7 +29,7 @@
 
 		isPlaying = false;
 
-		getXML();
+	
 
 		ticker = createjs.Ticker;
 		ticker.setFPS(30);
@@ -94,7 +94,8 @@
 
 	function handleLoadComplete(event) {
 			if(event.id == "menu"){
-				changeScreen('welcome');
+				getXML();
+				
 			}
 	}	
 
@@ -143,8 +144,13 @@
 				break;
 			case "progress":
 				console.log('change screen to Progress');
+<<<<<<< HEAD
 				//currentScreen = new ProgressScreen(progress, xml);
 				currentScreen = new Game(progress, xml);
+=======
+				//console.log(xml);
+				currentScreen = new ProgressScreen(progress, xml);
+>>>>>>> a26cd07b1f994619f0ca9b3d3411b8e6a470fa73
 				break;
 			case "intro":
 				console.log('change screen to Intro');
@@ -168,6 +174,7 @@
 			dataType: "xml",
 			success: function(data) {
 				xml = data;
+				changeScreen('welcome');
 			}
 		});
 	}

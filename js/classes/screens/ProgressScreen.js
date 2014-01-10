@@ -1,7 +1,8 @@
 var progress;
-var xml;
+//var xml;
 var btnContainer;
 var btnPlay;
+var spriteSheet;
 
 var ProgressScreen = (function(){
 
@@ -17,31 +18,33 @@ var ProgressScreen = (function(){
 
 		progress = receivedProgress;
 		console.log(progress.currentlvl);
-		xml = xml;
+		this.xml = xml;
 
-		this.spriteSheet = new createjs.SpriteSheet({
-				images:["./assets/sprites/grondsoorten.png"], 
+		spriteSheet = new createjs.SpriteSheet({
+				images:["assets/sprites/grondsoorten.png"], 
 				frames:{width:117, height:117},
 				animations: {laag1:0, laag2:1, laag3:2, laag4:3, laag5:4, laag6:5},
 				count:6
 		});
-		
+
 		this.draw();
 		
 	}
 	ProgressScreen.prototype.draw = function() {
-
-		console.log( );
+		console.log(this.xml)
+		console.log('drawing');
 		this.background = new createjs.Bitmap("assets/ProgressBackground.png");
-		
+		this.container.addChild(this.background);
+
 		btnContainer = new createjs.Container();
-	
-		$(xml).find('level').each(function(index, value){
+		var tempContainer = new createjs.Container();
 
-			console.log(this.container);
-
+		$(this.xml).find('level').each(function(index, value){
+			console.log(progress)
+			//console.log(this.container);
 			var id = $(value).attr("id");
 			var laag = $(value).attr("layer");
+			console.log(laag)
 
 			if(progress.currentlvl>id){
 				console.log("Lvl gepasseerd");
@@ -63,24 +66,28 @@ var ProgressScreen = (function(){
 				})
 				btnPlay.addEventListener('click',function(){
 					console.log('start het spel');
+					dispatchEvent(new Event('GameStarted'),true);
 				});	
 				btnContainer.addChild(btnPlay);	
 				
 			}else if(progress.currentlvl<id){
-				this.sprite = new createjs.Sprite(this.spriteSheet);
+				this.sprite = new createjs.Sprite(spriteSheet);
+
 				this.sprite.gotoAndStop('laag'+laag);
 				this.sprite.x=$(value).attr("x");
 				this.sprite.y=$(value).attr("y");
-				this.container.addChild(this.sprite);
+				//console.log(this.container);
+
+				tempContainer.addChild(this.sprite);
 			}
+			//
 			
 		});
-
-		this.container.addChild(this.background);
+		this.container.addChild(tempContainer);
 		var overlay  = new createjs.Bitmap("assets/NumberOverlay_wormpjes.png");
 		this.container.addChild(overlay);
 		this.container.addChild(btnContainer);
-		console.log( this.container.getNumChildren() );
+		//console.log( this.container.getNumChildren() );
 			
 	}
 
