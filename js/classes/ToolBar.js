@@ -71,7 +71,7 @@ var ToolBar = (function(){
 		});
 		this.bugs = new createjs.Sprite(this.bugSheet, "bugs0");
 		this.bugs.x = 15;
-		this.bugs.y = 400;
+		this.bugs.y = 384;
 
 		/* PAUZEBUTTON */
 		this.pauzeButton = new createjs.Bitmap("assets/btn_pauze.png");
@@ -104,12 +104,12 @@ var ToolBar = (function(){
 		})
 
 		/* PUNTEN */
-		this.puntenText.font = "35px American";
-		this.puntenText.color = "#EEEEEE"; 
+		this.puntenText.font = "20px American";
+		this.puntenText.color = "#DDDDDD"; 
 		this.puntenText.text = this.punten + " PTS";
 		this.puntenText.textBaseline = "alphabetic";
-		this.puntenText.x = 85; 
-		this.puntenText.y = 740;
+		this.puntenText.x = 62; 
+		this.puntenText.y = 540;
 
 		/* VOGEL */
 		this.vogel = new createjs.Sprite(this.vogelSheet);
