@@ -67,6 +67,17 @@ var Game = (function(){
 		gasFlag = false;
 		bugs = 0;
 		decreaseTicks = 1000;
+
+		this.container.addEventListener('pauzeGame',function(){
+			console.log('[Game] dispatched event received - en pauzeGame');
+			 window.clearInterval(timer);
+		});	
+		this.container.addEventListener('resumeGame',function(){
+			console.log('[Game] dispatched event received - en resumeGame');
+			timer = setInterval(function(){counter ++},1000);
+
+		});	
+
 	}
 
 	Game.prototype.update = function(){
@@ -83,7 +94,7 @@ var Game = (function(){
 					player.speed+=1;
 					shift=false;
 				}
-				case 91: 
+				case 83: 
 					if(gameEnded==false){
 						var maxTime = $(huidigeLvlData).attr('maxTime');
 						var tijdFactor = (maxTime/counter)
